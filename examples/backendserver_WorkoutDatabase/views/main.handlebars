@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#046b99">
+  <!-- Normalize.css for better cross-browser consistency -->
+  <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
+  <!-- Main CSS file -->
+  <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+  <link rel="stylesheet" href="css/styles.css" type="text/css">
+  <title>Workout Tracker</title>
+</head>
+
+<body>
+   <!-- Beginning main -->
+   <main id="maincontent">
+  
+ 
+      <section id="site-container">
+  <!-- Beginning  form -->
+  <h3>Add Workout</h3>
+      <form id="form-container">
+        <div class="form-group">
+            <div class="row">
+              
+              <input type="text" id="name" class="form-control" placeholder="workout name">
+            </div>
+            <div class="row">
+               
+                <div class="col">
+                  <input type="number" id="reps" class="form-control" placeholder="reps">
+                </div>
+                <div class="col">
+                  <input type="number" id="weight" class="form-control" placeholder="weight">
+                </div>
+                <div class="col">
+                    <input type="number" id="unit" class="form-control" placeholder="unit">
+                  </div>
+                <div class="col">
+                    <input type="date" id="date" class="form-control" placeholder="date">
+                </div>
+            </div>
+        <div class="form_control">
+          <button onclick="postForm()" id="submit_button">Submit</button>
+        </div>
+      </div>
+      </form>
+    </section>
+    <section>
+              {{#if contents.results}}
+        <table id="dataTable">
+          <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Reps</th>
+                <th scope="col">Weight</th>
+                <th scope="col">Unit</th>
+                <th scope="col">Date</th>
+            </tr>
+          </thead>
+        <tbody>
+           {{#each content.results}}
+        <tr>
+        <td>{{this.id}}</td>
+        <td>{{this.name}}</td>
+        <td>{{this.reps}}</td>
+        <td>{{this.weight}}</td>
+        <td>{{this.unit}}</td>
+        <td>{{this.date}}</td>
+        </tr>
+        {{/each}}
+            <tr>
+                <!-- <td><input type="checkbox" name="chk"/></td> -->
+                <td>
+                    <input type="text" name="Name" /><input type="button" value="delete" onclick="deleteRow('dataTable',this)" />
+                </td>
+            </tr>
+            <tr>
+                <!-- <td><input type="checkbox" name="chk"/></td> -->
+                <td>
+                    <input type="text" name="Name" /><input type="button" value="delete" onclick="deleteRow('dataTable',this)" />
+                </td>
+            </tr>
+          </tbody>
+        </table>
+        {{/if}}
+    </section>
+
+  </main>
+  <script src="js/scripts.js"></script>
+    </body>
+    </html>
