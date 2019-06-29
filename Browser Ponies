@@ -1,3 +1,47 @@
 browser ponies
 https://github.com/panzi/Browser-Ponies
 https://panzi.github.io/Browser-Ponies/
+
+<!-- Super-secret Browserponies easter egg! -->
+<script src="/browserponies/browserponies.js"></script>
+<script src="/browserponies/ponydef.js"></script>
+<script src="/browserponies/js.cookie.min.js"></script>
+<script>
+	function spawnPony(ponyname)
+	{
+		BrowserPonies.spawn(ponyname);
+		//Also increment the pony count
+		incrementPonyCookie(ponyname);
+	}
+	
+	function killPonies()
+	{
+		BrowserPonies.unspawnAll();
+		for(var key in Cookies.get())
+			if (key.length > 3 && key.substring(0,3) == "bp_")
+				Cookies.remove(key);
+		$("#ponykillbutton").hide();
+	}
+	
+	function incrementPonyCookie(ponyname)
+	{
+		var currentCount = Cookies.get("bp_" + ponyname);
+		if (currentCount == undefined)
+			currentCount = 0;
+		Cookies.set("bp_"+ponyname,++currentCount);
+		$("#ponykillbutton").show();
+	}
+	
+	function initPonies()
+	{
+		for(var key in Cookies.get())
+			if (key.length > 3 && key.substring(0,3) == "bp_")
+			{
+				var count = Cookies.get(key);
+				for( var i =0; i < count; i++)
+					BrowserPonies.spawn(key.substring(3));
+				$("#ponykillbutton").show();
+			}
+	}
+	$(initPonies)
+</script>
