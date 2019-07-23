@@ -1,32 +1,33 @@
-# Mobile Web Specialist Certification Course
+# CS340 Database Course
 ---
-#### _Three Stage Course Material Project - Restaurant Reviews_
+#### _Class Group Project for Sarah Turner and Carrie Davis_
 
-## Project Overview: Stage 1
+## Project Overview: 
 
-For the **Restaurant Reviews** projects, you will incrementally convert a static webpage to a mobile-ready web application. In **Stage One**, you will take a static design that lacks accessibility and convert the design to be responsive on different sized displays and accessible for screen reader use. You will also add a service worker to begin the process of creating a seamless offline experience for your users.
+This database maps out the characters of the My Little Pony Friendship is Magic Television Series that aired from 2010 - 2014. [Wiki page](https://en.wikipedia.org/wiki/List_of_My_Little_Pony:_Friendship_Is_Magic_characters) .
+[Fandom page"](https://mlp.fandom.com/wiki/My_Little_Pony_Friendship_is_Magic_Wiki )The focus is on this particular cast of fun and cute characters. In this series the show focuses on diverse personalities with complex relatable issues. These ponies come from different groups, cities in different regions, and can be of different types. Think of a child friendly, relatable game of thrones minus genocide. Many characters have occupations or multiple occupations throughout the Equestria empire. This is all flexible
+as the fun drama of pony life plays out. The character list is almost exhaustible and this database will allow users to add characters to complete the character list. The database will allow characters to be filtered/selected by city, group, type, character and occupation.
 
-### Specification
+The complexity and ability to build relationships between entities makes this a good candidate for a
+database project.
 
-You have been provided the code for a restaurant reviews website. The code has a lot of issues. It’s barely usable on a desktop browser, much less a mobile device. It also doesn’t include any standard accessibility features, and it doesn’t work offline at all. Your job is to update the code to resolve these issues while still maintaining the included functionality. 
+### Specifications:
+Determined by class project:
 
-### What do I do from here?
 
-1. In this folder, start up a simple HTTP server to serve up the site files on your local computer. Python has some simple tools to do this, and you don't even need to know Python. For most people, it's already installed on your computer. 
 
-In a terminal, check the version of Python you have: `python -V`. If you have Python 2.x, spin up the server with `python -m SimpleHTTPServer 8000` (or some other port, if port 8000 is already in use.) For Python 3.x, you can use `python3 -m http.server 8000`. If you don't have Python installed, navigate to Python's [website](https://www.python.org/) to download and install the software.
+### How to run this website?
 
-2. With your server running, visit the site: `http://localhost:8000`, and look around for a bit to see what the current experience looks like.
-3. Explore the provided code, and start making a plan to implement the required features in three areas: responsive design, accessibility and offline use.
-4. Write code to implement the updates to get this site on its way to being a mobile-ready website.
+1. In this folder, start up a node.js HTTP server to serve up the site files on your local computer. 
 
-## Leaflet.js and Mapbox:
+2. Install: In a terminal, navigate to the folder location. To install the dependencies type: `npm install`.  [website](https://www.npmjs.com/) to download and install the packages.
+3. Select a port number to run the service.  ```example: 5432```   
+4. Start node server in terminal. Type `node server.js 5432`.
+5. Update in the dbhelper.js code to specify the database port #. 
+### Note this will be the same as node server if using json.
+5. With your server running, visit the site: `http://localhost:port#`.
 
-This repository uses [leafletjs](https://leafletjs.com/) with [Mapbox](https://www.mapbox.com/). You need to replace `<your MAPBOX API KEY HERE>` with a token from [Mapbox](https://www.mapbox.com/). Mapbox is free to use, and does not require any payment information. 
 
-### Note about ES6
-
-Most of the code in this project has been written to the ES6 JavaScript specification for compatibility with modern web browsers and future proofing JavaScript code. As much as possible, try to maintain use of ES6 in any additional JavaScript you write. 
 
 
 
