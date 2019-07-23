@@ -20,7 +20,7 @@ Determined by class project:
 
 1. In this folder, start up a node.js HTTP server to serve up the site files on your local computer. 
 
-2. Install: In a terminal, navigate to the folder location. To install the dependencies type: `npm install`.  [website](https://www.npmjs.com/) to download and install the packages.
+2. Install: In a terminal, navigate to the folder location. To install the dependencies type: `npm install`.
 3. Select a port number to run the service.  ```example: 5432```   
 4. Start node server in terminal. Type `node server.js 5432`.
 5. Update in the dbhelper.js code to specify the database port #. 
