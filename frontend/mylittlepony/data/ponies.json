@@ -1,0 +1,28 @@
+{
+  "ponies": [{
+    "id": 1,
+    "name": "Rainbow Dash",
+    "type_id": "pegasus",
+    "group_id": "Mane Six",
+    "photograph": "1",
+    "city_id": "Ponyville",
+    "gender": "Female"
+  },
+  {
+    "id": 3,
+    "name": "Applejack",
+    "type_id": "earth pony",
+    "group_id": "Other",
+    "photograph": "2",
+    "city_id": "Sweet Apple Acres",
+    "gender": "Female"
+  },{
+  "id": 1,
+  "name": "Rarity",
+  "type_id": "unicorn",
+  "group_id": "Applebottoms",
+  "photograph": "3",
+  "city_id": "Ponyville",
+  "gender": "Female"
+}]
+}

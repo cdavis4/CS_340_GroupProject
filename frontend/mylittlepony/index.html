@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="App for my little pony database">
+  <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css"> 
+  <meta name="theme-color" content="#046b99"> 
+  <title>my little ponies</title>
+</head>
+<body>
+    <header>
+        <h1 id ="title" tabindex="0">My Little Pony</h1>  
+        <h3>Friendship is Magic</h3>
+            <img class="header__logo" src="img/rainbowdashsmall.jpg" alt="rainbowsparkles">  
+                <nav id="drawer" class="nav">
+                    <ul class="nav__list">
+                        <li class="nav__item"><a href="/cities.html">Cities</a></li>
+                        <li class="nav__item"><button id ="contactBtn">Add a New Character</button></li>
+                    </ul>
+                </nav>
+    </header>
+    <main id="maincontent">
+    <section class="filter-options">
+        <h2>Filter Options</h2>
+            <label for="group-select" class="visuallyhidden">Ponies Filtered by Group</label>
+            <select id="group-select" aria-labelledby="group-select" role="searchbox" name="group" onchange="updatePonies()">
+                <option value="all">Ponies by Group</option>
+            </select>
+            <label for="type-select" class="visuallyhidden">Ponies filtered by type</label>
+            <select id="type-select" aria-labelledby="type-select" role="searchbox" name="type" onchange="updatePonies()">
+                <option value="all">Ponies by Type</option>
+           </select>
+            <!-- 
+            <label for="city-select" class="visuallyhidden">Ponies Filtered by City</label>
+            <select id="city-select" aria-labelledby="city-select" role="searchbox" name="city" onchange="updateBettas()">
+                <option value="all">Ponies by City</option>
+            </select>
+            <label for="job-select" class="visuallyhidden">Ponies Filtered by Job</label>
+            <select id="job-select" aria-labelledby="job-select" role="searchbox" name="job" onchange="updateBettas()">
+                <option value="all">Ponies by Job</option>
+            </select>-->
+    </section>
+    <ul id="pony-list">
+    </ul>
+    </main>
+    <script type="application/javascript" charset="utf-8" src="js/dbhelper.js"></script>
+    <script type="application/javascript" charset="utf-8" src="js/main.js"></script>
+    <!-- 3rd party scripts -->
+    <!-- Bootstrap requires jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- Bootstrap core JavaScript
+      ================================================== -->
+      <script src="js/jquery-3.2.1.slim.min.js"></script>
+      <script src="js/popper.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+     <!-- End scripts -->
+    <footer id="footer">
+        2019 My Little Pony: Friendship is Magic 
+    </footer>
+</body>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#046b99">
+  <!-- Normalize.css for better cross-browser consistency -->
+  <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
+  <!-- Main CSS file -->
+  <link rel="stylesheet" href="css/styles.css" type="text/css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css"> 
+  <title>Character Info</title>
+</head>
+
+<body class="inside">
+  <!-- Beginning header -->
+  <header>
+    <!-- Beginning nav -->
+    <nav>
+      <h1 id="title" tabindex="0"></h1>
+     
+    <!-- Beginning breadcrumb -->
+    <label for="breadcrumb" class="visuallyhidden">Home Page Container</label>
+    <ul id="breadcrumb" >
+      <li aria-label="Home"><a href="/">Home</a></li>
+    </ul>
+    <!-- End breadcrumb -->
+    <!-- End nav -->
+  </nav>
+  </header>
+  <!-- End header -->
+
+  <!-- Beginning main -->
+  <main id="maincontent">
+  
+
+    <!-- Beginning Pony info-->
+    <section id="site-container">
+
+      <img id="pony-img">
+      <h2>Info: </h2>
+      <p id="group"></p>
+    </section>
+    <!-- end pomy info -->
+
+    <!-- Beginning update form -->
+    <section id="insert-container">
+      <form id="contact_form">
+        <div class="form-group">
+            <div class="row">
+                <div class="col">
+                  <input type="text" id="first" class="form-control" placeholder="First name">
+                </div>
+                <div class="col">
+                  <input type="text" id="last" class="form-control" placeholder="Last name">
+                </div>
+            </div>
+          <label for="email">Email Address:</label>
+          <input type="email_info" id="email_purchase" class="form-control" aria-describedby="emailHelp" emailhelp="Enter email">
+        <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <div class="form-group">
+            <label for="exampleFormControlSelect2">Let us know what most attracts you to this betta</label>
+            <select multiple class="form-control" name="exampleFormControlSelect2" id="exampleFormControlSelect2">
+              <option>Description</option>
+              <option>Tail Type</option>
+              <option>Color</option>
+              <option>Breeding</option>
+              <option>Gender</option>
+              <option>Age</option>
+            </select>
+          </div>
+        <div class="form-control"><label for="message"></label>
+          <textarea name="message" class="message" id="message_purchase" placeholder="Please provide your name, inquiry. Provide specifics on order questions. We will contact you by email as soon as possible. Provide phone number if you would like us to contact you by phone. Thank you." aria-describedby="contact_interests"></textarea>
+        </div>
+        <div class="form_control">
+          <button onclick="DBHelper.postPurchase()" id="submit_button">Submit</button>
+        </div>
+      </div>
+      </form>
+
+    </section>
+    <!-- End purchase-form -->
+  </main>
+  <!-- End main -->
+
+  <!-- Beginning footer -->
+  <footer id="footer">
+    2019 My Little Pony: Friendship is Magic 
+</footer>
+  <!-- End footer -->
+  <!-- Beginning scripts -->
+  <!-- Database helpers -->
+  <script type="text/javascript" src="js/dbhelper.js"></script>
+  <!-- Main javascript file -->
+  <script type="text/javascript" src="js/character_info.js"></script>
+</body>
+
+</html>

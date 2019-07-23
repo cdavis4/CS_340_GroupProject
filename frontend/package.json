@@ -1,0 +1,24 @@
+{
+  "name": "restaurant_app",
+  "version": "1.0.0",
+  "description": "Web Site project with express and node.js",
+  "main": "/mws-restaurant-stage-1/js/restaurant.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Udacity",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "express-session": "^1.11.3",
+    "forever": "^0.15.3",
+    "gulp-eslint": "^5.0.0",
+    "i": "^0.3.6",
+    "node": "^11.9.0",
+    "server": "^1.0.18"
+  },
+  "devDependencies": {
+    "gulp-minify": "^3.1.0"
+  }
+}

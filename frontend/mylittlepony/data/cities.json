@@ -1,0 +1,11 @@
+{
+  "cities": [{
+    "id": 1,
+    "name": "Ponyville",
+    "characteristics": "Town in Equestria. Main setting for the series."
+  }, {
+    "id": 2,
+    "name": "Sweet Apple Acres",
+    "characteristics": "A farm and orchard located near Ponyville"
+    }]  
+}
