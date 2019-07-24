@@ -2,10 +2,10 @@ let ponies,
   groups,
   jobs,
   types,
-  cities
+  cities;
 
 /**
- * Fetch colors and tails as soon as the page is loaded.
+ * Fetch groups and types  as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', (event) => {
   initPage(); // added 
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 /**
- * Fetch all colors and set their HTML.
+ * Fetch all groups and set their HTML.
  */
 fetchGroups = () => {
   DBHelper.fetchGroups((error, groups) => {
@@ -28,7 +28,7 @@ fetchGroups = () => {
 }
 
 /**
- * Set colors HTML.
+ * Set group HTML.
  */
 fillGroupHTML = (groups = self.groups) => {
   const select = document.getElementById('group-select');
@@ -41,7 +41,7 @@ fillGroupHTML = (groups = self.groups) => {
 }
 
 /**
- * Fetch all tail types and set their HTML.
+ * Fetch all types and set their HTML.
  */
 fetchTypes = () => {
   DBHelper.fetchType((error, types) => {
@@ -55,7 +55,7 @@ fetchTypes = () => {
 }
 
 /**
- * Set tail types HTML.
+ * Set types HTML.
  */
 fillTypeHTML = (types= self.types) => {
   const select = document.getElementById('type-select');
@@ -116,7 +116,7 @@ resetPonies = (ponies) => {
   self.ponies = ponies;
 }
 /**
- * Create all bettas HTML and add them to the webpage.
+ * Create all ponies HTML and add them to the webpage.
  */
 fillPoniesHTML = (ponies = self.ponies) => {
   const ul = document.getElementById('pony-list');
@@ -126,7 +126,7 @@ ponies.forEach(pony => {
 }
 
 /**
- * Create betta HTML.
+ * Create pony HTML.
  */
 createPonyHTML = (pony) => {
   const li = document.createElement('li');
@@ -174,11 +174,11 @@ createPonyHTML = (pony) => {
   });
 
   /**
- * Add attributes for View Details button
+ * Add attributes for Update button
  */
   more.setAttribute("class", "button");
   more.setAttribute("role", "button");
-  more.setAttribute("aria-label", "Purchase options for "+pony.name);
+  more.setAttribute("aria-label", "Update options for "+pony.name);
   li.append(more);
 
   return li

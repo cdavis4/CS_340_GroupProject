@@ -9,7 +9,7 @@
     "gender": "Female"
   },
   {
-    "id": 3,
+    "id": 2,
     "name": "Applejack",
     "type_id": "earth pony",
     "group_id": "Other",
@@ -17,7 +17,7 @@
     "city_id": "Sweet Apple Acres",
     "gender": "Female"
   },{
-  "id": 1,
+  "id": 3,
   "name": "Rarity",
   "type_id": "unicorn",
   "group_id": "Applebottoms",
