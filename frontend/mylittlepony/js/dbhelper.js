@@ -14,7 +14,7 @@ class DBHelper {
    * Change this to bettas.json file location on your server.
    */
   static get DATABASE_URL() {
-    const port = 5333
+    const port = 4333
     // Change this to your server port
       return `http://localhost:${port}/data/ponies.json`;
   }

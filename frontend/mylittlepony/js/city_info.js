@@ -13,8 +13,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
  * Initialize update for bettas data
  */
 initPage = () => {
-
- 
   fetchCities();
   createContactModal();
   
