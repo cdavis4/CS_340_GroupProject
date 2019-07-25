@@ -349,18 +349,12 @@ width: 90%;
   text-align: center;
 }
 
- textarea#message_contact{
+ textarea#desc{
   overflow: auto;
   width: 90%;
   height:5em;
   border:none;
   resize:auto;
 }
-textarea#message_purchase{
-  overflow: auto;
-  width: 90%;
-  height:5em;
-  border:none;
-  resize:auto;
-}
+
 

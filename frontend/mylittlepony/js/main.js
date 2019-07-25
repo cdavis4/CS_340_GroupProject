@@ -228,14 +228,13 @@ createContactModal = (pony) =>{
 createForm = () => {
   const form = document.createElement('form');
   form.setAttribute("id", "contact_form");
-  const div_name = document.createElement('div');
-  
   const h3 = document.createElement('h3');
   h3.innerHTML = "Add New Character";
   form.append(h3);
 
   //create name field
   const div = document.createElement("div");
+  const div_name = document.createElement('div');
   div.setAttribute("class",'form-group');
   div_name.setAttribute("class","form-control");
   const input_name = document.createElement("input");

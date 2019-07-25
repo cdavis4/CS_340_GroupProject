@@ -98,54 +98,42 @@ createContactModal = (pony) =>{
 
 createForm = () => {
   const form = document.createElement('form');
-  form.setAttribute("id","contact_form");
-  const div_email = document.createElement('div');
-  div_email.setAttribute("class", "form-group");
+  form.setAttribute("id", "contact_form");
   const h3 = document.createElement('h3');
-  h3.innerHTML = "Contact Information";
+  h3.innerHTML = "Add New City";
+  form.append(h3);
 
-  //email info
-  const label_email = document.createElement('label');
-  label_email.setAttribute("for","email");
-  label_email.innerHTML="Email Address:";
-  const email_input = document.createElement("input");
-  email_input.setAttribute("type", "email_info");
-  email_input.setAttribute("id","email_contact");
-  email_input.setAttribute("class", "form-control");
-  email_input.setAttribute("aria-describedby","emailHelp");
-  email_input.setAttribute("emailHelp","Enter email");
-  const small_tip = document.createElement("caption");
-  small_tip.setAttribute("class","form-text text-muted");
-  small_tip.innerHTML="We'll never share your email with anyone else.";
+//create name field
+  const div = document.createElement("div");
+  const div_name = document.createElement('div');
+  div.setAttribute("class",'form-group');
+  div_name.setAttribute("class","form-control");
+  const input_name = document.createElement("input");
+  input_name.setAttribute("type", "text");
+  input_name.setAttribute("id", "name");
+  input_name.setAttribute("placeholder", "name");
+  div_name.appendChild(input_name);
+  div.appendChild(div_name);
 
+
+  //add description
+  const div_desc = document.createElement('div');
+  div_desc.setAttribute("class", "form-control");
+  const label_desc = document.createElement('label');
+  label_desc.setAttribute("for","desc");
+  label_desc.innerHTML = "Specify specifics about your city. Up to 256 characters long.";
+  const desc_input = document.createElement('textarea');
+  desc_input.setAttribute("rows","3");
+  desc_input.setAttribute("class","form-control");
+  desc_input.setAttribute("id","desc");
+  desc_input.setAttribute("placeholder","This is where you would provide details about the city.");
+  
   //add to div
+  div_desc.appendChild(label_desc);
+  div_desc.appendChild(desc_input);
 
-  div_email.appendChild(label_email);
-  div_email.appendChild(email_input);
-  div_email.appendChild(small_tip);
-
-  //add message to send
-  const div_message = document.createElement('div');
-  div_message.setAttribute("class", "form-control");
-  const label_message = document.createElement('label');
-  label_message.setAttribute("for","message");
-  const message_input = document.createElement('textarea');
-  message_input.setAttribute("name","message");
-  message_input.setAttribute("class","message");
-  message_input.setAttribute("id","message_contact");
-  message_input.setAttribute("placeholder","Please provide your name, inquiry. Provide specifics on order questions. We will contact you by email as soon as possible. Provide phone number if you would like us to contact you by phone. Thank you.");
-  message_input.setAttribute("aria-describedby","contact_interests");
-  const small_tip2 = document.createElement("small");
-  small_tip2.setAttribute("class","form-text text-muted");
-  small_tip2.innerHTML="Specify specifics about your interests and we will contact you as soon as possible.";
-
-  //add to div
-  div_message.appendChild(label_message);
-  div_message.appendChild(message_input);
-  div_email.appendChild(small_tip2);
-
+  //create submit button
   const div_button = document.createElement('div');
-  div_button.setAttribute("class", "form_control");
   const input_button = document.createElement('button');
   input_button.setAttribute("onclick","DBHelper.postContact()");
   input_button.setAttribute("id","submit_button");
@@ -153,8 +141,8 @@ createForm = () => {
   div_button.appendChild(input_button);
   
   //add to form
-  form.appendChild(div_email);
-  form.appendChild(div_message);
+  form.appendChild(div);
+  form.appendChild(div_desc);
   form.appendChild(div_button);
   //form.setAttribute("action",DBHelper.sendContactInfo());
   //form.setAttribute("method", "post");

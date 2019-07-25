@@ -26,7 +26,7 @@
       <li aria-label="Home"><a href="/">Home</a></li>
     </ul>
     <!-- End breadcrumb -->
-    <!-- End nav -->
+    <!-- End nav --> 
   </nav>
   </header>
   <!-- End header -->
@@ -39,7 +39,7 @@
     <section id="site-container">
 
       <img id="pony-img">
-      <h2>Info: </h2>
+      <h2>Update Info: </h2>
       <p id="group"></p>
     </section>
     <!-- end pomy info -->
@@ -62,31 +62,23 @@
                   <input type="text" id="city_id" class="form-control" placeholder="city">
                 </div>
             </div>
-          <label for="email">Email Address:</label>
-          <input type="email_info" id="email_purchase" class="form-control" aria-describedby="emailHelp" emailhelp="Enter email">
-        <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
         <div class="form-group">
             <label for="exampleFormControlSelect2">Let us know what most attracts you to this betta</label>
             <select multiple class="form-control" name="exampleFormControlSelect2" id="exampleFormControlSelect2">
-              <option>Description</option>
-              <option>Tail Type</option>
-              <option>Color</option>
-              <option>Breeding</option>
-              <option>Gender</option>
-              <option>Age</option>
+              <option>Pilot</option>
+              <option>Fashion Designer</option>
+              <option>Flight Instructor</option>
+              <option>Plumber</option>
             </select>
           </div>
           <div class="form-group">
             <label for="exampleFormControlFile1">Upload Image for Character</label>
             <input type="file" class="form-control-file" id="exampleFormControlFile1">
           </div>
-        <div class="form-control"><label for="message"></label>
-          <textarea name="message" class="message" id="message_purchase" placeholder="Please provide your name, inquiry. Provide specifics on order questions. We will contact you by email as soon as possible. Provide phone number if you would like us to contact you by phone. Thank you." aria-describedby="contact_interests"></textarea>
-        </div>
         <div class="form_control">
           <button onclick="DBHelper.postPurchase()" id="submit_button">Submit</button>
         </div>
-      </div>
       </form>
 
     </section>

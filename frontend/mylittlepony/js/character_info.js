@@ -66,8 +66,11 @@ fillPonyHTML = (pony = self.pony) => {
   const image = document.getElementById('pony-img');
   image.className = 'pony-img';
 
-  const ponyGroup = document.getElementById('group');
-  ponyGroup.innerHTML = "Group: " +pony.group;
+  //const ponyGroup = document.getElementById('group');
+  //ponyGroup.innerHTML = "Group: " +pony.group_id;
+
+  //const ponyGroup = document.getElementById('type');
+  //ponyGroup.innerHTML = "Type: " +pony.type_id;
 
  // added alt attribute and srcset
 
