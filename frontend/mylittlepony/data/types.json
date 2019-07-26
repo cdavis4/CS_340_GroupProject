@@ -1,0 +1,21 @@
+{
+  "types": [{
+    "id": 1,
+    "name": "Earth Pony",
+    "flight": "No",
+    "magic": "No",
+    "equestrian": "Yes"
+  }, {
+    "id": 2,
+    "name": "Pegasus",
+    "flight": "Yes",
+    "magic": "Yes",
+    "equestrian": "Yes"
+  },{
+    "id": 3,
+    "name": "Unicorn",
+    "flight": "No",
+    "magic": "Yes",
+    "equestrian": "Yes"
+    }]  
+}

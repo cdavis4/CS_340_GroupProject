@@ -1,0 +1,23 @@
+{
+  "jobs": [{
+    "id": 1,
+    "job": "Fashon Designer",
+    "type_exclusive": "No",
+    "type_id": "No"
+    },{
+    "id": 2,
+    "job": "Plumber",
+    "type_exclusive": "No",
+    "type_id": "No"
+    },{
+    "id": 3,
+    "job": "Pilot",
+    "type_exclusive": "Yes",
+    "type_id": "Pegasus"
+    },{
+    "id": 4,
+    "job": "Flight Instructor",
+    "type_exclusive": "Yes",
+    "type_id": "Pegasus"
+    }]  
+}

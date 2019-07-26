@@ -1,0 +1,11 @@
+{
+  "groups": [{
+    "id": 1,
+    "name": "Mane Six",
+    "city_id": "Ponyville"
+  }, {
+    "id": 2,
+    "name": "Apple Bottoms",
+    "city_id": "Sweet Apple Acres"
+    }]  
+}
