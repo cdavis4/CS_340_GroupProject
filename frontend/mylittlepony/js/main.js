@@ -159,12 +159,21 @@ createPonyHTML = (pony) => {
  li.append(name);
  
   const gender = document.createElement('p');
-  gender.innerHTML = pony.gender;
+  gender.innerHTML = "Gender: "+pony.gender;
   li.append(gender);
+
+  const type = document.createElement('p');
+  type.innerHTML = "Type/Species: "+pony.type_id;
+  li.append(type);
 
   const group = document.createElement('p');
   group.innerHTML = "Group: "+pony.group_id;
   li.append(group);
+
+  const job = document.createElement('p');
+  job.innerHTML = "Job: "+pony.job;
+  li.append(job);
+
   const more = document.createElement('button');
   more.innerHTML = 'Update Character';
   const remove = document.createElement('button');

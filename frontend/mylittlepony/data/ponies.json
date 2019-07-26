@@ -6,7 +6,8 @@
     "group_id": "Mane Six",
     "photograph": "1",
     "city_id": "Ponyville",
-    "gender": "Female"
+    "gender": "Female",
+    "job": ["Pilot", "Flight Instructor"]
   },
   {
     "id": 2,
@@ -15,7 +16,8 @@
     "group_id": "Other",
     "photograph": "2",
     "city_id": "Sweet Apple Acres",
-    "gender": "Female"
+    "gender": "Female",
+    "job": ["Plumber"]
   },{
   "id": 3,
   "name": "Rarity",
@@ -23,6 +25,7 @@
   "group_id": "Applebottoms",
   "photograph": "3",
   "city_id": "Ponyville",
-  "gender": "Female"
+  "gender": "Female",
+  "job": ["Fashion Designer"]
 }]
 }
