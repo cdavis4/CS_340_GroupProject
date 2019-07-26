@@ -60,16 +60,7 @@ class DBHelper {
     return 'data/groups.json';
     //  return `http://localhost:${port}/data/cities.json`;
   }
-  /**
-   * Fetch with promises
- 
-  static fetchBettas(callback) {
-    fetch(DBHelper.DATABASE_URL)
-    .then(response => response.json())
-    .then(bettas => callback(null, bettas))
-    .catch(error => callback(null,error));
-   }
- */
+
 
   static fetchPonies(callback) {
     let xhr = new XMLHttpRequest();
@@ -228,7 +219,7 @@ class DBHelper {
     });
   }
   /**
-   * Fetch bettas by a cuisine and a neighborhood with proper error handling.
+   * Fetch pony by a type and a group with proper error handling.
    */
   static fetchPonyByTypeAndGroup(type, group, callback) {
     // Fetch all bettas
@@ -249,7 +240,7 @@ class DBHelper {
   }
 
   /**
-   * Fetch all neighborhoods with proper error handling.
+   * Fetch all groups with proper error handling.
    */
   static fetchGroupFilter(callback) {
     // Fetch all ponies
@@ -259,7 +250,7 @@ class DBHelper {
       } else {
         // Get all groups from all bettas
         const groups = ponies.map((v, i) => ponies[i].group_id)
-        // Remove duplicates from neighborhoods
+        // Remove duplicates from groups
         const uniqueGroups= groups.filter((v, i) => groups.indexOf(v) == i)
         console.log(uniqueGroups);
         callback(null, uniqueGroups);
@@ -268,7 +259,7 @@ class DBHelper {
   }
 
   /**
-   * Fetch all cuisines with proper error handling.
+   * Fetch all types with proper error handling.
    */
   static fetchTypeFilter(callback) {
     // Fetch all bettas
@@ -276,9 +267,9 @@ class DBHelper {
       if (error) {
         callback(error, null);
       } else {
-        // Get all cuisines from all bettas
+        // Get all tyoes from all ponies
         const types = ponies.map((v, i) => ponies[i].type_id)
-        // Remove duplicates from cuisines
+        // Remove duplicates from types
         const uniqueTypes = types.filter((v, i) => types.indexOf(v) == i)
         callback(null, uniqueTypes);
       }
@@ -286,18 +277,28 @@ class DBHelper {
   }
 
   /**
-   * Restaurant page URL.
+   * Pony page for URL.
    */
   static urlForPony(pony) {
     return (`./character_info.html?id=${pony.id}`);
   }
 
   /**
-   * Restaurant image URL.
+   * Pony image URL.
    */
   static imageUrlForPony(pony) {
     return (`/img/${pony.photograph}`);
   }
+
+  //**** */ THE FOLLOWING CODE: needs to be updated to use for different inserts into tables through server********
+
+  //delete something need to add to use id from character this could be put in the main js to use with delete button
+  static deleteSomething(id) {
+    fetch(DBHelper.DATABASE_URL + '/' + id, {
+      method: 'DELETE'
+    });
+  }
+
 
   static postPurchase(){
     event.preventDefault();
