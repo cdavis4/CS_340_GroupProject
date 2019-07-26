@@ -54,7 +54,7 @@ fillBreadcrumb = (pony=self.pony) => {
 
 
 /**
- * Create betta HTML and add it to the webpage
+ * Create pony HTML and add it to the webpage
  */
 fillPonyHTML = (pony = self.pony) => {
 
@@ -63,8 +63,8 @@ fillPonyHTML = (pony = self.pony) => {
   title.appendChild(headerName);
   headerName.innerHTML = pony.name;
 
-  const image = document.getElementById('pony-img');
-  image.className = 'pony-img';
+  //const image = document.getElementById('pony-img');
+  //image.className = 'pony-img';
 
   //const ponyGroup = document.getElementById('group');
   //ponyGroup.innerHTML = "Group: " +pony.group_id;
@@ -74,9 +74,9 @@ fillPonyHTML = (pony = self.pony) => {
 
  // added alt attribute and srcset
 
-  image.alt = "photo from charcter " + pony.name;
+  //image.alt = "photo from charcter " + pony.name;
 
-  image.srcset = "/img/"+ pony.id +".jpg";
+  //image.srcset = "/img/"+ pony.id +".jpg";
   //+ betta.id 
   //+ "-300_1x.jpg 400w, /img/" 
   //+betta.id + "-600_1x.jpg 1000w, /img/" + betta.id  + "-600_2x.jpg 4000w";

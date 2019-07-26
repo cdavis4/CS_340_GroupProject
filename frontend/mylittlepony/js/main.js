@@ -9,15 +9,15 @@ let ponies,
  */
 document.addEventListener('DOMContentLoaded', (event) => {
   initPage(); // added 
-  fetchGroups();
-  fetchTypes();
+  fetchGroupFilter();
+  fetchTypeFilter();
 });
 
 /**
  * Fetch all groups and set their HTML.
  */
-fetchGroups = () => {
-  DBHelper.fetchGroups((error, groups) => {
+fetchGroupFilter = () => {
+  DBHelper.fetchGroupFilter((error, groups) => {
     if (error) { // Got an error
       console.error(error);
     } else {
@@ -43,8 +43,8 @@ fillGroupHTML = (groups = self.groups) => {
 /**
  * Fetch all types and set their HTML.
  */
-fetchTypes = () => {
-  DBHelper.fetchType((error, types) => {
+fetchTypeFilter = () => {
+  DBHelper.fetchTypeFilter((error, types) => {
     if (error) { // Got an error!
       console.error(error);
     } else {
@@ -260,6 +260,8 @@ createForm = () => {
   form.appendChild(createRadioBox("Female","customRadioInline1","option1"));
   form.appendChild(createRadioBox("Male","customRadioInline2","option2"));
   form.appendChild( createRadioBox("Non-Binary","customRadioInline3","option3"));
+  form.appendChild(createComboBox("Select Group", jobs));
+  form.appendChild(createComboBox("Select Type", jobs));
   form.appendChild(createMultiComboBox("Select Character's Jobs", jobs));
   
   form.appendChild(div_button);
@@ -289,21 +291,24 @@ createRadioBox = (textlabel,customRadioInline,value) => {
 };
 
 //create a dropdown combo box
-createComboBox = (textlabel,customRadioInline,value) => {
-  const div_combo = document.createElement('div');
-  div_combo.setAttribute("class","form-group");
-  const input_combo = document.createElement("input");
-  input_radio.setAttribute("type", "radio");
-  input_radio.setAttribute("id", customRadioInline);
-  input_radio.setAttribute("name", customRadioInline);
-  input_radio.setAttribute("value",value);
-  const label_radio = document.createElement("label");
-  label_radio.setAttribute("class","custom-control-label");
-  label_radio.setAttribute("for",customRadioInline);
-  label_radio.innerHTML= textlabel;
-  div_radio.appendChild(input_radio);
-  div_radio.appendChild(label_radio);
-  return div_radio;
+createComboBox = (textLabel, optionsArray) => {
+  const div_multi = document.createElement("div");
+  div_multi.setAttribute("class", "form-group");
+  const label_multi = document.createElement("label");
+  label_multi.setAttribute("for","exampleFormControlSelect2");
+  label_multi.innerHTML= textLabel;
+  const select_multi = document.createElement("select");
+  select_multi.setAttribute("class", "form-control");
+  select_multi.setAttribute("name","exampleFormControlSelect2");
+  select_multi.setAttribute("id","exampleFormControlSelect2");
+  optionsArray.forEach(function(x){
+    const option = document.createElement('option');
+    option.innerHTML = x;
+    select_multi.appendChild(option);
+  })
+  div_multi.appendChild(label_multi);
+  div_multi.appendChild(select_multi);
+  return div_multi;
 };
 
 //create a dropdown combo box

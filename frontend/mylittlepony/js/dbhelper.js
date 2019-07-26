@@ -14,9 +14,9 @@ class DBHelper {
    * Change this to bettas.json file location on your server.
    */
   static get DATABASE_URL() {
-    const port = 4333;
+    const port = 6322;
     // Change this to your server port
-      return `http://localhost:${port}/data/ponies.json`;
+      return '/data/ponies.json';
   }
 
   /**
@@ -24,12 +24,44 @@ class DBHelper {
    * Change this to bettas.json file location on your server.
    */
   static get CITIES_DATABASE_URL() {
-    const port = 4333;
+    const port = 6322;
     // Change this to your server port
-      return `http://localhost:${port}/data/cities.json`;
+    return 'data/cities.json';
+    //  return `http://localhost:${port}/data/cities.json`;
+  }
+
+    /**
+   * Database URL.
+   * Change this to bettas.json file location on your server.
+   */
+  static get TYPES_DATABASE_URL() {
+    const port = 6322;
+    // Change this to your server port
+    return 'data/types.json';
+    //  return `http://localhost:${port}/data/cities.json`;
+  }
+    /**
+   * Database URL.
+   * Change this to bettas.json file location on your server.
+   */
+  static get JOBS_DATABASE_URL() {
+    const port = 6322;
+    // Change this to your server port
+    return 'data/jobs.json';
+    //  return `http://localhost:${port}/data/cities.json`;
+  }
+    /**
+   * Database URL.
+   * Change this to bettas.json file location on your server.
+   */
+  static get GROUPS_DATABASE_URL() {
+    const port = 6322;
+    // Change this to your server port
+    return 'data/groups.json';
+    //  return `http://localhost:${port}/data/cities.json`;
   }
   /**
-   * Fetch all bettas.
+   * Fetch with promises
  
   static fetchBettas(callback) {
     fetch(DBHelper.DATABASE_URL)
@@ -54,7 +86,7 @@ class DBHelper {
     };
     xhr.send();
   }
-  
+
   static fetchCities(callback) {
     let xhr = new XMLHttpRequest();
     xhr.open('GET', DBHelper.CITIES_DATABASE_URL);
@@ -64,6 +96,23 @@ class DBHelper {
         const cities = json.cities;
         console.log(cities);
         callback(null, cities);
+      } else { // Oops!. Got an error from server.
+        const error = (`Request failed. Returned status of ${xhr.status}`);
+        callback(error, null);
+      }
+    };
+    xhr.send();
+  }
+   /** Makes request to fetch Group json **/
+   static fetchGroups(callback) {
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', DBHelper.GROUPS_DATABASE_URL);
+    xhr.onload = () => {
+      if (xhr.status === 200) { // Got a success response from server!
+        const json = JSON.parse(xhr.responseText);
+        const groups = json.groups;
+        console.log(groups);
+        callback(null, groups);
       } else { // Oops!. Got an error from server.
         const error = (`Request failed. Returned status of ${xhr.status}`);
         callback(error, null);
@@ -168,7 +217,7 @@ class DBHelper {
   /**
    * Fetch all neighborhoods with proper error handling.
    */
-  static fetchGroups(callback) {
+  static fetchGroupFilter(callback) {
     // Fetch all ponies
     DBHelper.fetchPonies((error, ponies) => {
       if (error) {
@@ -187,7 +236,7 @@ class DBHelper {
   /**
    * Fetch all cuisines with proper error handling.
    */
-  static fetchType(callback) {
+  static fetchTypeFilter(callback) {
     // Fetch all bettas
     DBHelper.fetchPonies((error, ponies) => {
       if (error) {

@@ -37,8 +37,8 @@
 
     <!-- Beginning Pony info-->
     <section id="site-container">
-
-      <img id="pony-img">
+       <!-- Beginning Pony info
+      <img id="pony-img">-->
       <h2>Update Info: </h2>
       <p id="group"></p>
     </section>
@@ -49,22 +49,47 @@
       <form id="contact_form">
         <div class="form-group">
             <div class="row">
-                <div class="col">
+             
                   <input type="text" id="name" class="form-control" placeholder="name">
-                </div>
-                <div class="col">
-                  <input type="text" id="type_id" class="form-control" placeholder="type">
-                </div>
-                <div class="col">
-                  <input type="text" id="group_id" class="form-control" placeholder="group">
-                </div>
-                <div class="col">
-                  <input type="text" id="city_id" class="form-control" placeholder="city">
-                </div>
+             
+              
+                  <div class="col">
+                    <label for="type">Type</label>
+                    <select class="form-control" id="type">
+                      <option>Pegasus</option>
+                      <option>Unicorn</option>
+                      <option>Earth Pony</option>
+                    </select>
+                  </div>
+                  
+                  <div class="col">
+                      <label for="city">Gender</label>
+                      <select class="form-control" id="city">
+                        <option>Female</option>
+                        <option>Male</option>
+                        <option>NonBinary</option>
+                      </select>
+                    </div>
+                    <div class="col">
+                        <label for="group_id">Group</label>
+                        <select class="form-control" id="group_id">
+                          <option>None</option>
+                          <option>Apple Bottoms</option>
+                          <option>Mane Six</option>
+                          <option>Apple Bottoms</option>
+                        </select>
+                      </div>
+                      <div class="col">
+                          <label for="city">City</label>
+                          <select class="form-control" id="city">
+                            <option>Ponyville</option>
+                            <option>Sweet Apple Acres</option>
+                          </select>
+                      </div>
             </div>
           </div>
         <div class="form-group">
-            <label for="exampleFormControlSelect2">Let us know what most attracts you to this betta</label>
+            <label for="exampleFormControlSelect2">Jobs Available</label>
             <select multiple class="form-control" name="exampleFormControlSelect2" id="exampleFormControlSelect2">
               <option>Pilot</option>
               <option>Fashion Designer</option>
