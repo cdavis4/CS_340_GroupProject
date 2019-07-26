@@ -135,7 +135,7 @@ class DBHelper {
           xhr.onload = () => {
             if (xhr.status === 200) { // Got a success response from server!
               const json = JSON.parse(xhr.responseText);
-              const types = json.jobs;
+              const jobs = json.jobs;
               console.log(jobs);
               callback(null, jobs);
             } else { // Oops!. Got an error from server.

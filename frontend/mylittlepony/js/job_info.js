@@ -1,5 +1,5 @@
 
-let cities;
+let jobs;
 
 /**
  * Initialize bread crumb as soon as the page is loaded.
@@ -26,8 +26,8 @@ fetchJobs = () => {
     if (error) { // Got an error
       console.error(error);
     } else {
-      self.cities = cities;
-      console.log(cities);
+      self.jobs = jobs;
+      console.log(jobs);
       fillJobsHTML();
     }
   });
@@ -37,7 +37,7 @@ fetchJobs = () => {
  */
 fillJobsHTML = (jobs = self.jobs) => {
   const ul = document.getElementById('job-list');
-  cities.forEach(job => {
+  jobs.forEach(job => {
     console.log(job);
     const li = document.createElement('li');
     li.setAttribute("class","list-group-item");
@@ -49,8 +49,16 @@ fillJobsHTML = (jobs = self.jobs) => {
  li.append(jobname);
  
   const type_x = document.createElement('p');
-  typ_x.innerHTML = "Type/Species Exclusive? "+job.type_exclusive;
-  li.append(typ_x);
+  type_x.innerHTML = "Type/Species Exclusive? "+job.type_exclusive;
+  li.append(type_x);
+
+  const type = document.createElement('p');
+  type.innerHTML = "Type/Species Required: "+job.type_id;
+  if (job.type_exclusive == "Yes") //display only if there is an exclusive type to perform job
+    {
+      li.append(type);
+    }
+ 
   });
 }
 
@@ -100,7 +108,7 @@ createForm = () => {
   const form = document.createElement('form');
   form.setAttribute("id", "contact_form");
   const h3 = document.createElement('h3');
-  h3.innerHTML = "Add New City";
+  h3.innerHTML = "Add New Job";
   form.append(h3);
 
 //create name field
