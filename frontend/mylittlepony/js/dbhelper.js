@@ -119,7 +119,7 @@ class DBHelper {
         if (xhr.status === 200) { // Got a success response from server!
           const json = JSON.parse(xhr.responseText);
           const types = json.types;
-          console.log(groups);
+          console.log(types);
           callback(null, types);
         } else { // Oops!. Got an error from server.
           const error = (`Request failed. Returned status of ${xhr.status}`);
