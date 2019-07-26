@@ -62,7 +62,7 @@ createContactModal = (pony) =>{
   const main = document.getElementById('maincontent');
   const div = document.createElement('div');
   div.setAttribute("id", "myModal");
-  div.setAttribute("class", "modal");
+  div.setAttribute("class", "modal-style");
   main.appendChild(div);
   const divContent = document.createElement('div');
   divContent.setAttribute("class", "modal-content");

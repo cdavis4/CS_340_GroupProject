@@ -120,6 +120,40 @@ class DBHelper {
     };
     xhr.send();
   }
+     /** Makes request to fetch Group json **/
+     static fetchTypes(callback) {
+      let xhr = new XMLHttpRequest();
+      xhr.open('GET', DBHelper.TYPES_DATABASE_URL);
+      xhr.onload = () => {
+        if (xhr.status === 200) { // Got a success response from server!
+          const json = JSON.parse(xhr.responseText);
+          const types = json.types;
+          console.log(groups);
+          callback(null, types);
+        } else { // Oops!. Got an error from server.
+          const error = (`Request failed. Returned status of ${xhr.status}`);
+          callback(error, null);
+        }
+      };
+      xhr.send();
+    }
+         /** Makes request to fetch Group json **/
+         static fetchJobs(callback) {
+          let xhr = new XMLHttpRequest();
+          xhr.open('GET', DBHelper.JOBS_DATABASE_URL);
+          xhr.onload = () => {
+            if (xhr.status === 200) { // Got a success response from server!
+              const json = JSON.parse(xhr.responseText);
+              const types = json.jobs;
+              console.log(jobs);
+              callback(null, jobs);
+            } else { // Oops!. Got an error from server.
+              const error = (`Request failed. Returned status of ${xhr.status}`);
+              callback(error, null);
+            }
+          };
+          xhr.send();
+        }
 
   /** 
   static fetchPonies(callback) {

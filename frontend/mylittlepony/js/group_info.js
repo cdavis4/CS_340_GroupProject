@@ -67,7 +67,7 @@ createContactModal = (pony) =>{
   const main = document.getElementById('maincontent');
   const div = document.createElement('div');
   div.setAttribute("id", "myModal");
-  div.setAttribute("class", "modal");
+  div.setAttribute("class", "modal-style");
   main.appendChild(div);
   const divContent = document.createElement('div');
   divContent.setAttribute("class", "modal-content");
@@ -121,20 +121,7 @@ createForm = () => {
   div.appendChild(div_name);
 
 
-  //add description
-  const div_group = document.createElement('div');
-  div_group.setAttribute("class", "form-control");
-  const label_group = document.createElement('label');
-  label_group.setAttribute("for","city");
-  label_group.innerHTML = "City:";
-  const group_input = document.createElement('text');
-  group_input.setAttribute("class","form-control");
-  group_input.setAttribute("id","city");
-  group_input.setAttribute("placeholder","city name");
-  
-  //add to div
-  div_group.appendChild(label_group);
-  div_group.appendChild(group_input);
+
 
   //create submit button
   const div_button = document.createElement('div');
@@ -144,11 +131,34 @@ createForm = () => {
   input_button.innerHTML ="Submit";
   div_button.appendChild(input_button);
   
+  //This would really need to use the dbhelper fetch cities function. this is not perminent
+  city_list = ["Sweet Apple Acres","Ponyville"];
   //add to form
   form.appendChild(div);
-  form.appendChild(div_group);
+  form.appendChild(createComboBox("Select Headquarter City: ",city_list));
   form.appendChild(div_button);
   //form.setAttribute("action",DBHelper.sendContactInfo());
   //form.setAttribute("method", "post");
   return form;
 }
+
+//create a dropdown combo box
+createComboBox = (textLabel, optionsArray) => {
+  const div_multi = document.createElement("div");
+  div_multi.setAttribute("class", "form-group");
+  const label_multi = document.createElement("label");
+  label_multi.setAttribute("for","exampleFormControlSelect2");
+  label_multi.innerHTML= textLabel;
+  const select_multi = document.createElement("select");
+  select_multi.setAttribute("class", "form-control");
+  select_multi.setAttribute("name","exampleFormControlSelect2");
+  select_multi.setAttribute("id","exampleFormControlSelect2");
+  optionsArray.forEach(function(x){
+    const option = document.createElement('option');
+    option.innerHTML = x;
+    select_multi.appendChild(option);
+  })
+  div_multi.appendChild(label_multi);
+  div_multi.appendChild(select_multi);
+  return div_multi;
+};

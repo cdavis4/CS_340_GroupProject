@@ -167,19 +167,32 @@ createPonyHTML = (pony) => {
   li.append(group);
   const more = document.createElement('button');
   more.innerHTML = 'Update Character';
+  const remove = document.createElement('button');
+  remove.innerHTML = 'Delete Character';
   
   more.addEventListener ("click", function() {
     const url = DBHelper.urlForPony(pony);
     window.location.replace(url);
   });
+  remove.addEventListener ("click", function() {
+    //does nothing right now
+    
+  });
 
   /**
  * Add attributes for Update button
  */
-  more.setAttribute("class", "button");
+  more.setAttribute("class", "button-style");
   more.setAttribute("role", "button");
   more.setAttribute("aria-label", "Update options for "+pony.name);
   li.append(more);
+  remove.setAttribute("class", "button");
+  remove.setAttribute("role", "button");
+  remove.setAttribute("aria-label", "Remove"+pony.name);
+  const div_remove = document.createElement("div"); 
+  li.append(div_remove);
+  div_remove.append(remove);
+
 
   return li
 }
@@ -191,7 +204,7 @@ createContactModal = (pony) =>{
   const main = document.getElementById('maincontent');
   const div = document.createElement('div');
   div.setAttribute("id", "myModal");
-  div.setAttribute("class", "modal");
+  div.setAttribute("class", "modal-style");
   main.appendChild(div);
   const divContent = document.createElement('div');
   divContent.setAttribute("class", "modal-content");
@@ -256,12 +269,14 @@ createForm = () => {
 
   //add to form
   let jobs = ["Pilot", "Fashion Designer", "Flight Instructor", "Plumber"];
+  let groups = ["None", "Other", "Applebottoms", "Mane Six"];
+  let types = ["Pegasus", "Earth Pony", "Unicorn"];
   form.appendChild(div);
   form.appendChild(createRadioBox("Female","customRadioInline1","option1"));
   form.appendChild(createRadioBox("Male","customRadioInline2","option2"));
   form.appendChild( createRadioBox("Non-Binary","customRadioInline3","option3"));
-  form.appendChild(createComboBox("Select Group", jobs));
-  form.appendChild(createComboBox("Select Type", jobs));
+  form.appendChild(createComboBox("Select Group", groups));
+  form.appendChild(createComboBox("Select Type", types));
   form.appendChild(createMultiComboBox("Select Character's Jobs", jobs));
   
   form.appendChild(div_button);

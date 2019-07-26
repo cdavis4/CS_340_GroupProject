@@ -89,9 +89,13 @@ h1 {
   font-weight: 200;
   letter-spacing: 10px;
 }
+.nav {
+  justify-content: center;
+}
+
 .nav__item {
   box-sizing: border-box;
-  display: inline-block;
+  display: inline;
   text-align: center;
   line-height: 24px;
   padding: 24px;
@@ -306,7 +310,7 @@ width: 90%;
   width: 100%;
 }
 /* The Modal (background) */
-.modal {
+.modal-style {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
