@@ -116,7 +116,7 @@ createForm = () => {
   const input_name = document.createElement("input");
   input_name.setAttribute("type", "text");
   input_name.setAttribute("id", "name");
-  input_name.setAttribute("placeholder", "name");
+  input_name.setAttribute("placeholder", "group name");
   div_name.appendChild(input_name);
   div.appendChild(div_name);
 
@@ -132,7 +132,7 @@ createForm = () => {
   div_button.appendChild(input_button);
   
   //This would really need to use the dbhelper fetch cities function. this is not perminent
-  city_list = ["Sweet Apple Acres","Ponyville"];
+  city_list = ["None","Sweet Apple Acres","Ponyville"];
   //add to form
   form.appendChild(div);
   form.appendChild(createComboBox("Select Headquarter City: ",city_list));

@@ -111,7 +111,7 @@ createForm = () => {
   h3.innerHTML = "Add New Job";
   form.append(h3);
 
-//create name field
+  //create name field
   const div = document.createElement("div");
   const div_name = document.createElement('div');
   div.setAttribute("class",'form-group');
@@ -119,26 +119,11 @@ createForm = () => {
   const input_name = document.createElement("input");
   input_name.setAttribute("type", "text");
   input_name.setAttribute("id", "name");
-  input_name.setAttribute("placeholder", "name");
+  input_name.setAttribute("placeholder", "job name");
   div_name.appendChild(input_name);
   div.appendChild(div_name);
 
 
-  //add description
-  const div_desc = document.createElement('div');
-  div_desc.setAttribute("class", "form-control");
-  const label_desc = document.createElement('label');
-  label_desc.setAttribute("for","desc");
-  label_desc.innerHTML = "Specify specifics about your city. Up to 256 characters long.";
-  const desc_input = document.createElement('textarea');
-  desc_input.setAttribute("rows","3");
-  desc_input.setAttribute("class","form-control");
-  desc_input.setAttribute("id","desc");
-  desc_input.setAttribute("placeholder","This is where you would provide details about the city.");
-  
-  //add to div
-  div_desc.appendChild(label_desc);
-  div_desc.appendChild(desc_input);
 
   //create submit button
   const div_button = document.createElement('div');
@@ -147,12 +132,59 @@ createForm = () => {
   input_button.setAttribute("id","submit_button");
   input_button.innerHTML ="Submit";
   div_button.appendChild(input_button);
-  
+
   //add to form
+  let types = ["None", "Earth Pony", "Unicorn","Pegasus"];
+  let type_exc = ["No","Yes"];
   form.appendChild(div);
-  form.appendChild(div_desc);
+  form.appendChild(createComboBox("Type Exclusive?", type_exc));
+  form.appendChild(createComboBox("Select Type", types));
+ 
+  
   form.appendChild(div_button);
+  //form.appendChild(div_type);
+ // form.appendChild(div_job);
+ // form.appendChild(div_city);
   //form.setAttribute("action",DBHelper.sendContactInfo());
   //form.setAttribute("method", "post");
   return form;
 }
+//create radio boxes and input label and unique id for  box
+createRadioBox = (textlabel,customRadioInline,value) => {
+  const div_radio = document.createElement('div');
+  div_radio.setAttribute("class","custom-radio custom-control-inline");
+  const input_radio = document.createElement("input");
+  input_radio.setAttribute("type", "radio");
+  input_radio.setAttribute("id", customRadioInline);
+  input_radio.setAttribute("name", customRadioInline);
+  input_radio.setAttribute("value",value);
+  const label_radio = document.createElement("label");
+  label_radio.setAttribute("class","custom-control-label");
+  label_radio.setAttribute("for",customRadioInline);
+  label_radio.innerHTML= textlabel;
+  div_radio.appendChild(input_radio);
+  div_radio.appendChild(label_radio);
+  return div_radio;
+};
+
+//create a dropdown combo box
+createComboBox = (textLabel, optionsArray) => {
+  const div_multi = document.createElement("div");
+  div_multi.setAttribute("class", "form-group");
+  const label_multi = document.createElement("label");
+  label_multi.setAttribute("for","exampleFormControlSelect2");
+  label_multi.innerHTML= textLabel;
+  const select_multi = document.createElement("select");
+  select_multi.setAttribute("class", "form-control");
+  select_multi.setAttribute("name","exampleFormControlSelect2");
+  select_multi.setAttribute("id","exampleFormControlSelect2");
+  optionsArray.forEach(function(x){
+    const option = document.createElement('option');
+    option.innerHTML = x;
+    select_multi.appendChild(option);
+  })
+  div_multi.appendChild(label_multi);
+  div_multi.appendChild(select_multi);
+  return div_multi;
+};
+
