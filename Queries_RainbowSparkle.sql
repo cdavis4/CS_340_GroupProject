@@ -73,13 +73,13 @@ SELECT id, name FROM `Character`;
 SELECT Character.name, Type.type_name, Group.group_name,
 Character.gender, City.city_name, Character.photo_id  
 FROM `Character` 
-INNER JOIN `Type` ON Character.typeOf_id = Type.id 
+INNER JOIN `Type` ON Character.type_id = Type.id 
 INNER JOIN `Group` on Character.group_id = Group.id 
 INNER JOIN `City` on Character.city_id = City.id
 ORDER BY name;
 
 -- Query for adding a character to the database
-INSERT INTO `Character` (name,typeOf_id, group_id, gender, city_id, photo_id)
+INSERT INTO `Character` (name,type_id, group_id, gender, city_id)
 VALUES (':new_name', ':type_id_dropdown', ':group_id_dropdown', ':new_gender',
 'city_id_dropdown', 'new_photo');
 
@@ -87,7 +87,7 @@ VALUES (':new_name', ':type_id_dropdown', ':group_id_dropdown', ':new_gender',
 DELETE FROM `Character` WHERE id=':character_id_dropdown';
 
 --Updating query character
-UPDATE `Character` SET name = :name_input, typeOf_id = :type_dropdown,
+UPDATE `Character` SET name = :name_input, type_id = :type_dropdown,
 group_id = :group_dropdown,  gender= :gender_Input, city_id = :city_dropdown, photo_id = :photo_Input WHERE id= :character_form_id
 
 -- *******************
@@ -100,11 +100,11 @@ SELECT id, job_name FROM `Job`;
 -- Query for selecting type exclusive jobs  
 SELECT Job.job_name As Name, Type.type_name AS Type
 FROM `Job`
-INNER JOIN `Type` ON Job.typeOf_id = Type.id
+INNER JOIN `Type` ON Job.type_id = Type.id
 ORDER BY Name;
 
 -- Query for adding a job 
-INSERT INTO `Job` (job_name, type_exclusive, typeOf_id)
+INSERT INTO `Job` (job_name, type_exclusive, type_id)
 VALUES (':new_job',':type_ex',':type_id_dropdown');
 
 -- Query for deleting a job

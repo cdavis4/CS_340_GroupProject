@@ -16,9 +16,9 @@ DROP TABLE IF EXISTS `cs340_turnesar`.`Character_Job`;
 CREATE TABLE `Type`(
 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 type_name VARCHAR(25) NOT NULL,
-flight BOOLEAN,
-magic BOOLEAN,
-equestrian BOOLEAN
+flight BIT,
+magic BIT,
+equestrian BIT
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `City`(
@@ -28,12 +28,11 @@ characteristics VARCHAR(256)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `Job`(
-    
 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 job_name VARCHAR(100) NOT NULL DEFAULT 'Unknown',
 type_exclusive BOOLEAN DEFAULT 0,
-typeOf_id INT,
-FOREIGN KEY (`typeOf_id`) REFERENCES `Type` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+type_id INT,
+FOREIGN KEY (`type_id`) REFERENCES `Type` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `Group`(
@@ -46,12 +45,12 @@ FOREIGN KEY (`city_id`) REFERENCES `City` (`id`) ON DELETE SET NULL ON UPDATE CA
 CREATE TABLE `Character`(
 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 name VARCHAR(100) NOT NULL,
-typeOf_id INT NOT NULL,
+type_id INT NOT NULL,
 group_id INT,
 gender ENUM('M','F','O') NOT NULL,
 city_id INT NOT NULL,
-photo_id INT,
-FOREIGN KEY (`typeOf_id`) REFERENCES `Type` (`id`)  ON DELETE RESTRICT ON UPDATE CASCADE,
+photo_id INT AUTO_INCREMENT,
+FOREIGN KEY (`type_id`) REFERENCES `Type` (`id`)  ON DELETE RESTRICT ON UPDATE CASCADE,
 FOREIGN KEY (`group_id`) REFERENCES `Group` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
 FOREIGN KEY (`city_id`) REFERENCES `City` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -97,10 +96,10 @@ INSERT INTO `Type`(type_name, flight, magic, equestrian)
 VALUE ('Earth Pony',0,0,1);
 
 -- Job Tests
-INSERT INTO `Job`(job_name, type_exclusive, typeOf_id)
+INSERT INTO `Job`(job_name, type_exclusive, type_id)
 VALUES ('Monarch', 1, (SELECT id FROM `Type` WHERE type_name = 'Alicorn'));
 
-INSERT INTO `Job`(job_name, type_exclusive, typeOf_id)
+INSERT INTO `Job`(job_name, type_exclusive, type_id)
 VALUES ('Librarian', 0, NULL);
 
 -- Group Tests
@@ -112,13 +111,13 @@ VALUE ('Method Mares', (SELECT id FROM `City` WHERE city_name = 'Manehattan'));
 
 
 -- Character Tests
-INSERT INTO `Character` (name, typeOf_id, group_id, gender, city_id, photo_id)
+INSERT INTO `Character` (name, type_id, group_id, gender, city_id)
 VALUES ('Applejack', (SELECT id FROM `Type` WHERE type_name = 'Earth Pony'), (SELECT id FROM `Group` WHERE group_name = 'Mane Six'), 'F', (SELECT id FROM `City` WHERE city_name = 'Ponyville'),1);
 
-INSERT INTO `Character` (name, typeOf_id, group_id, gender, city_id, photo_id)
+INSERT INTO `Character` (name, type_id, group_id, gender, city_id)
 VALUES ('Twilight Sparkle', (SELECT id FROM `Type` WHERE type_name = 'Unicorn'), (SELECT id FROM `Group` WHERE group_name = 'Mane Six'), 'F', (SELECT id FROM `City` WHERE city_name = 'Canterlot'), 2);
 
-INSERT INTO `Character` (name, typeOf_id, group_id, gender, city_id, photo_id)
+INSERT INTO `Character` (name, type_id, group_id, gender, city_id)
 VALUES ('Rainbow Dash', (SELECT id FROM `Type` WHERE type_name = 'Pegasus'), (SELECT id FROM `Group` WHERE group_name = 'Mane Six'), 'F', (SELECT id FROM `City` WHERE city_name = 'Cloudsdale'), 3);
 
 
