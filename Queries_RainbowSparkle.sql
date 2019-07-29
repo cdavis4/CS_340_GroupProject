@@ -1,4 +1,6 @@
 -- *************************************************************************************
+-- Query for add a new character functionality with colon : character being used to 
+-- denote the variables that will have data from the backend programming language
 --                                                                                    **
 -- Queries against the MLP Database for CS340 Section 400/401 Summer 2019 Quarter     **
 -- Project created by: Group 15 "Rainbow Sparkles"                                    **          
@@ -10,121 +12,121 @@
 -- CITY Queries **
 -- ***************
 
--- Query for selecting a city from the database
-SELECT * FROM `City` WHERE name='city_name';
+-- Query for selecting a city from the database for dropdown
+SELECT id, city_name FROM `City`;
+
+-- Show all the things for city
+SELECT city_name, characteristics FROM `City`;
 
 -- Query for adding a new city into the database
-INSERT INTO `City` (name, characteristics)
-VALUES (city_name, city_characteristics);
+INSERT INTO `City` (city_name, characteristics)
+VALUES (:city_name, :city_characteristics);
 
 -- Query for deleting a city from the database
-DELETE FROM `City` WHERE name='city_name';
-
--- Update Name and Characteristics separately  
-UPDATE `City`
-SET characteristics= new_characteristics
-WHERE city_id=(SELECT id FROM `City` WHERE name='city_name');
-
+DELETE FROM `City` WHERE id=':city_id_dropdown';
 
 -- ****************
 -- GROUP Queries **
 -- ****************
 
--- Query for selecting a hotel from the database using its name
-SELECT * FROM `Group` WHERE name='group_name';
+-- Query for group dropdown
+SELECT id, group_name FROM `Group`;
 
--- Query for selecting all groups in a given city
-SELECT * FROM `Group` WHERE city_id=(SELECT id FROM `City` WHERE name='city_name');
+-- get all groups with associated cities 
+SELECT Group.group_name, City.city_name    
+FROM `Group` 
+INNER JOIN `City` ON Group.city_id = City.id; 
+
 
 -- Query for adding a group to the database
-INSERT INTO `Group`(name, city_id)
-VALUE (new_group_name, (SELECT id FROM `City` WHERE name = 'new_group_city'));
+INSERT INTO `Group`(group_name, city_id)
+VALUES (:new_group_name, :city_id_dropdown);
 
--- Query for removing a group from the database
-DELETE FROM `Group` WHERE name='group_name';
+-- Query for deleting a city from the database
+DELETE FROM `Group` WHERE id=':group_id_dropdown';
 
 -- ******************
 -- TYPE Queries **
 -- ******************
 
--- Query for selecting an type from the database using its name
-SELECT * FROM `Type` WHERE name='type_name';
+-- Query for selecting a type for dropdown
+SELECT id, type_name FROM `Type`;
 
--- Query for selecting all types that are magic
-SELECT * FROM `Type` WHERE magic=1;
-
--- Query for selecting all types that can fly
-SELECT * FROM `Type` WHERE flight=1;
-
--- Query for selecting all types that are equestrian
-SELECT * FROM `Type` WHERE equestrian=1;
+-- Query for seeing all the fields for type
+SELECT type_name, flight, magic, equestrian FROM `Type`;
 
 -- Query for adding a type to the database
-INSERT INTO `Type` (name, flight, magic, equestrian)
-VALUES ('new_type', 'new_f', 'new_m', 'new_e');
+INSERT INTO `Type` (type_name, flight, magic, equestrian)
+VALUES (':new_type', ':new_f', ':new_m', ':new_e');
 
 -- Query for removing a type from the database
-DELETE FROM `Type` WHERE name='old_type';
-
--- Query for updating a type magic
-UPDATE `Type`
-SET magic='new_magic', flight'new_flight', equestrian':new_state'
-WHERE name = 'type_name';
+DELETE FROM `Type` WHERE id=':type_id_dropdown';
 
 -- *********************
 -- CHARACTER Queries **
 -- *********************
 
--- Query for selecting a character from the database using its name
-SELECT * FROM `Character` WHERE name='character_name';
+-- Query for selecting a Character dropdown 
+SELECT id, name FROM `Character`;
 
--- Query for selecting all characters from a given city
-SELECT * FROM `Character` WHERE id=(SELECT id FROM `City` WHERE name='city_name');
-
--- Query for selecting all characters from a given group
-SELECT * FROM `Character` WHERE id=(SELECT id FROM `Group` WHERE name ='group_name');
-
--- Query for selecting all characters from a given type
-SELECT * FROM `Character` WHERE id=(SELECT id FROM `Type` WHERE name = 'type_name');
+-- Query for selecting all characters with joins 
+SELECT Character.name, Type.type_name, Group.group_name,
+Character.gender, City.city_name, Character.photo_id  
+FROM `Character` 
+INNER JOIN `Type` ON Character.type_id = Type.id 
+INNER JOIN `Group` on Character.group_id = Group.id 
+INNER JOIN `City` on Character.city_id = City.id
+ORDER BY name;
 
 -- Query for adding a character to the database
-INSERT INTO `Character` (name,typeOf_id, group_id, gender, city_id, photo_id)
-VALUES ('new_name',(SELECT id FROM `Type` WHERE name ='type_name'),
-(SELECT id from `Group` WHERE name = 'group_name'),'new_gender',
-(SELECT id FROM `City` WHERE name='city_name'), 'new_photo');
+INSERT INTO `Character` (name,type_id, group_id, gender, city_id)
+VALUES (':new_name', ':type_id_dropdown', ':group_id_dropdown', ':new_gender',
+'city_id_dropdown', 'new_photo');
 
 -- Query for removing a character from the database
-DELETE FROM `Character` WHERE name='character_name';
+DELETE FROM `Character` WHERE id=':character_id_dropdown';
 
 --Updating query character
+UPDATE `Character` SET name = :name_input, type_id = :type_dropdown,
+group_id = :group_dropdown,  gender= :gender_Input, city_id = :city_dropdown, photo_id = :photo_Input WHERE id= :character_form_id
 
 -- *******************
 -- JOB Queries **
 -- *******************
 
--- Query for selecting a job based on its name
-SELECT * FROM `Job` WHERE job='job_name';
+-- Query for selecting a job on dropdown
+SELECT id, job_name FROM `Job`;
+
+-- Query for selecting type exclusive jobs  
+SELECT Job.job_name As Name, Type.type_name AS Type
+FROM `Job`
+INNER JOIN `Type` ON Job.type_id = Type.id
+ORDER BY Name;
 
 -- Query for adding a job 
-INSERT INTO `Job` (job, type_exclusive, typeOf_id)
-VALUES ('new_job','type_ex',(SELECT id FROM `Type` WHERE name ='new_type_name');
+INSERT INTO `Job` (job_name, type_exclusive, type_id)
+VALUES (':new_job',':type_ex',':type_id_dropdown');
 
 -- Query for deleting a job
-DELETE FROM `Job` WHERE job='old_job'
+DELETE FROM `Job` WHERE job_name=':job_id_dropdown';
 
 -- *******************
 -- CHARACTER_JOB Queries **
 -- *******************
 
---Query for selecting character to job table
-SELECT * FROM `Character_Job` WHERE id=(SELECT id FROM `Character` WHERE name='character_name');
-
---Query for selecting character to job table
-SELECT * FROM `Character_Job` WHERE id=(SELECT id FROM `Job` WHERE name='job_name');
-
 --Query for inserting into Character Job
 INSERT INTO `Character_Job` (character_id, job_id)
-VALUES ((SELECT id FROM `Character` WHERE name ='character_name'), (SELECT id FROM `Job` WHERE job='job_name'));
+VALUES (:character_id_dropdown, :job_id_dropdown)
+
+-- dis-associate a job from a character
+DELETE FROM `Character_Job` WHERE character_id = :character_id_list AND job_id = :job_id_list
 
 --Query for deleting character job 
-DELETE FROM `Character_Job` WHERE id=(SELECT id FROM `Character` WHERE name='character_name');
+DELETE FROM `Character_Job` WHERE id= :character_id_dropdown;
+
+-- get all characters with their current associated jobs to list
+SELECT Character.name, Job.job_name    
+FROM `Character_Job` 
+INNER JOIN `Character` ON character.id = Character_Job.character_id 
+INNER JOIN `Job` on Character_Job.job_id = Job.id 
+ORDER BY name, job_name;
