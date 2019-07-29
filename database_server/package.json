@@ -1,7 +1,7 @@
 {
-  "name": "hello-world",
+  "name": "mylittleponydb",
   "version": "1.0.0",
-  "description": "Hello world with express and node.js",
+  "description": "my little pony api using express and node.js",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
