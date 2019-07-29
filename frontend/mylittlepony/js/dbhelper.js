@@ -14,9 +14,10 @@ class DBHelper {
    * Change this to bettas.json file location on your server.
    */
   static get DATABASE_URL() {
-    const port = 6322;
+    const port = 4032;
     // Change this to your server port
-      return '/data/ponies.json';
+      return `http://flip2.engr.oregonstate.edu:${port}/characters`;
+      //return '/data/ponies.json';
   }
 
   /**
@@ -68,7 +69,7 @@ class DBHelper {
     xhr.onload = () => {
       if (xhr.status === 200) { // Got a success response from server!
         const json = JSON.parse(xhr.responseText);
-        const ponies = json.ponies;
+        const ponies = json;
         callback(null, ponies);
       } else { // Oops!. Got an error from server.
         const error = (`Request failed. Returned status of ${xhr.status}`);
