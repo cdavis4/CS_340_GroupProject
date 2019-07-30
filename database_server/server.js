@@ -51,7 +51,7 @@ app.get('/characters',(req,res)=> {
 // GET Type return name of type based on id selection
 app.get('/types/:id',function(req,res){
     var context = {};
-    mysql.pool.query("SELECT type_name FROM cs340_davicarr.Type WHERE id=?", [req.params.id],(err, rows,fields)=>{
+    mysql.pool.query("SELECT id, type_name FROM cs340_davicarr.Type WHERE id=?", [req.params.id],(err, rows,fields)=>{
       if(err)
       {
         res.json(err);
@@ -62,3 +62,19 @@ app.get('/types/:id',function(req,res){
       res.json(rows);
     });
   });
+
+  // Insert example 
+app.get('/insert',function(req,res){
+    var context = {};
+    mysql.pool.query("INSERT type_name FROM cs340_davicarr.Type WHERE id=?", [req.params.id],(err, rows,fields)=>{
+      if(err)
+      {
+        res.json(err);
+        console.log(err);
+        return;
+      }
+      console.log(rows);
+      res.json(rows);
+    });
+  });
+
