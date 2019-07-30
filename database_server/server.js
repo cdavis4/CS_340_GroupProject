@@ -11,7 +11,9 @@ app.set('port', 4032);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Add headers
+  /**
+   * ADD HEADERS
+   */
 app.use((req,res,next)=>  {
 
     // Website you wish to allow to connect
@@ -31,7 +33,11 @@ app.use((req,res,next)=>  {
     next();
 });
 
-// GET all characters from character table
+
+  /**
+   * GET ALL CHARACTER FROM CHARACTER TABLE
+
+   */
 app.listen(app.get('port'),() => console.log('Express started on port '));
 
 app.get('/characters',(req,res)=> {
@@ -48,8 +54,28 @@ app.get('/characters',(req,res)=> {
     })
 });
 
-// GET Type return name of type based on id selection
-app.get('/types/:id',function(req,res){
+ /**
+   * GET ID AND TYPE NAME FROM TYPE TABLE
+   * TO USE IN FILTER
+   */
+app.get('/types',(req,res)=> {
+    mysql.pool.query('SELECT id, type_name FROM cs340_davicarr.Type',(err,rows,result,fields)=>{
+        if(err)
+        {
+            res.json(err);
+            console.log(err);
+            return;
+        }
+        console.log(rows);
+        res.json(rows);
+        //context.results = JSON.stringify(rows);
+    })
+});
+
+
+// GET Type return name of type based on id selection 
+//WE REALLY DONT NEED THIS JUST KEPT FOR EXAMPLE
+app.get('/type/:id',function(req,res){
     var context = {};
     mysql.pool.query("SELECT id, type_name FROM cs340_davicarr.Type WHERE id=?", [req.params.id],(err, rows,fields)=>{
       if(err)
@@ -63,18 +89,6 @@ app.get('/types/:id',function(req,res){
     });
   });
 
-  // Insert example 
-app.get('/insert',function(req,res){
-    var context = {};
-    mysql.pool.query("INSERT type_name FROM cs340_davicarr.Type WHERE id=?", [req.params.id],(err, rows,fields)=>{
-      if(err)
-      {
-        res.json(err);
-        console.log(err);
-        return;
-      }
-      console.log(rows);
-      res.json(rows);
-    });
-  });
+
+
 
