@@ -38,20 +38,19 @@ app.use((req,res,next)=>  {
     // Pass to next layer of middleware
     next();
 });
-
-
-  /**
-   * GET ALL CHARACTER FROM CHARACTER TABLE
-
-   */
-//app.listen(app.get('port'),() => console.log('Express started on port '));
+/**
+   * STARTS UP SERVER ACCEPTING REQUESTS
+**/
 
 var server = app.listen(app.get('port'),() => {
     var port = server.address().port;
     console.log('Express started on port ' + port);
 });
 
+  /**
+   * GET ALL CHARACTER FROM CHARACTER TABLE
 
+   */
 app.get('/characters',(req,res)=> {
     mysql.pool.query('SELECT * FROM ' + database + '.Character',(err,rows,result,fields)=>{
         if(err)
