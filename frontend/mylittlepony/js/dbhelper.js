@@ -14,7 +14,7 @@ class DBHelper {
    * Change this to bettas.json file location on your server.
    */
   static get DATABASE_URL() {
-    const port = 4032;
+    const port = 4324;
     // Change this to your server port
       return `http://flip2.engr.oregonstate.edu:${port}/characters`;
       //return '/data/ponies.json';

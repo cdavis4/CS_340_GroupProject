@@ -5,9 +5,15 @@ var bodyParser = require('body-parser');
 var mysql = require('mysql');
 var mysql = require('./dbcon.js');
 
+ /**
+   * GLOBAL VARIABLE FOR DATABASE UPDATE DATABASE HERE
+   */
+ const database = 'cs340_davicarr';
+
 
 var app = express();
-app.set('port', 4032);
+//uses second argument to set port
+app.set('port', process.argv[2]);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -38,10 +44,16 @@ app.use((req,res,next)=>  {
    * GET ALL CHARACTER FROM CHARACTER TABLE
 
    */
-app.listen(app.get('port'),() => console.log('Express started on port '));
+//app.listen(app.get('port'),() => console.log('Express started on port '));
+
+var server = app.listen(app.get('port'),() => {
+    var port = server.address().port;
+    console.log('Express started on port ' + port);
+});
+
 
 app.get('/characters',(req,res)=> {
-    mysql.pool.query('SELECT * FROM cs340_davicarr.Character',(err,rows,result,fields)=>{
+    mysql.pool.query('SELECT * FROM ' + database + '.Character',(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -50,7 +62,6 @@ app.get('/characters',(req,res)=> {
         }
         console.log(rows);
         res.json(rows);
-        //context.results = JSON.stringify(rows);
     })
 });
 
@@ -59,7 +70,7 @@ app.get('/characters',(req,res)=> {
    * TO USE IN FILTER
    */
 app.get('/types',(req,res)=> {
-    mysql.pool.query('SELECT id, type_name FROM cs340_davicarr.Type',(err,rows,result,fields)=>{
+    mysql.pool.query('SELECT id, type_name FROM ' + database + '.Type',(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -68,7 +79,6 @@ app.get('/types',(req,res)=> {
         }
         console.log(rows);
         res.json(rows);
-        //context.results = JSON.stringify(rows);
     })
 });
 
@@ -77,7 +87,7 @@ app.get('/types',(req,res)=> {
 //WE REALLY DONT NEED THIS JUST KEPT FOR EXAMPLE
 app.get('/type/:id',function(req,res){
     var context = {};
-    mysql.pool.query("SELECT id, type_name FROM cs340_davicarr.Type WHERE id=?", [req.params.id],(err, rows,fields)=>{
+    mysql.pool.query('SELECT id, type_name FROM ' + database + '.Type WHERE id=?', [req.params.id],(err, rows,fields)=>{
       if(err)
       {
         res.json(err);
