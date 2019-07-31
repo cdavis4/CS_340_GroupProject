@@ -3,12 +3,19 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var mysql = require('mysql');
-var mysql = require('./dbcon.js');
+// var mysql = require('./dbcon.js');
+var pool = mysql.createPool({
+  connectionLimit : 10,  
+  host : 'classmysql.engr.oregonstate.edu',
+  user : 'cs340_turnesar',
+  password : '0038',
+  database : 'cs340_turnesar' 
+});
 
  /**
    * GLOBAL VARIABLE FOR DATABASE UPDATE DATABASE HERE
    */
- const D = 'cs340_davicarr.';
+ //const D = 'cs340_davicarr.';
 
 
 var app = express();
@@ -53,10 +60,8 @@ var server = app.listen(app.get('port'),() => {
    * SELECT QUERY
    */
 app.get('/character',(req,res)=> {
-    var char_sql = "SELECT "+D+"Character.name, "+D+"Type.type_name AS type, "+D+"Group.group_name AS group, "+D+"Character.gender, "
-    +D+"City.city_name AS city FROM "+D+"Character INNER JOIN "+D+"Type ON "+D+"Character.type_id = "+D+"Type.id INNER JOIN"
-    +D+"Group ON "+D+"Character.group_id = "+D+"Group.id INNER JOIN "+D+"City ON "+D+"Character.city_id = "+D+"City.id ORDER BY name";   
-    mysql.pool.query(char_sql,(err,rows,result,fields)=>{
+    var char_sql = "SELECT Character.name, Type.type_name, Group.group_name, Character.gender, City.city_name FROM `Character` INNER JOIN `Type` ON Character.type_id = Type.id INNER JOIN `Group` ON Character.group_id = Group.id INNER JOIN `City` ON Character.city_id = City.id";   
+    pool.query(char_sql,(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -73,7 +78,7 @@ app.get('/character',(req,res)=> {
    * TO USE IN FILTER - SELECT QUERY
    */
   app.get('/characterID',(req,res)=> {
-    mysql.pool.query('SELECT id, name FROM ' + D + 'Character',(err,rows,result,fields)=>{
+    pool.query('SELECT id, name FROM `Character`',(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -99,13 +104,13 @@ app.get('/character',(req,res)=> {
   
    
  /**JOB QUERIES**********************************
-   * GET ALL FROM JOB TABLE
+   * GET ALL FROM JOB TABLE THAT ARE TYPE EXCLUSIVE WITH TYPE
    *  SELECT QUERY 
    */
   app.get('/job',(req,res)=> {
-    var job_sql = "SELECT "+D+"Job.job_name AS Name, "+D+"Type.type_name AS Type FROM "
-    +D+"Job INNER JOIN "+D+"Type ON "+D+"Job.type_id = "+D+"Type.id ORDER BY name";
-    mysql.pool.query(job_sql ,(err,rows,result,fields)=>{
+    var job_sql = "SELECT Job.job_name, Type.type_name FROM `Job` INNER JOIN `Type` ON Job.type_id = Type.id ORDER BY job_name";
+    pool.query(job_sql ,(err,rows,result,fields)=>{
+    
         if(err)
         {
             res.json(err);
@@ -122,7 +127,7 @@ app.get('/character',(req,res)=> {
    * Use in Filter SELECT QUERY
    */
   app.get('/jobID',(req,res)=> {
-    mysql.pool.query('SELECT id, job_name FROM ' + D + 'Job',(err,rows,result,fields)=>{
+    pool.query('SELECT id, job_name FROM `Job`',(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -144,7 +149,7 @@ app.get('/character',(req,res)=> {
    * SELECT QUERY 
    */
   app.get('/type',(req,res)=> {
-    mysql.pool.query('SELECT * FROM ' + D + 'Type',(err,rows,result,fields)=>{
+    pool.query('SELECT * FROM `Type`',(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -161,7 +166,7 @@ app.get('/character',(req,res)=> {
    * SELECT QUERY
    */
 app.get('/typeID',(req,res)=> {
-    mysql.pool.query('SELECT id, type_name FROM ' + D + 'Type',(err,rows,result,fields)=>{
+    pool.query('SELECT id, type_name FROM `Type`',(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -182,7 +187,7 @@ app.get('/typeID',(req,res)=> {
    * SELECT QUERY 
    */
   app.get('/city',(req,res)=> {
-    mysql.pool.query('SELECT * FROM ' + D + 'City',(err,rows,result,fields)=>{
+    pool.query('SELECT * FROM `City`',(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -199,7 +204,7 @@ app.get('/typeID',(req,res)=> {
    * SELECT QUERY
    */
 app.get('/cityID',(req,res)=> {
-    mysql.pool.query('SELECT id, city_name FROM ' + D + 'City',(err,rows,result,fields)=>{
+    pool.query('SELECT id, city_name FROM `City`',(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -220,9 +225,8 @@ app.get('/cityID',(req,res)=> {
    * SELECT QUERY 
    */
   app.get('/group',(req,res)=> {
-    var group_sql = "SELECT "+D+"Group.group_name AS Name, "+D+"City.city_name AS City FROM "
-    +D+"Group INNER JOIN "+D+"City ON "+D+"Group.city_id = "+D+"City.id ORDER BY name";
-    mysql.pool.query(group_sql ,(err,rows,result,fields)=>{
+    var group_sql = "SELECT Group.group_name, City.city_name FROM `Group` INNER JOIN `City` ON Group.city_id = City.id";
+    pool.query(group_sql ,(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -239,7 +243,7 @@ app.get('/cityID',(req,res)=> {
    * SELECT QUERY
    */
   app.get('/groupID',(req,res)=> {
-    mysql.pool.query('SELECT id, group_name FROM ' + D + 'Group',(err,rows,result,fields)=>{
+    pool.query('SELECT id, group_name FROM `Group`',(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -262,10 +266,8 @@ app.get('/cityID',(req,res)=> {
   * SELECT QUERY
    */
   app.get('/character_job',(req,res)=> {
-    var ponywork_sql = "SELECT "+D+"Character.name AS Name, "+D+"Job.job_name AS Job FROM "
-    +D+"Character_Job INNER JOIN "+D+"Character ON "+D+"character.id = "+D+"Character_Job.character_id INNER JOIN "
-    +D+"Job ON "+D+"Character_Job.job_id =  "+D+"Job.id ORDER BY name";
-    mysql.pool.query(ponywork_sql ,(err,rows,result,fields)=>{
+    var ponywork_sql = "SELECT Character.name, Job.job_name FROM `Character_Job` INNER JOIN `Character` ON Character.id = Character_Job.character_id INNER JOIN `Job` ON Character_Job.job_id =  Job.id";
+    pool.query(ponywork_sql ,(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -285,7 +287,7 @@ app.get('/cityID',(req,res)=> {
 //WE REALLY DONT NEED THIS JUST KEPT FOR EXAMPLE
 app.get('/type/:id',function(req,res){
     var context = {};
-    mysql.pool.query('SELECT id, type_name FROM ' + D + 'Type WHERE id=?', [req.params.id],(err, rows,fields)=>{
+    pool.query('SELECT id, type_name FROM Type WHERE id=?', [req.params.id],(err, rows,fields)=>{
       if(err)
       {
         res.json(err);
