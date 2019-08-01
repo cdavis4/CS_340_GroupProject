@@ -1,5 +1,5 @@
 
-
+"use strict";
 var express = require('express');
 var bodyParser = require('body-parser');
 var mysql = require('mysql');
@@ -60,7 +60,7 @@ var server = app.listen(app.get('port'),() => {
    * SELECT QUERY
    */
 app.get('/character',(req,res)=> {
-    var char_sql = "SELECT Character.name, Type.type_name, Group.group_name, Character.gender, City.city_name FROM `Character` INNER JOIN `Type` ON Character.type_id = Type.id INNER JOIN `Group` ON Character.group_id = Group.id INNER JOIN `City` ON Character.city_id = City.id";   
+    var char_sql = "SELECT Character.name, Type.type_name, Group.group_name, Character.gender, City.city_name FROM `Character` LEFT JOIN `Type` ON Character.type_id = Type.id LEFT JOIN `Group` ON Character.group_id = Group.id LEFT JOIN `City` ON Character.city_id = City.id";   
     pool.query(char_sql,(err,rows,result,fields)=>{
         if(err)
         {
@@ -92,23 +92,66 @@ app.get('/character',(req,res)=> {
 
  /**
    * PLACEHOLDER FOR INSERT CHARACTER 
+   * all updates are showing as undefined in postman
  */
+  app.post('/character',(req,res)=>{
+    var insertchar ="INSERT INTO `Character` (`name`, `type_id`, `group_id`, `gender`, `city_id`) VALUES ('" + req.body.name+"','" + req.body.type_id +"','" + req.body.group_id + "','" +req.body.gender +"','" + req.body.city_id + "')";
+    pool.query(insertchar,(err,rows,result,fields)=>{
+        if(err)
+        {
+            res.json(err);
+            console.log(err);
+            return;
+        }
+        console.log(rows);
+        res.json(rows);
+    })
+});
+
 
  /**
    * PLACEHOLDER FOR UPDATE CHARACTER
+   * all updates are showing as undefined in postman
    */
+  app.put('/character',(req,res)=>{
+    var updatedChar = [req.body.name, req.body.type_id, req.body.group_id, req.body.gender, req.body.city_id, req.body.id];
+    var updatesql = "UPDATE `Character` SET `name`=?, `type_id`=?,`group_id`=?,`gender`=?,`city_id`=? WHERE `id`=?";
+    pool.query(updatesql,updatedChar,(err,rows,result,fields)=>{
+        if(err)
+        {
+            res.json(err);
+            console.log(err);
+            return;
+        }
+        console.log(rows);
+        res.json(rows);
+    })
+});
 
    /**
-   * PLACEHOLDER FOR DELETE CHARACTER
+   * DELETE CHARACTER
+   * this works  
    */
+  app.delete('/characterID',(req,res)=>{
+    pool.query('DELETE FROM `Character` WHERE  id=?',[req.params.id],(err,rows,result,fields)=>{
+        if(err)
+        {
+            res.json(err);
+            console.log(err);
+            return;
+        }
+        console.log('deleted successfully');
+        res.json(rows);
+   })
+});
   
    
- /**JOB QUERIES**********************************
+ /**JOB QUERIES*************************s*********
    * GET ALL FROM JOB TABLE THAT ARE TYPE EXCLUSIVE WITH TYPE
    *  SELECT QUERY 
    */
   app.get('/job',(req,res)=> {
-    var job_sql = "SELECT Job.job_name, Type.type_name FROM `Job` INNER JOIN `Type` ON Job.type_id = Type.id ORDER BY job_name";
+    var job_sql = "SELECT Job.job_name, Type.type_name FROM `Job` LEFT JOIN `Type` ON Job.type_id = Type.id ORDER BY job_name";
     pool.query(job_sql ,(err,rows,result,fields)=>{
     
         if(err)
@@ -143,6 +186,19 @@ app.get('/character',(req,res)=> {
   * PLACEHOLDER INSERT JOB 
    */
 
+  app.post('/job',(req,res)=>{
+    var insertjob ="INSERT INTO `Job` (`job_name`, `type_exclusive`, `type_id`) VALUES ('" + req.body.job_name+"','" + req.body.type_exclusive +"','" + req.body.type_id + "')";
+    pool.query(insertjob,(err,rows,result,fields)=>{
+        if(err)
+        {
+            res.json(err);
+            console.log(err);
+            return;
+        }
+        console.log(rows);
+        res.json(rows);
+    })
+});
 
  /**TYPE QUERIES******************************
    * GET FULL TYPE TABLE
@@ -158,6 +214,7 @@ app.get('/character',(req,res)=> {
         }
         console.log(rows);
         res.json(rows);
+
     })
 });
     
@@ -181,6 +238,20 @@ app.get('/typeID',(req,res)=> {
  /**
    * PLACEHOLDER INSERT TYPES 
    */
+
+  app.post('/type',(req,res)=>{
+    var inserttype ="INSERT INTO `Type` (`type_name`, `flight`, `magic`, `equestrian`) VALUES ('" + req.body.type_name+"','" + req.body.flight +"','" + req.body.magic + "', '" + req.body.equestrian +"')";
+    pool.query(inserttype,(err,rows,result,fields)=>{
+        if(err)
+        {
+            res.json(err);
+            console.log(err);
+            return;
+        }
+        console.log(rows);
+        res.json(rows);
+    })
+});
 
  /**CITY QUERIES******************************
    * GET FULL CITY TABLE
@@ -219,13 +290,26 @@ app.get('/cityID',(req,res)=> {
  /**
    * PLACEHOLDER INSERT CITY 
    */
+  app.post('/city',(req,res)=>{
+    var insertcity ="INSERT INTO `City` (`city_name`, `characteristics`) VALUES ('" + req.body.city_name+"','" + req.body.characteristics +"')";
+    pool.query(insertcity,(err,rows,result,fields)=>{
+        if(err)
+        {
+            res.json(err);
+            console.log(err);
+            return;
+        }
+        console.log(rows);
+        res.json(rows);
+    })
+});
 
 /**GROUP QUERIES**********************************
    * GET ALL FROM GROUP TABLE
    * SELECT QUERY 
    */
   app.get('/group',(req,res)=> {
-    var group_sql = "SELECT Group.group_name, City.city_name FROM `Group` INNER JOIN `City` ON Group.city_id = City.id";
+    var group_sql = "SELECT Group.group_name, City.city_name FROM `Group` LEFT JOIN `City` ON Group.city_id = City.id";
     pool.query(group_sql ,(err,rows,result,fields)=>{
         if(err)
         {
@@ -258,6 +342,19 @@ app.get('/cityID',(req,res)=> {
  /**
   * PLACEHOLDER INSERT Group 
    */
+  app.post('/group',(req,res)=>{
+    var insertgroup ="INSERT INTO `Group` (`group_name`, `city_id`) VALUES ('" + req.body.group_name+"','" + req.body.city_id +"')";
+    pool.query(insertgroup,(err,rows,result,fields)=>{
+        if(err)
+        {
+            res.json(err);
+            console.log(err);
+            return;
+        }
+        console.log(rows);
+        res.json(rows);
+    })
+});
 
 /*END OF ENTITY TABLES, NOW RELATIONSHIPS*/
 
@@ -280,8 +377,33 @@ app.get('/cityID',(req,res)=> {
 });
 
 /***** PLACEHOLDER FOR CREATE RELATIONSHIP/INSERT */
+  app.post('/character_job',(req,res)=>{
+    var insertrel="INSERT INTO `Character_Job` (`character_id`, `job_id`) VALUES ('" + req.body.character_id +"','" + req.body.job_id +"')";
+    pool.query(insertrel,(err,rows,result,fields)=>{
+        if(err)
+        {
+            res.json(err);
+            console.log(err);
+            return;
+        }
+        console.log(rows);
+        res.json(rows);
+    })
+});
 
 /***** PLACEHOLDER FOR DELETE RELATIONSHIP */
+  app.delete('/character_job',(req,res)=>{
+    pool.query('DELETE FROM `Character_Job` WHERE  character_id=? AND job_id = ?',[req.params.cid, req.params.jid],(err,rows,result,fields)=>{
+        if(err)
+        {
+            res.json(err);
+            console.log(err);
+            return;
+        }
+        console.log("deleted successfully");
+        res.json(rows);
+   })
+});
 
 // GET Type return name of type based on id selection 
 //WE REALLY DONT NEED THIS JUST KEPT FOR EXAMPLE
