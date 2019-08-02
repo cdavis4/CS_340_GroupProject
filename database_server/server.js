@@ -1,9 +1,8 @@
-
 "use strict";
 var express = require('express');
 var bodyParser = require('body-parser');
 var mysql = require('mysql');
-// var mysql = require('./dbcon.js');
+//set up our pool here 
 var pool = mysql.createPool({
   connectionLimit : 10,  
   host : 'classmysql.engr.oregonstate.edu',
@@ -12,10 +11,6 @@ var pool = mysql.createPool({
   database : 'cs340_turnesar' 
 });
 
- /**
-   * GLOBAL VARIABLE FOR DATABASE UPDATE DATABASE HERE
-   */
- //const D = 'cs340_davicarr.';
 
 
 var app = express();
@@ -91,8 +86,8 @@ app.get('/character',(req,res)=> {
 });
 
  /**
-   * PLACEHOLDER FOR INSERT CHARACTER 
-   * all updates are showing as undefined in postman
+   *INSERT CHARACTER 
+   * 
  */
   app.post('/character',(req,res)=>{
     var insertchar ="INSERT INTO `Character` (`name`, `type_id`, `group_id`, `gender`, `city_id`) VALUES ('" + req.body.name+"','" + req.body.type_id +"','" + req.body.group_id + "','" +req.body.gender +"','" + req.body.city_id + "')";
@@ -110,8 +105,8 @@ app.get('/character',(req,res)=> {
 
 
  /**
-   * PLACEHOLDER FOR UPDATE CHARACTER
-   * all updates are showing as undefined in postman
+   * UPDATE CHARACTER
+   * 
    */
   app.put('/character',(req,res)=>{
     var updatedChar = [req.body.name, req.body.type_id, req.body.group_id, req.body.gender, req.body.city_id, req.body.id];
@@ -130,10 +125,10 @@ app.get('/character',(req,res)=> {
 
    /**
    * DELETE CHARACTER
-   * this works  
+   *   
    */
   app.delete('/characterID',(req,res)=>{
-    pool.query('DELETE FROM `Character` WHERE  id=?',[req.params.id],(err,rows,result,fields)=>{
+    pool.query('DELETE FROM `Character` WHERE  id=?',[req.body.id],(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -147,7 +142,7 @@ app.get('/character',(req,res)=> {
   
    
  /**JOB QUERIES*************************s*********
-   * GET ALL FROM JOB TABLE THAT ARE TYPE EXCLUSIVE WITH TYPE
+   * GET ALL FROM JOB TABLE 
    *  SELECT QUERY 
    */
   app.get('/job',(req,res)=> {
@@ -183,7 +178,7 @@ app.get('/character',(req,res)=> {
 });
 
  /**
-  * PLACEHOLDER INSERT JOB 
+  *  INSERT JOB 
    */
 
   app.post('/job',(req,res)=>{
@@ -236,7 +231,7 @@ app.get('/typeID',(req,res)=> {
 });
 
  /**
-   * PLACEHOLDER INSERT TYPES 
+   *INSERT TYPES 
    */
 
   app.post('/type',(req,res)=>{
@@ -288,7 +283,7 @@ app.get('/cityID',(req,res)=> {
 });
 
  /**
-   * PLACEHOLDER INSERT CITY 
+   * INSERT CITY 
    */
   app.post('/city',(req,res)=>{
     var insertcity ="INSERT INTO `City` (`city_name`, `characteristics`) VALUES ('" + req.body.city_name+"','" + req.body.characteristics +"')";
@@ -340,7 +335,7 @@ app.get('/cityID',(req,res)=> {
 });
 
  /**
-  * PLACEHOLDER INSERT Group 
+  * INSERT Group 
    */
   app.post('/group',(req,res)=>{
     var insertgroup ="INSERT INTO `Group` (`group_name`, `city_id`) VALUES ('" + req.body.group_name+"','" + req.body.city_id +"')";
@@ -376,7 +371,27 @@ app.get('/cityID',(req,res)=> {
     })
 });
 
-/***** PLACEHOLDER FOR CREATE RELATIONSHIP/INSERT */
+/*
+ * *SELECT IDs only for Character_Job Table 
+ * */
+
+  app.get('/character_jobID',(req,res)=> {
+    var workid_sql = "SELECT * FROM `Character_Job`";
+    pool.query(workid_sql ,(err,rows,result,fields)=>{
+        if(err)
+        {
+            res.json(err);
+            console.log(err);
+            return;
+        }
+        console.log(rows);
+        res.json(rows);
+    })
+});
+
+/**
+ * ***CREATE RELATIONSHIP/INSERT 
+ * */
   app.post('/character_job',(req,res)=>{
     var insertrel="INSERT INTO `Character_Job` (`character_id`, `job_id`) VALUES ('" + req.body.character_id +"','" + req.body.job_id +"')";
     pool.query(insertrel,(err,rows,result,fields)=>{
@@ -391,9 +406,11 @@ app.get('/cityID',(req,res)=> {
     })
 });
 
-/***** PLACEHOLDER FOR DELETE RELATIONSHIP */
-  app.delete('/character_job',(req,res)=>{
-    pool.query('DELETE FROM `Character_Job` WHERE  character_id=? AND job_id = ?',[req.params.cid, req.params.jid],(err,rows,result,fields)=>{
+/**
+ * ***DELETE RELATIONSHIP 
+ * */
+  app.delete('/character_jobID',(req,res)=>{
+    pool.query('DELETE FROM `Character_Job` WHERE  character_id=? AND job_id = ?',[req.body.character_id, req.body.job_id],(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -404,23 +421,4 @@ app.get('/cityID',(req,res)=> {
         res.json(rows);
    })
 });
-
-// GET Type return name of type based on id selection 
-//WE REALLY DONT NEED THIS JUST KEPT FOR EXAMPLE
-app.get('/type/:id',function(req,res){
-    var context = {};
-    pool.query('SELECT id, type_name FROM Type WHERE id=?', [req.params.id],(err, rows,fields)=>{
-      if(err)
-      {
-        res.json(err);
-        console.log(err);
-        return;
-      }
-      console.log(rows);
-      res.json(rows);
-    });
-  });
-
-
-
 
