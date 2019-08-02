@@ -167,7 +167,8 @@ app.get('/character',(req,res)=> {
 
  /**
    * GET name/id JOB TABLE
-   * Use in Filter SELECT QUERY
+   * Use in Forms for getting job id 
+   * and displaying job name in drop down
    */
   app.get('/jobID',(req,res)=> {
     pool.query('SELECT id, job_name FROM `Job`',(err,rows,result,fields)=>{
