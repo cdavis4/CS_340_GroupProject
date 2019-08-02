@@ -103,7 +103,6 @@ class DBHelper {
       if (xhr.status === 200) { // Got a success response from server!
         const json = JSON.parse(xhr.responseText);
         const groups = json;
-        console.log(groups);
         callback(null, groups);
       } else { // Oops!. Got an error from server.
         const error = (`Request failed. Returned status of ${xhr.status}`);
@@ -205,7 +204,7 @@ class DBHelper {
   }
 
   /**
-   * Fetch bettas by a color with proper error handling.
+   * Fetch ponies by type with proper error handling.
    */
   static fetchPonyByType(type, callback) {
     // Fetch all bettas
@@ -222,8 +221,8 @@ class DBHelper {
   /**
    * Fetch pony by a type and a group with proper error handling.
    */
-  static fetchPonyByTypeAndGroup(type, group, callback) {
-    // Fetch all bettas
+  static filterPonyByTypeAndGroup(type, group, callback) {
+    // Fetch all ponies
     DBHelper.fetchPonies((error, ponies) => {
       if (error) {
         callback(error, null);
@@ -240,6 +239,7 @@ class DBHelper {
     });
   }
 
+
   /**
    * Fetch all groups with proper error handling.
    */
@@ -250,7 +250,7 @@ class DBHelper {
         callback(error, null);
       } else {
         // Get all groups from all bettas
-        const groups = ponies.map((v, i) => ponies[i].group_id)
+        const groups = ponies.map((v, i) => ponies[i].group_name)
         // Remove duplicates from groups
         const uniqueGroups= groups.filter((v, i) => groups.indexOf(v) == i)
         console.log(uniqueGroups);
@@ -269,7 +269,7 @@ class DBHelper {
         callback(error, null);
       } else {
         // Get all tyoes from all ponies
-        const types = ponies.map((v, i) => ponies[i].type_id)
+        const types = ponies.map((v, i) => ponies[i].type_name)
         // Remove duplicates from types
         const uniqueTypes = types.filter((v, i) => types.indexOf(v) == i)
         callback(null, uniqueTypes);

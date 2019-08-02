@@ -11,7 +11,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
   initPage(); // added 
   fetchGroupFilter();
   fetchTypeFilter();
+  
 });
+
 
 /**
  * Fetch all groups and set their HTML.
@@ -69,7 +71,7 @@ fillTypeHTML = (types= self.types) => {
 }
 
 /**
- * Initialize update for bettas data
+ * Initialize update for ponies data
  */
 initPage = () => {
 
@@ -78,7 +80,7 @@ initPage = () => {
 }
 
 /**
- * Update page and map for current bettas.
+ * Update page and map for current ponies.
  */
 updatePonies = () => {
   const cSelect = document.getElementById('type-select');
@@ -90,7 +92,7 @@ updatePonies = () => {
   const type = cSelect[cIndex].value;
   const group = nSelect[nIndex].value;
 
-  DBHelper.fetchPonyByTypeAndGroup(type, group, (error, ponies) => {
+  DBHelper.filterPonyByTypeAndGroup(type, group, (error, ponies) => {
     if (error) { // Got an error!
       console.error(error);
     } else {
@@ -101,13 +103,13 @@ updatePonies = () => {
 }
 
 /**
- * Clear current bettas, their HTML and remove their map markers.
+ * Clear current ponies, their HTML and remove their map markers.
  */
 /**
- * Clear current bettas, their HTML and remove their map markers.
+ * Clear current ponies, their HTML and remove their map markers.
  */
 resetPonies = (ponies) => {
-  // Remove all bettas
+  // Remove all ponies
   
   self.ponies = [];
   const ul = document.getElementById('pony-list');
@@ -205,7 +207,7 @@ createPonyHTML = (pony) => {
 /**
  * Contact Modal
  */
-createContactModal = (pony) =>{
+createContactModal = () =>{
   const main = document.getElementById('maincontent');
   const div = document.createElement('div');
   div.setAttribute("id", "myModal");
@@ -218,9 +220,8 @@ createContactModal = (pony) =>{
   span.setAttribute("class", "close");
   span.innerHTML = "&times";
   divContent.appendChild(span);
-  
   divContent.appendChild(createForm());
-
+ 
   // Get the modal button, close button and modal
   const modal = document.getElementById("myModal");
   const closeBtn = document.getElementsByClassName("close")[0];
@@ -244,6 +245,7 @@ createContactModal = (pony) =>{
  */
 
 createForm = () => {
+
   const form = document.createElement('form');
   form.setAttribute("id", "contact_form");
   const h3 = document.createElement('h3');
@@ -264,32 +266,70 @@ createForm = () => {
 
 
 
-  //create submit button
-  const div_button = document.createElement('div');
-  const input_button = document.createElement('button');
-  input_button.setAttribute("onclick","DBHelper.postContact()");
-  input_button.setAttribute("id","submit_button");
-  input_button.innerHTML ="Submit";
-  div_button.appendChild(input_button);
-
   //add to form
-  let jobs = ["Pilot", "Fashion Designer", "Flight Instructor", "Plumber"];
-  let groups = ["None", "Other", "Applebottoms", "Mane Six"];
-  let types = ["Pegasus", "Earth Pony", "Unicorn"];
+  //let jobs = ["Pilot", "Fashion Designer", "Flight Instructor", "Plumber"];
+ 
   form.appendChild(div);
   form.appendChild(createRadioBox("Female","customRadioInline1","option1"));
   form.appendChild(createRadioBox("Male","customRadioInline2","option2"));
   form.appendChild( createRadioBox("Non-Binary","customRadioInline3","option3"));
-  form.appendChild(createComboBox("Select Group", groups));
-  form.appendChild(createComboBox("Select Type", types));
-  form.appendChild(createMultiComboBox("Select Character's Jobs", jobs));
-  
-  form.appendChild(div_button);
+ 
+  //form.appendChild(createComboBox("Select Type", types));
   //form.appendChild(div_type);
- // form.appendChild(div_job);
- // form.appendChild(div_city);
-  //form.setAttribute("action",DBHelper.sendContactInfo());
-  //form.setAttribute("method", "post");
+  //form.appendChild(div_job);
+  //form.appendChild(div_city);
+  //form.appendChild(createMultiComboBox("Select Character's Jobs", jobs));
+   /**
+  * Fetch all groups and set their HTML. fetchData(dataName,databaseFunction,callback)
+  */
+  
+  DBHelper.fetchGroups((error, groups) => {
+  if (error)
+   { // Got an error
+    console.error(error);
+  } else {
+    self.groups = groups;
+    let groupslist = groups.map((v, i) => groups[i].group_name)
+    form.appendChild(createComboBox("Select Group", groupslist));
+  }
+  });
+  DBHelper.fetchTypes((error, types) => {
+    if (error)
+     { // Got an error
+      console.error(error);
+    } else {
+      self.types = types;
+      let typeslist = types.map((v, i) => types[i].type_name)
+      form.appendChild(createComboBox("Select Type", typeslist));
+    }
+    });
+
+    DBHelper.fetchCities((error, cities) => {
+      if (error)
+       { // Got an error
+        console.error(error);
+      } else {
+        self.cities = cities;
+        let citieslist = cities.map((v, i) => cities[i].city_name)
+        form.appendChild(createComboBox("Select City", citieslist));
+
+    //create submit button here because making requests to database server
+    /// is slow and this will wait until the above request is done before placing
+    /// in html
+    const div_button = document.createElement('div');
+    const input_button = document.createElement('button');
+    input_button.setAttribute("onclick","DBHelper.postContact()");
+    input_button.setAttribute("id","submit_button");
+    input_button.innerHTML ="Submit";
+    div_button.appendChild(input_button);
+    form.appendChild(div_button);
+      }
+      });
+
+    
+  
+    //form.setAttribute("action",DBHelper.sendContactInfo());
+    //form.setAttribute("method", "post");
   return form;
 }
 //create radio boxes and input label and unique id for  box
