@@ -46,14 +46,14 @@ fillGroupsHTML = (groups = self.groups) => {
   //const groupname = document.createElement('h2');
   //groupname.innerHTML = "Name: ";
   const name = document.createElement("p");
-  name.innerHTML = group.name;
+  name.innerHTML = group.group_name;
   //li.append(groupname)
  li.append(name);
  
   //const city = document.createElement('h2');
  // city.innerHTML = "City: ";
   const city_value = document.createElement("p");
-  city_value.innerHTML = "<b> City: </b> "+ group.city_id;
+  city_value.innerHTML = "<b> City: </b> "+ group.city_name;
   //li.append(city);
   li.append(city_value);
   });

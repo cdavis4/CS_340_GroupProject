@@ -45,7 +45,7 @@ fillCitiesHTML = (cities = self.cities) => {
   //ul.appendChild(createCityHTML(city));
   //name
   const cityname = document.createElement('h3');
-  cityname.innerHTML = city.name;
+  cityname.innerHTML = city.city_name;
  li.append(cityname);
  
   const desc = document.createElement('p');

@@ -25,9 +25,9 @@ class DBHelper {
    * Change this to bettas.json file location on your server.
    */
   static get CITIES_DATABASE_URL() {
-    const port = 4500;
+    const port = 5432;
     // Change this to your server port
-    return 'data/cities.json';
+      return `http://flip2.engr.oregonstate.edu:${port}/city`;
     //  return `http://localhost:${port}/data/cities.json`;
   }
 
@@ -36,9 +36,9 @@ class DBHelper {
    * Change this to bettas.json file location on your server.
    */
   static get TYPES_DATABASE_URL() {
-    const port =  4500;
+    const port = 5432;
     // Change this to your server port
-    return 'data/types.json';
+      return `http://flip2.engr.oregonstate.edu:${port}/type`;
     //  return `http://localhost:${port}/data/cities.json`;
   }
     /**
@@ -46,9 +46,9 @@ class DBHelper {
    * Change this to bettas.json file location on your server.
    */
   static get JOBS_DATABASE_URL() {
-    const port =  4500;
+    const port = 5432;
     // Change this to your server port
-    return 'data/jobs.json';
+      return `http://flip2.engr.oregonstate.edu:${port}/job`;
     //  return `http://localhost:${port}/data/cities.json`;
   }
     /**
@@ -56,9 +56,9 @@ class DBHelper {
    * Change this to bettas.json file location on your server.
    */
   static get GROUPS_DATABASE_URL() {
-    const port =  4500;
+    const port = 5432;
     // Change this to your server port
-    return 'data/groups.json';
+      return `http://flip2.engr.oregonstate.edu:${port}/group`;
     //  return `http://localhost:${port}/data/cities.json`;
   }
 
@@ -85,7 +85,7 @@ class DBHelper {
     xhr.onload = () => {
       if (xhr.status === 200) { // Got a success response from server!
         const json = JSON.parse(xhr.responseText);
-        const cities = json.cities;
+        const cities = json;
         console.log(cities);
         callback(null, cities);
       } else { // Oops!. Got an error from server.
@@ -102,7 +102,7 @@ class DBHelper {
     xhr.onload = () => {
       if (xhr.status === 200) { // Got a success response from server!
         const json = JSON.parse(xhr.responseText);
-        const groups = json.groups;
+        const groups = json;
         console.log(groups);
         callback(null, groups);
       } else { // Oops!. Got an error from server.
@@ -119,7 +119,7 @@ class DBHelper {
       xhr.onload = () => {
         if (xhr.status === 200) { // Got a success response from server!
           const json = JSON.parse(xhr.responseText);
-          const types = json.types;
+          const types = json;
           console.log(types);
           callback(null, types);
         } else { // Oops!. Got an error from server.
@@ -136,7 +136,7 @@ class DBHelper {
           xhr.onload = () => {
             if (xhr.status === 200) { // Got a success response from server!
               const json = JSON.parse(xhr.responseText);
-              const jobs = json.jobs;
+              const jobs = json;
               console.log(jobs);
               callback(null, jobs);
             } else { // Oops!. Got an error from server.
