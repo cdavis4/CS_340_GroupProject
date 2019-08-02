@@ -15,10 +15,10 @@ DROP TABLE IF EXISTS `cs340_turnesar`.`Character_Job`;
 
 CREATE TABLE `Type`(
 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-type_name VARCHAR(25) NOT NULL,
-flight BIT,
-magic BIT,
-equestrian BIT
+type_name VARCHAR(25) NOT NULL DEFAULT 'Unknown',
+flight BOOLEAN,
+magic BOOLEAN,
+equestrian BOOLEAN
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `City`(
@@ -45,14 +45,13 @@ FOREIGN KEY (`city_id`) REFERENCES `City` (`id`) ON DELETE SET NULL ON UPDATE CA
 CREATE TABLE `Character`(
 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 name VARCHAR(100) NOT NULL,
-type_id INT NOT NULL,
+type_id INT,
 group_id INT,
 gender ENUM('M','F','O') NOT NULL,
-city_id INT NOT NULL,
-photo_id INT AUTO_INCREMENT,
-FOREIGN KEY (`type_id`) REFERENCES `Type` (`id`)  ON DELETE RESTRICT ON UPDATE CASCADE,
+city_id INT,
+FOREIGN KEY (`type_id`) REFERENCES `Type` (`id`)  ON DELETE SET NULL ON UPDATE CASCADE,
 FOREIGN KEY (`group_id`) REFERENCES `Group` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-FOREIGN KEY (`city_id`) REFERENCES `City` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
+FOREIGN KEY (`city_id`) REFERENCES `City` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `Character_Job`(
@@ -112,13 +111,16 @@ VALUE ('Method Mares', (SELECT id FROM `City` WHERE city_name = 'Manehattan'));
 
 -- Character Tests
 INSERT INTO `Character` (name, type_id, group_id, gender, city_id)
-VALUES ('Applejack', (SELECT id FROM `Type` WHERE type_name = 'Earth Pony'), (SELECT id FROM `Group` WHERE group_name = 'Mane Six'), 'F', (SELECT id FROM `City` WHERE city_name = 'Ponyville'),1);
+VALUES ('Applejack', (SELECT id FROM `Type` WHERE type_name = 'Earth Pony'), 
+(SELECT id FROM `Group` WHERE group_name = 'Mane Six'), 'F', (SELECT id FROM `City` WHERE city_name = 'Ponyville'));
 
 INSERT INTO `Character` (name, type_id, group_id, gender, city_id)
-VALUES ('Twilight Sparkle', (SELECT id FROM `Type` WHERE type_name = 'Unicorn'), (SELECT id FROM `Group` WHERE group_name = 'Mane Six'), 'F', (SELECT id FROM `City` WHERE city_name = 'Canterlot'), 2);
+VALUES ('Twilight Sparkle', (SELECT id FROM `Type` WHERE type_name = 'Unicorn'), 
+(SELECT id FROM `Group` WHERE group_name = 'Mane Six'), 'F', (SELECT id FROM `City` WHERE city_name = 'Canterlot'));
 
 INSERT INTO `Character` (name, type_id, group_id, gender, city_id)
-VALUES ('Rainbow Dash', (SELECT id FROM `Type` WHERE type_name = 'Pegasus'), (SELECT id FROM `Group` WHERE group_name = 'Mane Six'), 'F', (SELECT id FROM `City` WHERE city_name = 'Cloudsdale'), 3);
+VALUES ('Rainbow Dash', (SELECT id FROM `Type` WHERE type_name = 'Pegasus'), (SELECT id FROM `Group` WHERE group_name = 'Mane Six'), 'F', 
+(SELECT id FROM `City` WHERE city_name = 'Cloudsdale'));
 
 
 -- Character Job tests
