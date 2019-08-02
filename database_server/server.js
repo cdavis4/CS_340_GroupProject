@@ -310,7 +310,7 @@ app.get('/cityID',(req,res)=> {
    * SELECT QUERY 
    */
   app.get('/group',(req,res)=> {
-    var group_sql = "SELECT Group.group_name, City.city_name FROM `Group` LEFT JOIN `City` ON Group.city_id = City.id";
+    var group_sql = "SELECT Group.id, Group.group_name, City.city_name FROM `Group` LEFT JOIN `City` ON Group.city_id = City.id";
     pool.query(group_sql ,(err,rows,result,fields)=>{
         if(err)
         {
