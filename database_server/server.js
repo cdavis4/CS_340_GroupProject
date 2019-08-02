@@ -60,7 +60,7 @@ var server = app.listen(app.get('port'),() => {
    * SELECT QUERY
    */
 app.get('/character',(req,res)=> {
-    var char_sql = "SELECT Character.name, Type.type_name, Group.group_name, Character.gender, City.city_name FROM `Character` LEFT JOIN `Type` ON Character.type_id = Type.id LEFT JOIN `Group` ON Character.group_id = Group.id LEFT JOIN `City` ON Character.city_id = City.id";   
+    var char_sql = "SELECT Character.id, Character.name, Type.type_name, Group.group_name, Character.gender, City.city_name FROM `Character` LEFT JOIN `Type` ON Character.type_id = Type.id LEFT JOIN `Group` ON Character.group_id = Group.id LEFT JOIN `City` ON Character.city_id = City.id";   
     pool.query(char_sql,(err,rows,result,fields)=>{
         if(err)
         {
@@ -151,7 +151,7 @@ app.get('/character',(req,res)=> {
    *  SELECT QUERY 
    */
   app.get('/job',(req,res)=> {
-    var job_sql = "SELECT Job.job_name, Type.type_name FROM `Job` LEFT JOIN `Type` ON Job.type_id = Type.id ORDER BY job_name";
+    var job_sql = "SELECT Job.id, Job.job_name, Type.type_name FROM `Job` LEFT JOIN `Type` ON Job.type_id = Type.id ORDER BY job_name";
     pool.query(job_sql ,(err,rows,result,fields)=>{
     
         if(err)
@@ -364,7 +364,7 @@ app.get('/cityID',(req,res)=> {
   * SELECT QUERY
    */
   app.get('/character_job',(req,res)=> {
-    var ponywork_sql = "SELECT Character.name, Job.job_name FROM `Character_Job` INNER JOIN `Character` ON Character.id = Character_Job.character_id INNER JOIN `Job` ON Character_Job.job_id =  Job.id";
+    var ponywork_sql = "SELECT Character.id, Character.name, Job.id, Job.job_name FROM `Character_Job` INNER JOIN `Character` ON Character.id = Character_Job.character_id INNER JOIN `Job` ON Character_Job.job_id =  Job.id";
     pool.query(ponywork_sql ,(err,rows,result,fields)=>{
         if(err)
         {
