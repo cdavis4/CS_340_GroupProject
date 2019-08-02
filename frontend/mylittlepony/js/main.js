@@ -108,7 +108,7 @@ updatePonies = () => {
  */
 resetPonies = (ponies) => {
   // Remove all bettas
-  console.log(ponies);
+  
   self.ponies = [];
   const ul = document.getElementById('pony-list');
   
@@ -163,16 +163,12 @@ createPonyHTML = (pony) => {
   li.append(gender);
 
   const type = document.createElement('p');
-  type.innerHTML = "Type/Species: "+pony.type_id;
+  type.innerHTML = "Type/Species: "+pony.type_name;
   li.append(type);
 
   const group = document.createElement('p');
-  group.innerHTML = "Group: "+pony.group_id;
+  group.innerHTML = "Group: "+pony.group_name;
   li.append(group);
-
-  const job = document.createElement('p');
-  job.innerHTML = "Job: "+pony.job;
-  li.append(job);
 
   const more = document.createElement('button');
   more.innerHTML = 'Update Character';

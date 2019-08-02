@@ -14,9 +14,9 @@ class DBHelper {
    * Change this to bettas.json file location on your server.
    */
   static get DATABASE_URL() {
-    const port = 4324;
+    const port = 5432;
     // Change this to your server port
-      return `http://flip2.engr.oregonstate.edu:${port}/characters`;
+      return `http://flip2.engr.oregonstate.edu:${port}/character`;
       //return '/data/ponies.json';
   }
 
@@ -25,7 +25,7 @@ class DBHelper {
    * Change this to bettas.json file location on your server.
    */
   static get CITIES_DATABASE_URL() {
-    const port = 6322;
+    const port = 4500;
     // Change this to your server port
     return 'data/cities.json';
     //  return `http://localhost:${port}/data/cities.json`;
@@ -36,7 +36,7 @@ class DBHelper {
    * Change this to bettas.json file location on your server.
    */
   static get TYPES_DATABASE_URL() {
-    const port = 6322;
+    const port =  4500;
     // Change this to your server port
     return 'data/types.json';
     //  return `http://localhost:${port}/data/cities.json`;
@@ -46,7 +46,7 @@ class DBHelper {
    * Change this to bettas.json file location on your server.
    */
   static get JOBS_DATABASE_URL() {
-    const port = 6322;
+    const port =  4500;
     // Change this to your server port
     return 'data/jobs.json';
     //  return `http://localhost:${port}/data/cities.json`;
@@ -56,7 +56,7 @@ class DBHelper {
    * Change this to bettas.json file location on your server.
    */
   static get GROUPS_DATABASE_URL() {
-    const port = 6322;
+    const port =  4500;
     // Change this to your server port
     return 'data/groups.json';
     //  return `http://localhost:${port}/data/cities.json`;
