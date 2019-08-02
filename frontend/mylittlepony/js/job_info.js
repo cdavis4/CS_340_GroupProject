@@ -45,18 +45,28 @@ fillJobsHTML = (jobs = self.jobs) => {
   //ul.appendChild(createCityHTML(city));
   //name
   const jobname = document.createElement('h3');
-  jobname.innerHTML = job.job;
+  jobname.innerHTML = job.job_name;
  li.append(jobname);
  
-  const type_x = document.createElement('p');
-  type_x.innerHTML = "Type/Species Exclusive? "+job.type_exclusive;
-  li.append(type_x);
+
+  
 
   const type = document.createElement('p');
-  type.innerHTML = "Type/Species Required: "+job.type_id;
-  if (job.type_exclusive == "Yes") //display only if there is an exclusive type to perform job
+  type.innerHTML = "Type/Species Required: "+job.type_name;
+  if (job.type_name == null) //display only if there is an exclusive type to perform job
     {
-      li.append(type);
+      let booleanVal = "No";
+      const type_x = document.createElement('p');
+      type_x.innerHTML = "Type/Species Exclusive? " + booleanVal;
+      li.append(type_x);
+    }
+  else 
+    { 
+    let booleanVal = "Yes";
+    const type_x = document.createElement('p');
+    type_x.innerHTML = "Type/Species Exclusive? " + booleanVal;
+    li.append(type_x);
+    li.append(type);
     }
  
   });

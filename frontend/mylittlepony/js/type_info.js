@@ -45,20 +45,26 @@ fillTypesHTML = (types = self.types) => {
   //ul.appendChild(createCityHTML(city));
   //name
   const typename = document.createElement('h3');
-  typename.innerHTML = type.name;
- li.append(typename);
+  typename.innerHTML = type.type_name;
+  li.append(typename);
  
-  const magic = document.createElement('p');
-  magic.innerHTML = "Magic: "+ type.magic;
-  li.append(magic);
+  const magic_p = document.createElement('p');
+  if(type.magic == 1)
+  { magic_p.innerHTML = "Magic: Yes";}
+  else 
+  {magic_p.innerHTML = "Magic: No";}
+  li.append(magic_p);
   
-  li.append(magic);
   const equest = document.createElement('p');
-  equest.innerHTML = "Equestrian: "+ type.equestrian;
+  if(type.equestrian == 1)
+  { equest.innerHTML = "Equestrian: Yes";}
+  else { equest.innerHTML = "Equestrian: No";}
   li.append(equest);
 
   const flight = document.createElement('p');
-  flight.innerHTML = "Can Fly: "+ type.flight;
+  if(type.flight == 1)
+  { flight.innerHTML = "Can Fly: Yes";}
+  else { flight.innerHTML = "Can Fly: No";}
   li.append(flight);
   });
 }
