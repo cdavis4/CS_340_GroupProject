@@ -14,6 +14,7 @@ var pool = mysql.createPool({
 
 
 var app = express();
+
 //uses second argument to set port
 app.set('port', process.argv[2]);
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -67,12 +68,46 @@ app.get('/character',(req,res)=> {
         res.json(rows);
     })
 });
+  /**  CHARACTER QUERIES ****************************
+   * GET TYPE SORTED CHARACTER FROM CHARACTER TABLE WITH JOINS
+   * SELECT QUERY
+   */
+app.get('/character/type',(req,res)=> {
+    var charT_sql = "SELECT Character.name, Type.type_name, Group.group_name, Character.gender, City.city_name FROM `Character` LEFT JOIN `Type` ON Character.type_id = Type.id LEFT JOIN `Group` ON Character.group_id = Group.id LEFT JOIN `City` ON Character.city_id = City.id WHERE type_id =?";   
+    pool.query(charT_sql,[req.query.type_id],(err,rows,result,fields)=>{
+        if(err)
+        {
+            res.json(err);
+            console.log(err);
+            return;
+        }
+        console.log(rows);
+        res.json(rows);
+    })
+});
 
+  /**  CHARACTER QUERIES ****************************
+   * GET GROUP SORTED CHARACTER FROM CHARACTER TABLE WITH JOINS
+   * SELECT QUERY
+   */
+app.get('/character/group',(req,res)=> {
+    var charG_sql = "SELECT Character.name, Type.type_name, Group.group_name, Character.gender, City.city_name FROM `Character` LEFT JOIN `Type` ON Character.type_id = Type.id LEFT JOIN `Group` ON Character.group_id = Group.id LEFT JOIN `City` ON Character.city_id = City.id WHERE group_id =?";   
+    pool.query(charG_sql,[req.query.group_id],(err,rows,result,fields)=>{
+        if(err)
+        {
+            res.json(err);
+            console.log(err);
+            return;
+        }
+        console.log(rows);
+        res.json(rows);
+    })
+});
  /**
    * GET ID AND CHARACTER NAME FROM CHARACTER TABLE
    * TO USE IN FILTER - SELECT QUERY
    */
-  app.get('/characterID',(req,res)=> {
+  app.get('/character/id',(req,res)=> {
     pool.query('SELECT id, name FROM `Character`',(err,rows,result,fields)=>{
         if(err)
         {
@@ -84,6 +119,8 @@ app.get('/character',(req,res)=> {
         res.json(rows);
     })
 });
+
+  
 
  /**
    *INSERT CHARACTER 
@@ -127,7 +164,7 @@ app.get('/character',(req,res)=> {
    * DELETE CHARACTER
    *   
    */
-  app.delete('/characterID',(req,res)=>{
+  app.delete('/character',(req,res)=>{
     pool.query('DELETE FROM `Character` WHERE  id=?',[req.body.id],(err,rows,result,fields)=>{
         if(err)
         {
@@ -164,7 +201,7 @@ app.get('/character',(req,res)=> {
    * GET name/id JOB TABLE
    * Use in Filter SELECT QUERY
    */
-  app.get('/jobID',(req,res)=> {
+  app.get('/job/id',(req,res)=> {
     pool.query('SELECT id, job_name FROM `Job`',(err,rows,result,fields)=>{
         if(err)
         {
@@ -217,7 +254,7 @@ app.get('/character',(req,res)=> {
    * GET name/id Type TABLE
    * SELECT QUERY
    */
-app.get('/typeID',(req,res)=> {
+app.get('/type/id',(req,res)=> {
     pool.query('SELECT id, type_name FROM `Type`',(err,rows,result,fields)=>{
         if(err)
         {
@@ -269,7 +306,7 @@ app.get('/typeID',(req,res)=> {
    * GET name/id City TABLE
    * SELECT QUERY
    */
-app.get('/cityID',(req,res)=> {
+app.get('/city/id',(req,res)=> {
     pool.query('SELECT id, city_name FROM `City`',(err,rows,result,fields)=>{
         if(err)
         {
@@ -321,7 +358,7 @@ app.get('/cityID',(req,res)=> {
    * GET name/id group TABLE
    * SELECT QUERY
    */
-  app.get('/groupID',(req,res)=> {
+  app.get('/group/id',(req,res)=> {
     pool.query('SELECT id, group_name FROM `Group`',(err,rows,result,fields)=>{
         if(err)
         {
@@ -375,7 +412,7 @@ app.get('/cityID',(req,res)=> {
  * *SELECT IDs only for Character_Job Table 
  * */
 
-  app.get('/character_jobID',(req,res)=> {
+  app.get('/character_job/id',(req,res)=> {
     var workid_sql = "SELECT * FROM `Character_Job`";
     pool.query(workid_sql ,(err,rows,result,fields)=>{
         if(err)
@@ -409,7 +446,7 @@ app.get('/cityID',(req,res)=> {
 /**
  * ***DELETE RELATIONSHIP 
  * */
-  app.delete('/character_jobID',(req,res)=>{
+  app.delete('/character_job',(req,res)=>{
     pool.query('DELETE FROM `Character_Job` WHERE  character_id=? AND job_id = ?',[req.body.character_id, req.body.job_id],(err,rows,result,fields)=>{
         if(err)
         {
