@@ -36,7 +36,7 @@ fetchCities = () => {
  * Create all ponies HTML and add them to the webpage.
  */
 fillCitiesHTML = (cities = self.cities) => {
-  const ul = document.getElementById('city-list');
+  const ul = document.getElementById('item-list');
   cities.forEach(city => {
     console.log(city);
     const li = document.createElement('li');
@@ -49,7 +49,7 @@ fillCitiesHTML = (cities = self.cities) => {
  li.append(cityname);
  
   const desc = document.createElement('p');
-  desc.innerHTML = city.characteristics;
+  desc.innerHTML = "Characteristics: "+city.characteristics;
   li.append(desc);
   });
 }
@@ -111,7 +111,7 @@ createForm = () => {
   const input_name = document.createElement("input");
   input_name.setAttribute("type", "text");
   input_name.setAttribute("id", "name");
-  input_name.setAttribute("placeholder", "name");
+  input_name.setAttribute("placeholder", "city name");
   div_name.appendChild(input_name);
   div.appendChild(div_name);
 
@@ -121,7 +121,7 @@ createForm = () => {
   div_desc.setAttribute("class", "form-control");
   const label_desc = document.createElement('label');
   label_desc.setAttribute("for","desc");
-  label_desc.innerHTML = "Specify specifics about your city. Up to 256 characters long.";
+  label_desc.innerHTML = "Specifiy city characteristics. Up to 256 characters long.";
   const desc_input = document.createElement('textarea');
   desc_input.setAttribute("rows","3");
   desc_input.setAttribute("class","form-control");

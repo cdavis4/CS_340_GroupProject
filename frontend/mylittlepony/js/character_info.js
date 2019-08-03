@@ -17,7 +17,7 @@ initPage = () => {
   });
 }  
 /**
- * Get current betta from page URL.
+ * Get current pony from page URL.
  */
 fetchPonyFromURL = (callback) => {
   if (self.pony) { // betta already fetched!

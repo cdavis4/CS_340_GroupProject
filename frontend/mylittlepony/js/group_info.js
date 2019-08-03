@@ -36,7 +36,7 @@ fetchGroups = () => {
  * Create all ponies HTML and add them to the webpage.
  */
 fillGroupsHTML = (groups = self.groups) => {
-  const ul = document.getElementById('groups-list');
+  const ul = document.getElementById('item-list');
   groups.forEach(group => {
     const li = document.createElement('li');
     li.setAttribute("class","list-group-item");
@@ -135,8 +135,20 @@ createForm = () => {
   city_list = ["None","Sweet Apple Acres","Ponyville"];
   //add to form
   form.appendChild(div);
-  form.appendChild(createComboBox("Select Headquarter City: ",city_list));
-  form.appendChild(div_button);
+  
+  DBHelper.fetchCities((error, cities) => {
+    if (error)
+     { // Got an error
+      console.error(error);
+    } else {
+      self.cities = cities;
+      let citieslist = cities.map((v, i) => cities[i].city_name)
+      form.appendChild(createComboBox("Select Headquarter City: ",citieslist));
+      form.appendChild(div_button);
+    }
+  });
+
+  
   //form.setAttribute("action",DBHelper.sendContactInfo());
   //form.setAttribute("method", "post");
   return form;

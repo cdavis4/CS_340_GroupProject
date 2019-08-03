@@ -36,7 +36,7 @@ fetchTypes = () => {
  * Create all ponies HTML and add them to the webpage.
  */
 fillTypesHTML = (types = self.types) => {
-  const ul = document.getElementById('type-list');
+  const ul = document.getElementById('item-list');
   types.forEach(type => {
     console.log(type);
     const li = document.createElement('li');
@@ -131,15 +131,6 @@ createForm = () => {
   div.appendChild(div_name);
 
 
- 
-
-  //create submit button
-  const div_button = document.createElement('div');
-  const input_button = document.createElement('button');
-  input_button.setAttribute("onclick","DBHelper.postContact()");
-  input_button.setAttribute("id","submit_button");
-  input_button.innerHTML ="Submit";
-  div_button.appendChild(input_button);
   
   //add to form
 
@@ -148,6 +139,15 @@ createForm = () => {
   form.appendChild(createComboBox("Magic? ", binary));
   form.appendChild(createComboBox("Can Fly? ", binary));
   form.appendChild(createComboBox("Equestrian? ", binary));
+
+ //create submit button
+ const div_button = document.createElement('div');
+ const input_button = document.createElement('button');
+ input_button.setAttribute("onclick","DBHelper.postContact()");
+ input_button.setAttribute("id","submit_button");
+ input_button.innerHTML ="Submit";
+ div_button.appendChild(input_button);
+
   form.appendChild(div_button);
   //form.setAttribute("action",DBHelper.sendContactInfo());
   //form.setAttribute("method", "post");
@@ -172,4 +172,21 @@ createComboBox = (textLabel, optionsArray) => {
   div_multi.appendChild(label_multi);
   div_multi.appendChild(select_multi);
   return div_multi;
+};
+//create radio boxes and input label and unique id for  box
+createRadioBox = (textlabel,customRadioInline,value) => {
+  const div_radio = document.createElement('div');
+  div_radio.setAttribute("class","custom-radio custom-control-inline");
+  const input_radio = document.createElement("input");
+  input_radio.setAttribute("type", "radio");
+  input_radio.setAttribute("id", customRadioInline);
+  input_radio.setAttribute("name", customRadioInline);
+  input_radio.setAttribute("value",value);
+  const label_radio = document.createElement("label");
+  label_radio.setAttribute("class","custom-control-label");
+  label_radio.setAttribute("for",customRadioInline);
+  label_radio.innerHTML= textlabel;
+  div_radio.appendChild(input_radio);
+  div_radio.appendChild(label_radio);
+  return div_radio;
 };

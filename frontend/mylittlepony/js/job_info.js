@@ -36,7 +36,7 @@ fetchJobs = () => {
  * Create all ponies HTML and add them to the webpage.
  */
 fillJobsHTML = (jobs = self.jobs) => {
-  const ul = document.getElementById('job-list');
+  const ul = document.getElementById('item-list');
   jobs.forEach(job => {
     console.log(job);
     const li = document.createElement('li');
@@ -144,14 +144,28 @@ createForm = () => {
   div_button.appendChild(input_button);
 
   //add to form
-  let types = ["None", "Earth Pony", "Unicorn","Pegasus"];
   let type_exc = ["No","Yes"];
   form.appendChild(div);
   form.appendChild(createComboBox("Type Exclusive?", type_exc));
-  form.appendChild(createComboBox("Select Type", types));
  
-  
-  form.appendChild(div_button);
+
+  DBHelper.fetchTypes((error, types) => {
+    if (error)
+     { // Got an error
+      console.error(error);
+    } else {
+      self.types = types;
+      typeslist = types.map((v, i) => types[i].type_name);
+      typeslist.unshift("None"); //add none to beginning of array
+      //still need to disable if th
+      form.appendChild(createComboBox("Select Type", typeslist));
+    //submit button added only after the types have been received
+    //to fill types dropdown
+    form.appendChild(div_button);
+    }
+    });
+ 
+
   //form.appendChild(div_type);
  // form.appendChild(div_job);
  // form.appendChild(div_city);

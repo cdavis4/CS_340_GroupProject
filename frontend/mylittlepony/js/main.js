@@ -112,7 +112,7 @@ resetPonies = (ponies) => {
   // Remove all ponies
   
   self.ponies = [];
-  const ul = document.getElementById('pony-list');
+  const ul = document.getElementById('item-list');
   
   ul.innerHTML = '';
   self.ponies = ponies;
@@ -121,7 +121,7 @@ resetPonies = (ponies) => {
  * Create all ponies HTML and add them to the webpage.
  */
 fillPoniesHTML = (ponies = self.ponies) => {
-  const ul = document.getElementById('pony-list');
+  const ul = document.getElementById('item-list');
 ponies.forEach(pony => {
   ul.appendChild(createPonyHTML(pony));
   });
@@ -171,6 +171,10 @@ createPonyHTML = (pony) => {
   const group = document.createElement('p');
   group.innerHTML = "Group: "+pony.group_name;
   li.append(group);
+
+  const city = document.createElement('p');
+  city.innerHTML = "City: "+pony.city_name;
+  li.append(city);
 
   const more = document.createElement('button');
   more.innerHTML = 'Update Character';
@@ -315,7 +319,7 @@ createForm = () => {
 
     //create submit button here because making requests to database server
     /// is slow and this will wait until the above request is done before placing
-    /// in html
+    /// button in html
     const div_button = document.createElement('div');
     const input_button = document.createElement('button');
     input_button.setAttribute("onclick","DBHelper.postContact()");
