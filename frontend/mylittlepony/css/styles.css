@@ -284,7 +284,13 @@ width: 90%;
   text-align: center;
 }
 
-/* ====================== Pony update Form ====================== */
+/* ====================== Pony Update Form ====================== */
+
+.form-control{
+  margin: 1em 0 1em;
+ }
+
+/* ====================== insert modal Form ====================== */
 .close {
   color: #aaaaaa;
   float: right;

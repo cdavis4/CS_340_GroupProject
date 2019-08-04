@@ -62,26 +62,131 @@ fillPonyHTML = (pony = self.pony) => {
   const headerName = document.createElement('h1');
   title.appendChild(headerName);
   headerName.innerHTML = pony.name;
-
-  //const image = document.getElementById('pony-img');
-  //image.className = 'pony-img';
-
-  //const ponyGroup = document.getElementById('group');
-  //ponyGroup.innerHTML = "Group: " +pony.group_id;
-
-  //const ponyGroup = document.getElementById('type');
-  //ponyGroup.innerHTML = "Type: " +pony.type_id;
-
- // added alt attribute and srcset
-
-  //image.alt = "photo from charcter " + pony.name;
-
-  //image.srcset = "/img/"+ pony.id +".jpg";
-  //+ betta.id 
-  //+ "-300_1x.jpg 400w, /img/" 
-  //+betta.id + "-600_1x.jpg 1000w, /img/" + betta.id  + "-600_2x.jpg 4000w";
+  createCharacterForm(pony);
 }
+/**
+ * Create update character form
+ */
+createCharacterForm = (pony) => {
+  const form = document.createElement('form');
+  form.setAttribute("id", "contact_form");
+  const div1 = document.createElement("div");
+  div1.setAttribute('id','form-group');
+  //const divRow = document.createElement('div');
+  //div.setAttribute('class','row');
+  //for name
+  const labelname = document.createElement('label');
+  labelname.setAttribute('for','name');
+  labelname.innerHTML = "name";
+  div1.appendChild(labelname);
+  const input_name = document.createElement("input");
+  input_name.setAttribute("type", "text");
+  input_name.setAttribute('class','form-control');
+  input_name.setAttribute("id", "name");
+  input_name.setAttribute("placeholder", pony.name);
+  div1.appendChild(input_name);
+   //for gender
+   const div2 = document.createElement("div");
+    div2.setAttribute('id','form-group');
+   //const divRow2 = document.createElement('div');
+   //divRow2.setAttribute('class','row');
 
+  // div.appendChild(labelGender);
+   div2.appendChild(createRadioBox("Female","gender",'F'));
+   div2.appendChild(createRadioBox("Male","gender",'M'));
+   div2.appendChild(createRadioBox("Non-Binary","gender",'O'));
+  //
+ 
+     
+  //div.appendChild(divRow);
+  //div.appendChild(divRow2);
+  form.appendChild(div1);
+  form.appendChild(div2);
+  
+  DBHelper.fetchGroups((error, groups) => {
+  if (error)
+     { // Got an error
+      console.error(error);
+    } else {
+      self.groups = groups;
+      let groupslist = groups.map((v, i) => groups[i].group_name)
+      form.appendChild(createComboBox("Select Group", groupslist));
+    }
+    });
+  DBHelper.fetchTypes((error, types) => {
+  if (error)
+    { // Got an error
+    console.error(error);
+    } else {
+    self.types = types;
+    let typeslist = types.map((v, i) => types[i].type_name)
+    form.appendChild(createComboBox("Select Type", typeslist));
+    }
+  });
+  
+  DBHelper.fetchCities((error, cities) => {
+  if (error)
+    { // Got an error
+    console.error(error);
+    } else {
+    self.cities = cities;
+    let citieslist = cities.map((v, i) => cities[i].city_name)
+    form.appendChild(createComboBox("Select City", citieslist));
+  
+    //create submit button here because making requests to database server
+    /// is slow and this will wait until the above request is done before placing
+    /// button in html
+    const div_button = document.createElement('div');
+    const input_button = document.createElement('button');
+    input_button.setAttribute("onclick","DBHelper.postContact()");
+    input_button.setAttribute("id","submit_button");
+    input_button.innerHTML ="Submit";
+    div_button.appendChild(input_button);
+    form.appendChild(div_button);
+    }
+  });
+ 
+  const container = document.getElementById('insert-container');
+  container.appendChild(form);
+}
+//create radio boxes and input label and unique id for  box
+createRadioBox = (textlabel,customRadioInline,value) => {
+  const div_radio = document.createElement('div');
+  div_radio.setAttribute("class","custom-radio custom-control-inline");
+  const input_radio = document.createElement("input");
+  input_radio.setAttribute("type", "radio");
+  input_radio.setAttribute("class", customRadioInline);
+  input_radio.setAttribute("name", customRadioInline);
+  input_radio.setAttribute("value",value);
+  const label_radio = document.createElement("label");
+  label_radio.setAttribute("class","custom-control-label");
+  label_radio.setAttribute("for",customRadioInline);
+  label_radio.innerHTML= textlabel;
+  div_radio.appendChild(input_radio);
+  div_radio.appendChild(label_radio);
+  return div_radio;
+};
+
+//create a dropdown combo box
+createComboBox = (textLabel, optionsArray) => {
+  const div_multi = document.createElement("div");
+  div_multi.setAttribute("class", "form-group");
+  const label_multi = document.createElement("label");
+  label_multi.setAttribute("for","exampleFormControlSelect2");
+  label_multi.innerHTML= textLabel;
+  const select_multi = document.createElement("select");
+  select_multi.setAttribute("class", "form-control");
+  select_multi.setAttribute("name","exampleFormControlSelect2");
+  select_multi.setAttribute("id","exampleFormControlSelect2");
+  optionsArray.forEach(function(x){
+    const option = document.createElement('option');
+    option.innerHTML = x;
+    select_multi.appendChild(option);
+  })
+  div_multi.appendChild(label_multi);
+  div_multi.appendChild(select_multi);
+  return div_multi;
+};
 /**
  * Get a parameter by name from page URL.
  */

@@ -278,9 +278,9 @@ createForm = () => {
   //let jobs = ["Pilot", "Fashion Designer", "Flight Instructor", "Plumber"];
  
   form.appendChild(div);
-  form.appendChild(createRadioBox("Female","customRadioInline1","option1"));
-  form.appendChild(createRadioBox("Male","customRadioInline2","option2"));
-  form.appendChild( createRadioBox("Non-Binary","customRadioInline3","option3"));
+  form.appendChild(createRadioBox("Female","gender","option1"));
+  form.appendChild(createRadioBox("Male","gender","option2"));
+  form.appendChild( createRadioBox("Non-Binary","gender","option3"));
  
   //form.appendChild(createComboBox("Select Type", types));
   //form.appendChild(div_type);
