@@ -72,9 +72,9 @@ app.get('/character',(req,res)=> {
    * GET TYPE SORTED CHARACTER FROM CHARACTER TABLE WITH JOINS
    * SELECT QUERY
    */
-app.get('/character/type',(req,res)=> {
-    var charT_sql = "SELECT Character.name, Type.type_name, Group.group_name, Character.gender, City.city_name FROM `Character` LEFT JOIN `Type` ON Character.type_id = Type.id LEFT JOIN `Group` ON Character.group_id = Group.id LEFT JOIN `City` ON Character.city_id = City.id WHERE type_id =?";   
-    pool.query(charT_sql,[req.query.type_id],(err,rows,result,fields)=>{
+app.get('/character/type/:type_name',(req,res)=> {
+    var charT_sql = "SELECT Character.id,Character.name, Type.type_name, Group.group_name, Character.gender, City.city_name FROM `Character` LEFT JOIN `Type` ON Character.type_id = Type.id LEFT JOIN `Group` ON Character.group_id = Group.id LEFT JOIN `City` ON Character.city_id = City.id WHERE type_name =?";   
+    pool.query(charT_sql,[req.params.type_name],(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -90,9 +90,9 @@ app.get('/character/type',(req,res)=> {
    * GET GROUP SORTED CHARACTER FROM CHARACTER TABLE WITH JOINS
    * SELECT QUERY
    */
-app.get('/character/group',(req,res)=> {
-    var charG_sql = "SELECT Character.name, Type.type_name, Group.group_name, Character.gender, City.city_name FROM `Character` LEFT JOIN `Type` ON Character.type_id = Type.id LEFT JOIN `Group` ON Character.group_id = Group.id LEFT JOIN `City` ON Character.city_id = City.id WHERE group_id =?";   
-    pool.query(charG_sql,[req.query.group_id],(err,rows,result,fields)=>{
+app.get('/character/group/:group_name',(req,res)=> {
+    var charG_sql = "SELECT Character.id,Character.name, Type.type_name, Group.group_name, Character.gender, City.city_name FROM `Character` LEFT JOIN `Type` ON Character.type_id = Type.id LEFT JOIN `Group` ON Character.group_id = Group.id LEFT JOIN `City` ON Character.city_id = City.id WHERE group_name =?";   
+    pool.query(charG_sql,[req.params.group_name],(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);

@@ -92,7 +92,8 @@ updatePonies = () => {
   const type = cSelect[cIndex].value;
   const group = nSelect[nIndex].value;
 
-  DBHelper.filterPonyByTypeAndGroup(type, group, (error, ponies) => {
+  //DBHelper.filterPonyByTypeAndGroup(type, group, (error, ponies) => {
+    DBHelper.fetchPoniesByFilter(type, group, (error, ponies) => {
     if (error) { // Got an error!
       console.error(error);
     } else {
@@ -143,8 +144,11 @@ createPonyHTML = (pony) => {
  // added alt attribute and srcset
 
  image.alt = "photo from pony " + pony.name;
+ let photo = pony.name.toLowerCase();
+ photo = photo.replace(/\s/g,'')
 
- image.srcset = "/img/"+ pony.id +".jpg";
+ image.srcset = "/img/"+ photo +".jpg";
+ console.log(image.srcset);
  //"/img/"+ betta.id + ".jpg 400w, /img/" 
  //+betta.id + "-600_1x.jpg 1000w, /img/" + betta.id  + "-600_2x.jpg 4000w";
 
