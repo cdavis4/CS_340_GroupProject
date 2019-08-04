@@ -20,6 +20,18 @@ class DBHelper {
       //return '/data/ponies.json';
   }
 
+    /**
+   * Database URL.
+   * Change this to bettas.json file location on your server.
+   */
+  static get TYPE_URL() {
+    const port = 5432;
+    // Change this to your server port
+      return `http://flip2.engr.oregonstate.edu:${port}/character/type/`;
+      //return '/data/ponies.json';
+  }
+
+
   /**
    * Database URL.
    * Change this to bettas.json file location on your server.
@@ -78,6 +90,97 @@ class DBHelper {
     };
     xhr.send();
   }
+    
+    /**
+   * Fetch pony by a type and a group with proper error handling.
+ */
+  static filterPonyByTypeAndGroup(type, group, callback) {
+    DBHelper.fetchPonies((error, ponies) => {
+      if (error) 
+      {
+        callback(error, null);
+      } 
+      else {
+        let results = ponies;
+      if(type!='all')
+      {
+        DBHelper.fetchPoniesByType(type,results);
+        console.log(results);
+      }
+      if(group!='all')
+      {
+        DBHelper.fetchPoniesByType((type,results)=> {
+          if (error) { // Got an error
+            console.error(error);
+          } else {
+            self.results = results;
+        
+          }
+        });
+        callback(null, results);
+      }
+      
+    }
+  });
+}
+    /**
+   * Fetch pony by a type and a group with proper error handling.
+
+  static filterPonyByTypeAndGroup(type, group, callback) {
+    // Fetch all ponies
+    DBHelper.fetchPonies((error, ponies) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        let results = ponies
+      if (type != 'all') { // filter by tailtype
+          results = results.filter(r => r.type_name == type);
+        }
+        if (group != 'all') { // filter by group
+          results = results.filter(r => r.group_name == group);
+        }
+        callback(null, results);
+      }
+    });
+  }
+   */
+  static fetchPoniesByFilter(type,group,callback){
+   let xhr = new XMLHttpRequest();
+   let url;
+   self.type = type;
+   self.group = group;
+    if(type !='all')
+    {
+      url = new URL('character/type/'+type, DBHelper.DATABASE_URL);
+      console.log(url);
+    }
+    else if(group!='all')
+    {
+      url = new URL('character/group/'+group, DBHelper.DATABASE_URL);
+      console.log(url);
+
+    }
+    else
+    {
+      url =  new URL(DBHelper.DATABASE_URL);
+      console.log(url);
+    }
+    xhr.open('GET',url);
+    xhr.onload = () => {
+      if (xhr.status === 200) { // Got a success response from server!
+        const json = JSON.parse(xhr.responseText);
+        console.log(json);
+        const ponies = json;
+        callback(null, ponies);
+      
+      } else { // Oops!. Got an error from server.
+        const error = (`Request failed. Returned status of ${xhr.status}`);
+        callback(error,null);
+      }
+    };
+    xhr.send();
+  }
+
 
   static fetchCities(callback) {
     let xhr = new XMLHttpRequest();
@@ -113,10 +216,10 @@ class DBHelper {
   }
      /** Makes request to fetch Group json **/
      static fetchTypes(callback) {
-      let xhr = new XMLHttpRequest();
-      xhr.open('GET', DBHelper.TYPES_DATABASE_URL);
-      xhr.onload = () => {
-        if (xhr.status === 200) { // Got a success response from server!
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', DBHelper.TYPES_DATABASE_URL);
+    xhr.onload = () => {
+      if (xhr.status === 200) { // Got a success response from server!
           const json = JSON.parse(xhr.responseText);
           const types = json;
           console.log(types);
@@ -128,23 +231,22 @@ class DBHelper {
       };
       xhr.send();
     }
-         /** Makes request to fetch Group json **/
-         static fetchJobs(callback) {
-          let xhr = new XMLHttpRequest();
-          xhr.open('GET', DBHelper.JOBS_DATABASE_URL);
-          xhr.onload = () => {
-            if (xhr.status === 200) { // Got a success response from server!
-              const json = JSON.parse(xhr.responseText);
-              const jobs = json;
-              console.log(jobs);
-              callback(null, jobs);
-            } else { // Oops!. Got an error from server.
-              const error = (`Request failed. Returned status of ${xhr.status}`);
-              callback(error, null);
-            }
-          };
-          xhr.send();
+    /** Makes request to fetch Group json **/
+    static fetchJobs(callback) {
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', DBHelper.JOBS_DATABASE_URL);
+    xhr.onload = () => {
+    if (xhr.status === 200) { // Got a success response from server!
+      const json = JSON.parse(xhr.responseText);
+      const jobs = json;
+      callback(null, jobs);
+      } else { // Oops!. Got an error from server.
+        const error = (`Request failed. Returned status of ${xhr.status}`);
+        callback(error, null);
         }
+      };
+    xhr.send();
+   }
 
   /** 
   static fetchPonies(callback) {
@@ -196,7 +298,7 @@ class DBHelper {
       if (error) {
         callback(error, null);
       } else {
-        // Filter bettas to have only given cuisine type
+        // Filter ponies to have only given group type
         const results = ponies.filter(r => r.group_id== group);
         callback(null, results);
       }
@@ -205,40 +307,20 @@ class DBHelper {
 
   /**
    * Fetch ponies by type with proper error handling.
-   */
+   
   static fetchPonyByType(type, callback) {
     // Fetch all bettas
     DBHelper.fetchPonies((error, ponies) => {
       if (error) {
         callback(error, null);
       } else {
-        // Filter bettas to have only given color
-        const results = ponies.filter(r => r.type_id == type);
+        // Filter ponies to have only given type display
+        const results = ponies.filter(r => r.type_name == type);
         callback(null, results);
       }
     });
-  }
-  /**
-   * Fetch pony by a type and a group with proper error handling.
-   */
-  static filterPonyByTypeAndGroup(type, group, callback) {
-    // Fetch all ponies
-    DBHelper.fetchPonies((error, ponies) => {
-      if (error) {
-        callback(error, null);
-      } else {
-        let results = ponies
-      if (type != 'all') { // filter by tailtype
-          results = results.filter(r => r.type_id == type);
-        }
-        if (group != 'all') { // filter by group
-          results = results.filter(r => r.group_id == group);
-        }
-        callback(null, results);
-      }
-    });
-  }
-
+  }*/
+ 
 
   /**
    * Fetch all groups with proper error handling.
