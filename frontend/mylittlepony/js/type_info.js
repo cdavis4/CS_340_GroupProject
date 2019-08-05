@@ -119,34 +119,31 @@ createForm = () => {
   form.append(h3);
 
 //create name field
-  const div = document.createElement("div");
   const div_name = document.createElement('div');
-  div.setAttribute("class",'form-group');
   div_name.setAttribute("class","form-control");
   const input_name = document.createElement("input");
   input_name.setAttribute("type", "text");
   input_name.setAttribute("id", "name");
   input_name.setAttribute("placeholder", "type/species name");
   div_name.appendChild(input_name);
-  div.appendChild(div_name);
+  form.appendChild(div_name);
 
 
   
   //add to form
 
   let binary = ["Unknown","No","Yes"];
-  form.appendChild(div);
-  form.appendChild(createComboBox("Magic? ", binary));
-  form.appendChild(createComboBox("Can Fly? ", binary));
-  form.appendChild(createComboBox("Equestrian? ", binary));
+  form.appendChild(createComboBox("Magic? ","magic", binary));
+  form.appendChild(createComboBox("Can Fly? ","flight", binary));
+  form.appendChild(createComboBox("Equestrian? ","equest", binary));
 
- //create submit button
- const div_button = document.createElement('div');
- const input_button = document.createElement('button');
- input_button.setAttribute("onclick","DBHelper.postContact()");
- input_button.setAttribute("id","submit_button");
- input_button.innerHTML ="Submit";
- div_button.appendChild(input_button);
+  //create submit button
+  const div_button = document.createElement('div');
+  const input_button = document.createElement('button');
+  input_button.setAttribute("onclick","DBHelper.postContact()");
+  input_button.setAttribute("id","submit_button");
+  input_button.innerHTML ="Submit";
+  div_button.appendChild(input_button);
 
   form.appendChild(div_button);
   //form.setAttribute("action",DBHelper.sendContactInfo());
@@ -154,16 +151,16 @@ createForm = () => {
   return form;
 }
 //create a dropdown combo box
-createComboBox = (textLabel, optionsArray) => {
+createComboBox = (textLabel,exampleFormControlSelect2, optionsArray) => {
   const div_multi = document.createElement("div");
   div_multi.setAttribute("class", "form-group");
   const label_multi = document.createElement("label");
-  label_multi.setAttribute("for","exampleFormControlSelect2");
+  label_multi.setAttribute("for",exampleFormControlSelect2);
   label_multi.innerHTML= textLabel;
   const select_multi = document.createElement("select");
   select_multi.setAttribute("class", "form-control");
-  select_multi.setAttribute("name","exampleFormControlSelect2");
-  select_multi.setAttribute("id","exampleFormControlSelect2");
+  select_multi.setAttribute("name",exampleFormControlSelect2);
+  select_multi.setAttribute("id",exampleFormControlSelect2);
   optionsArray.forEach(function(x){
     const option = document.createElement('option');
     option.innerHTML = x;

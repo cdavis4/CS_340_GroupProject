@@ -332,7 +332,7 @@ createForm = () => {
     div_button.appendChild(input_button);
     form.appendChild(div_button);
       }
-      });
+    });
 
     
   
