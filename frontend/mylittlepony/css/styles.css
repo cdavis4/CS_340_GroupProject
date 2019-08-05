@@ -168,9 +168,19 @@ button {
 
 /* ====================== pony Listing ====================== */
 
-#item-list {
+/*#item-list {
   list-style: outside none none;
   margin: 0;
+  padding: 25px;
+  text-align: center;
+}*/
+#item-list {
+  background-color: #9796f0;
+  border: 3px solid #fff;
+  background-image: linear-gradient(360deg, rgb(166, 119, 226) 0%, rgb(139, 241, 236) 37%, #f599cb 100%); 
+  list-style: outside none none;
+  margin: auto;
+  width: 100%;
   padding: 25px;
   text-align: center;
 }
