@@ -146,7 +146,7 @@ createForm = () => {
   //add to form
   let type_exc = ["No","Yes"];
   form.appendChild(div);
-  form.appendChild(createComboBox("Type Exclusive?", type_exc));
+  form.appendChild(createComboBox("Type Exclusive?","type_exclusive", type_exc));
  
 
   DBHelper.fetchTypes((error, types) => {
@@ -158,7 +158,7 @@ createForm = () => {
       typeslist = types.map((v, i) => types[i].type_name);
       typeslist.unshift("None"); //add none to beginning of array
       //still need to disable if th
-      form.appendChild(createComboBox("Select Type", typeslist));
+      form.appendChild(createComboBox("Select Type","type_id", typeslist));
     //submit button added only after the types have been received
     //to fill types dropdown
     form.appendChild(div_button);
@@ -173,35 +173,19 @@ createForm = () => {
   //form.setAttribute("method", "post");
   return form;
 }
-//create radio boxes and input label and unique id for  box
-createRadioBox = (textlabel,customRadioInline,value) => {
-  const div_radio = document.createElement('div');
-  div_radio.setAttribute("class","custom-radio custom-control-inline");
-  const input_radio = document.createElement("input");
-  input_radio.setAttribute("type", "radio");
-  input_radio.setAttribute("id", customRadioInline);
-  input_radio.setAttribute("name", customRadioInline);
-  input_radio.setAttribute("value",value);
-  const label_radio = document.createElement("label");
-  label_radio.setAttribute("class","custom-control-label");
-  label_radio.setAttribute("for",customRadioInline);
-  label_radio.innerHTML= textlabel;
-  div_radio.appendChild(input_radio);
-  div_radio.appendChild(label_radio);
-  return div_radio;
-};
+
 
 //create a dropdown combo box
-createComboBox = (textLabel, optionsArray) => {
+createComboBox = (textLabel, exampleFormControlSelect2,optionsArray) => {
   const div_multi = document.createElement("div");
   div_multi.setAttribute("class", "form-group");
   const label_multi = document.createElement("label");
-  label_multi.setAttribute("for","exampleFormControlSelect2");
+  label_multi.setAttribute("for",exampleFormControlSelect2);
   label_multi.innerHTML= textLabel;
   const select_multi = document.createElement("select");
   select_multi.setAttribute("class", "form-control");
-  select_multi.setAttribute("name","exampleFormControlSelect2");
-  select_multi.setAttribute("id","exampleFormControlSelect2");
+  select_multi.setAttribute("name",exampleFormControlSelect2);
+  select_multi.setAttribute("id",exampleFormControlSelect2);
   optionsArray.forEach(function(x){
     const option = document.createElement('option');
     option.innerHTML = x;
