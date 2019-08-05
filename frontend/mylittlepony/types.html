@@ -59,6 +59,13 @@
   <script type="text/javascript" src="js/type_info.js"></script>
  <!-- Database helpers -->
  <script type="text/javascript" src="js/dbhelper.js"></script>
+ <script src="js/browserponies.js"></script>
+ <script src="js/basecfg.js"></script>
+<script type="text/javascript">
+(function (cfg) 
+{BrowserPonies.setBaseUrl(cfg.baseurl);BrowserPonies.loadConfig(BrowserPoniesBaseConfig);BrowserPonies.loadConfig(cfg);})
+({"baseurl":"https://panzi.github.io/Browser-Ponies/","fadeDuration":500,"volume":1,"fps":25,"speed":3,"audioEnabled":false,"dontSpeak":true,"showFps":false,"showLoadProgress":false,"speakProbability":0.1,"spawn":{"angel":1,"applejack (filly)":1},"autostart":true});</script>
+      
  </body>
 </html>
 
