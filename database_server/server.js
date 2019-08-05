@@ -107,8 +107,8 @@ app.get('/character/group/:group_name',(req,res)=> {
    * GET ID AND CHARACTER NAME FROM CHARACTER TABLE
    * TO USE IN FILTER - SELECT QUERY
    */
-  app.get('/character/id',(req,res)=> {
-    pool.query('SELECT id, name FROM `Character`',(err,rows,result,fields)=>{
+  app.get('/character/:id',(req,res)=> {
+    pool.query('SELECT id, name FROM `Character`',[req,params.id],(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -183,7 +183,7 @@ app.get('/character/group/:group_name',(req,res)=> {
    *  SELECT QUERY 
    */
   app.get('/job',(req,res)=> {
-    var job_sql = "SELECT Job.id, Job.job_name, Type.type_name FROM `Job` LEFT JOIN `Type` ON Job.type_id = Type.id ORDER BY job_name";
+    var job_sql = "SELECT Job.id, Job.job_name, Job.type_exclusive, Type.type_name FROM `Job` LEFT JOIN `Type` ON Job.type_id = Type.id ORDER BY job_name";
     pool.query(job_sql ,(err,rows,result,fields)=>{
     
         if(err)
@@ -202,8 +202,8 @@ app.get('/character/group/:group_name',(req,res)=> {
    * Use in Forms for getting job id 
    * and displaying job name in drop down
    */
-  app.get('/job/id',(req,res)=> {
-    pool.query('SELECT id, job_name FROM `Job`',(err,rows,result,fields)=>{
+  app.get('/job/:id',(req,res)=> {
+    pool.query('SELECT id, job_name FROM `Job`',[req,params.id],(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -255,8 +255,8 @@ app.get('/character/group/:group_name',(req,res)=> {
    * GET name/id Type TABLE
    * SELECT QUERY
    */
-app.get('/type/id',(req,res)=> {
-    pool.query('SELECT id, type_name FROM `Type`',(err,rows,result,fields)=>{
+app.get('/type/:id',(req,res)=> {
+    pool.query('SELECT id, type_name FROM `Type`',[req,params.id],(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -307,8 +307,8 @@ app.get('/type/id',(req,res)=> {
    * GET name/id City TABLE
    * SELECT QUERY
    */
-app.get('/city/id',(req,res)=> {
-    pool.query('SELECT id, city_name FROM `City`',(err,rows,result,fields)=>{
+app.get('/city/:id',(req,res)=> {
+    pool.query('SELECT id, city_name FROM `City`',[req,params.id],(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -359,8 +359,8 @@ app.get('/city/id',(req,res)=> {
    * GET name/id group TABLE
    * SELECT QUERY
    */
-  app.get('/group/id',(req,res)=> {
-    pool.query('SELECT id, group_name FROM `Group`',(err,rows,result,fields)=>{
+  app.get('/group/:id',(req,res)=> {
+    pool.query('SELECT id, group_name FROM `Group`',[req,params.id],(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -413,9 +413,9 @@ app.get('/city/id',(req,res)=> {
  * *SELECT IDs only for Character_Job Table 
  * */
 
-  app.get('/character_job/id',(req,res)=> {
+  app.get('/character_job/:id',(req,res)=> {
     var workid_sql = "SELECT * FROM `Character_Job`";
-    pool.query(workid_sql ,(err,rows,result,fields)=>{
+    pool.query(workid_sql ,[req,params.id],(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
