@@ -2,43 +2,53 @@
 /* CSS Document */
 html{overflow-x: hidden;}
 
+
 body,td,th,p{
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 1em;
-	color: #333;
+/*	font-family: Arial, Helvetica, sans-serif; */
+font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+font-size: 1em;
+  /* color: #333; */
+	color: #351858;   
 	line-height: 1.5;
 }
 body {
-	background-color: #fdfdfd;
+   background-color: #fff; 
+/*  background-color: #37B0C9; */
 }
 ul, li {
-	font-family: Arial, Helvetica, sans-serif;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 	font-size: 12pt;
-  color: #333;
+  /* color: #333; */
+  color: #351858;
 }
 li.list-group-item{
   display: inline;
 }
 button, a {
-  color: #fff;
+  /* color: #fff; */
+  color: #351858;
   font-size: 12pt;
 	text-decoration: none;
 }
 a:hover, a:focus {
-	color: #aeb0b5;
+	color:blue;
 	text-decoration: none;
 }
 
 a img{
-	border: none 0px #fff;
+  /* border: none 0px #fff; */
+  border: none 0px #37B0C9;
+
 }
 h1, h2, h3, h4, h5, h6 {
-  font-family: Arial, Helvetica, sans-serif;
+  /*font-family: Arial, Helvetica, sans-serif; */
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   margin: auto;
 }
 article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
-	display: block;
-}
+  display: block;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  }
 
 
 .visuallyhidden { 
@@ -50,12 +60,14 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
  
 }
 #maincontent {
-  background-color: #f3f3f3;
+  /* background-color: #f3f3f3; */
+  background-color: rgb(250, 133, 203); 
   max-height: 100%;
   margin: 0;
 }
 #footer {
-  background-color: #444;
+  /* background-color: #444; */
+  background-color: #EC058E;
   color: white;
   font-size: 8pt;
   letter-spacing: 1px;
@@ -69,23 +81,29 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
   vertical-align: top;
   margin-top: 10px;
   position: absolute;
-  color: grey;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  /* color: grey; */
+  color: #F140A9;
   right: 0;
   z-index: 1;
 }
 header {
-  background-color: #323a45;
+  /* background-color: #323a45; */
+  background: rgb(238,174,202);
+  background: radial-gradient(circle, rgb(122, 207, 224) 0%, white 100%);
   text-align: center;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   margin: auto;
 }
 header h1 {
   margin: auto;
   padding: 0.5em;
-  color: #fff;
+  color: #351858;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   display: inline-block;
 }
 h1 {
-  color: #fff;
+  color: #351858;
   font-weight: 200;
   letter-spacing: 10px;
 }
@@ -102,15 +120,15 @@ h1 {
   text-transform: uppercase;
 }
 button {
-  color: #007bff;
+  color: #37B0C9;
   text-decoration: none;
   background-color: transparent;
   border:none;
 }
 #breadcrumb {
     list-style: none;
-    background-color: #f3f3f3;
-    margin: 0;
+   background-color: #37B0C9; 
+      margin: 0;
     padding: 0.5em;
     text-align: left;
     font-size: 2em;
@@ -123,19 +141,19 @@ button {
 
 /* Add a slash symbol (/) before/behind each list item */
 #breadcrumb li+li:before {
-    color: black;
+    color: #351858;
     content: "/\00a0";
 }
 
 /* Add a color to all links inside the list */
 #breadcrumb li a {
-    color: #0275d8;
+    color: #fff;
     text-decoration: none;
 }
 
 /* Add a color on mouse-over */
 #breadcrumb li a:hover {
-    color: #01447e;
+    color: #fff;
     text-decoration: underline;
 }
 
@@ -143,11 +161,12 @@ button {
 .filter-options {
   width: 100%;
   /*height: 50px;*/
-  background-color: #323a45;
+ background-color: #cdedfd;
+ background-image: url(img/rainbows.png);
   align-items: center;
 }
 .filter-options h2 {
-  color: white;
+  color: #351858;
   font-size: 1rem;
   font-weight: normal;
   line-height: 1;
@@ -155,9 +174,10 @@ button {
   padding: 10px;
 }
 .filter-options select {
-  background-color: white;
+ background-color: #cdedfd;
+ background-image: linear-gradient(319deg, #cdedfd 0%, #ffec82 37%, #ffcfd2 100%);
   border: 1px solid #fff;
-  font-family: Arial,sans-serif;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: 11pt;
   height: 35px;
   letter-spacing: 0;
@@ -167,6 +187,7 @@ button {
 }
 
 /* ====================== pony Listing ====================== */
+
 
 /*#item-list {
   list-style: outside none none;
@@ -185,13 +206,14 @@ button {
   text-align: center;
 }
 
+
 #item-list p {
   margin: 0;
   font-size: 11pt;
 }
 .list-group-item button {
   cursor: pointer;
-  background-color: #046b99;
+  background-color: #37B0C9;
   color: #fff;
   display: inline-block;
   font-size: 10pt;
@@ -202,8 +224,8 @@ button {
 }
 
 #item-list li h3 {
-  color: #046b99;
-  font-family: Arial,sans-serif;
+  color: #822B99;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: 1.5em;
   font-weight: 200;
   letter-spacing: 0;
@@ -214,23 +236,26 @@ button {
 /* ====================== Pony Details ====================== */
 
 #group {
-  color: #046b99;
-  font-family: Arial,sans-serif;
+  color: #351858;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: 1.5em;
   font-weight: 200;
   letter-spacing: 0;
   line-height: 1.1;
 }
 .pony-img {
-  width: 90%;
+  display: block;
+   margin-left: auto;
+  margin-right: auto;
+  padding: 5px;
+  width: 600px;
 }
 #site-container, #insert-container {
 padding: 25px;
 width: 90%;
 }
 #insert-container h3 {
-  color: #046b99;
-  font-size: 16pt;
+  color: #EC058E;
   font-weight: 300;
 }
 
@@ -240,8 +265,8 @@ width: 90%;
 }
 #insert-container #submit_button {
   cursor: pointer;
-  background-color: #046b99;
-  color: #fff;
+  background-color: #37B0C9;
+  color: #351858;
   display: inline-block;
   font-size: 10pt;
   margin: 15px 0 0;
@@ -250,14 +275,16 @@ width: 90%;
 }
 
 #item-list li {
-  background-color: #fff;
-  border: 2px solid #f3f3f3;
+  background-color: whitesmoke;
+  border: 2px solid #351858;
   display: block;
   list-style-type: none;
-  margin: 0 0 30px;
+  width: 70%;
+  margin: auto;
+  margin-bottom: 30px;
   overflow: hidden;
   padding: 0 20px 20px;
-  position: relative;
+  position: center;
   width: 85%;
 }
 #item-list li p {
