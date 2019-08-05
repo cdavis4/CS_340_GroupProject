@@ -76,8 +76,8 @@ createCharacterForm = (pony) => {
   //div.setAttribute('class','row');
   //for name
   const labelname = document.createElement('label');
-  labelname.setAttribute('for','name');
-  labelname.innerHTML = "name";
+  labelname.setAttribute('for','N\name');
+  labelname.innerHTML = "Name";
   div1.appendChild(labelname);
   const input_name = document.createElement("input");
   input_name.setAttribute("type", "text");
@@ -110,6 +110,7 @@ createCharacterForm = (pony) => {
     } else {
       self.groups = groups;
       let groupslist = groups.map((v, i) => groups[i].group_name)
+      groupslist.unshift("None"); //add none to beginning of array
       form.appendChild(createComboBox("Select Group", groupslist));
     }
     });
@@ -120,6 +121,7 @@ createCharacterForm = (pony) => {
     } else {
     self.types = types;
     let typeslist = types.map((v, i) => types[i].type_name)
+    typeslist.unshift("None"); //add none to beginning of array
     form.appendChild(createComboBox("Select Type", typeslist));
     }
   });
@@ -131,6 +133,7 @@ createCharacterForm = (pony) => {
     } else {
     self.cities = cities;
     let citieslist = cities.map((v, i) => cities[i].city_name)
+    citieslist.unshift("None"); //add none to beginning of array
     form.appendChild(createComboBox("Select City", citieslist));
   
     //create submit button here because making requests to database server
