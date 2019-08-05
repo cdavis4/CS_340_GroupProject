@@ -131,8 +131,6 @@ createForm = () => {
   input_button.innerHTML ="Submit";
   div_button.appendChild(input_button);
   
-  //This would really need to use the dbhelper fetch cities function. this is not perminent
-  city_list = ["None","Sweet Apple Acres","Ponyville"];
   //add to form
   form.appendChild(div);
   
