@@ -11,7 +11,6 @@ class DBHelper {
 
   /**
    * Database URL.
-   * Change this to bettas.json file location on your server.
    */
   static get DATABASE_URL() {
     const port = 5432;
@@ -21,7 +20,6 @@ class DBHelper {
   }
   /**
    * Database URL.
-   * Change this to bettas.json file location on your server.
    */
   static get CITIES_DATABASE_URL() {
     const port = 5432;
@@ -32,7 +30,6 @@ class DBHelper {
 
     /**
    * Database URL.
-   * Change this to bettas.json file location on your server.
    */
   static get TYPES_DATABASE_URL() {
     const port = 5432;
@@ -42,7 +39,6 @@ class DBHelper {
   }
     /**
    * Database URL.
-   * Change this to bettas.json file location on your server.
    */
   static get JOBS_DATABASE_URL() {
     const port = 5432;
@@ -52,7 +48,6 @@ class DBHelper {
   }
     /**
    * Database URL.
-   * Change this to bettas.json file location on your server.
    */
   static get GROUPS_DATABASE_URL() {
     const port = 5432;
@@ -60,7 +55,15 @@ class DBHelper {
       return `http://flip2.engr.oregonstate.edu:${port}/group`;
     //  return `http://localhost:${port}/data/cities.json`;
   }
-
+    /**
+   * Database URL.
+   */
+  static get CHAR_JOB_DATABASE_URL() {
+    const port = 5432;
+    // Change this to your server port
+      return `http://flip2.engr.oregonstate.edu:${port}/character_job`;
+    //  return `http://localhost:${port}/data/cities.json`;
+  }
 
   static fetchPonies(callback) {
     let xhr = new XMLHttpRequest();
@@ -184,6 +187,23 @@ class DBHelper {
       };
     xhr.send();
    }
+    /** Makes request to fetch Group json **/
+    static fetchChar_Job(callback) {
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', DBHelper.CHAR_JOB_DATABASE_URL);
+    xhr.onload = () => {
+    if (xhr.status === 200) { // Got a success response from server!
+      const json = JSON.parse(xhr.responseText);
+      const jobs = json;
+      callback(null, jobs);
+      } else { // Oops!. Got an error from server.
+          const error = (`Request failed. Returned status of ${xhr.status}`);
+          callback(error, null);
+        }
+      };
+    xhr.send();
+    }
+    
 
   /** 
   static fetchPonies(callback) {
@@ -285,7 +305,8 @@ class DBHelper {
     });
   }
 
-
+//example of how to get radio input
+//document.querySelector('input[name="gender"]:checked').value;
   static postPurchase(){
     event.preventDefault();
     let email_purchase = document.getElementById('email_purchase').value;
