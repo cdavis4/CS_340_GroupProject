@@ -149,8 +149,6 @@ createPonyHTML = (pony) => {
 
  image.srcset = "/img/"+ photo +".jpg";
  console.log(image.srcset);
- //"/img/"+ betta.id + ".jpg 400w, /img/" 
- //+betta.id + "-600_1x.jpg 1000w, /img/" + betta.id  + "-600_2x.jpg 4000w";
 
   li.append(image);
 
@@ -185,17 +183,10 @@ createPonyHTML = (pony) => {
   const remove = document.createElement('button');
   remove.innerHTML = 'Delete Character';
   
-  more.addEventListener ("click", function() {
-    const url = DBHelper.urlForPony(pony);
-    window.location.replace(url);
-  });
-  remove.addEventListener ("click", function() {
-    //does nothing right now
-    
-  });
+  
 
   /**
- * Add attributes for Update button
+ * Add attributes for button
  */
   more.setAttribute("class", "button-style");
   more.setAttribute("role", "button");
@@ -208,6 +199,14 @@ createPonyHTML = (pony) => {
   li.append(div_remove);
   div_remove.append(remove);
 
+  more.addEventListener ("click", function() {
+    const url = DBHelper.urlForPony(pony);
+    window.location.replace(url);
+  });
+  remove.addEventListener ("click", function() {
+    //does nothing right now
+    
+  });
 
   return li
 }

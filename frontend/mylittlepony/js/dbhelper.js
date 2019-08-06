@@ -315,14 +315,28 @@ static fetchTypeById(name) {
     return (`/img/${pony.photograph}`);
   }
 
-  //**** */ THE FOLLOWING CODE: needs to be updated to use for different inserts into tables through server********
+  /**** THE FOLLOWING CODE: needs to be updated to use for different inserts into tables through server********
 
-  //delete something need to add to use id from character this could be put in the main js to use with delete button
-  static deleteSomething(id) {
-    fetch(DBHelper.DATABASE_URL + '/' + id, {
-      method: 'DELETE'
-    });
+   //delete review
+   static deleteCharacter(id) {
+    event.preventDefault();
+    const myPost = fetch(DBHelper.DATA_URL + '/' + id, {
+      method: 'DELETE',
+      mode: "cors", // no-cors, cors, *same-origin
+      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      headers: {
+          "Content-Type": "application/json; charset=utf-8",
+           // "Content-Type": "application/x-www-form-urlencoded",
+      },
+      redirect: "follow", // manual, *follow, error
+      referrer: "no-referrer", // no-referrer, *client
+      body: JSON.stringify(review_body), // body data type must match "Content-Type" header
+    }); // parses response to JSO
+  alert("Your request has been sent.");
+  document.getElementById("delete").disabled = true;
+  return myPost;
   }
+  */ 
 
 //example of how to get radio input
 //document.querySelector('input[name="gender"]:checked').value;
@@ -435,7 +449,6 @@ static fetchTypeById(name) {
         "city_name": name,
         "characteristics": characteristics,
         };
-    console.log('Hhi');
     console.log(review_body);
     const myPost = fetch('http://flip2.engr.oregonstate.edu:5432/city', {
           method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -462,7 +475,7 @@ static fetchTypeById(name) {
     let type_excluse = document.getElementById('type_exclusive').value;
     let type_bool = this.checkStatus(type_excluse);
     let type_name = document.getElementById('type_id').value;
-    if (type_bool == "Yes")
+    if (type_bool == 1)
     {
       ///fetching the id from /type/:typename
       // promises like xhr are a pain to return an actual value without a callback
@@ -539,14 +552,14 @@ static fetchTypeById(name) {
     let type_id;
     let name = document.getElementById('name').value;
     let city_name = document.getElementById('city_id').value;
-    if (city_name != "None")
+    if (city_name !== "None")
     {
 
-   
+      console.log(city_name);
       ///fetching the id from /type/:typename
       // promises like xhr are a pain to return an actual value without a callback
       //what if you need to fetch from different sources to get values for your input
-      let url = new URL('group/'+city_name, DBHelper.CITIES_DATABASE_URL);
+      let url = new URL('city/'+city_name, DBHelper.CITIES_DATABASE_URL);
       fetch(url)
         .then(response => {
           if(!response.ok){
@@ -556,13 +569,13 @@ static fetchTypeById(name) {
           return city; 
         })
         .then(city => {
-          city_id = city[0].id;
-          console.log(city_id);
+          let cityid = city[0].id;
+          console.log(city);
       
-        console.log(city_id);
+        console.log(cityid);
       let review_body = {
           "group_name": name,
-          "city_id" : city_id
+          "city_id" : cityid
           };
       console.log(review_body);
       const myPost = fetch('http://flip2.engr.oregonstate.edu:5432/group', {
@@ -612,6 +625,8 @@ static fetchTypeById(name) {
     let job_id;
     let characters = document.getElementById('characters').value;
     let jobs = document.getElementById('jobs').value;
+    console.log(characters);
+    console.log(jobs);
    
     ///fetching the id from /type/:typename
     // promises like xhr are a pain to return an actual value without a callback
@@ -620,29 +635,27 @@ static fetchTypeById(name) {
     //https://stackoverflow.com/questions/40981040/using-a-fetch-inside-another-fetch-in-javascript
     let url1 = new URL('character/'+characters, DBHelper.DATABASE_URL);
     let url2 = new URL('job/'+jobs, DBHelper.JOBS_DATABASE_URL);
-      fetch(url).then(response => {
+    fetch(url1).then(response => {
         if(!response.ok){
            throw Error(`Request failed. Returned status of ${response.statusText}`);
         }
-         const char_name = response.json();
-        return char_name; 
+         const character = response.json();
+        return character; 
       })
-      .then(char_name => {
-        char_id = char_name[0].id;
+      .then(character => {
+       char_id = character[0].id;
         console.log(char_id);
-        fetch(url2)
-        .then(response => {
+      fetch(url2).then(response => {
           if(!response.ok){
              throw Error(`Request failed. Returned status of ${response.statusText}`);
           }
-           const job_name = response.json();
-          return job_name; 
+           const job = response.json();
+          return job; 
         })
-        .then(job_name => {
-          job_id = job_name[0].id;
+        .then(job => {
+           job_id = job[0].id;
           console.log(job_id);
         
-        console.log(job_id);
       let review_body = {
           "character_id": char_id,
           "job_id": job_id,
