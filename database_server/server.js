@@ -165,8 +165,8 @@ app.get('/character/group',(req,res)=> {
    * DELETE CHARACTER
    *   
    */
-  app.delete('/character',(req,res)=>{
-    pool.query('DELETE FROM `Character` WHERE  id=?',[req.body.id],(err,rows,result,fields)=>{
+  app.delete('/character/:id',(req,res)=>{
+    pool.query('DELETE FROM `Character` WHERE  id=?',[req.parameter.id],(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);

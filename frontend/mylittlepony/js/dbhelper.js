@@ -318,7 +318,7 @@ static fetchTypeById(name) {
   //**** */ THE FOLLOWING CODE: needs to be updated to use for different inserts into tables through server********
 
   //delete something need to add to use id from character this could be put in the main js to use with delete button
-  static deleteSomething(id) {
+  static deleteCharacter(id) {
     fetch(DBHelper.DATABASE_URL + '/' + id, {
       method: 'DELETE'
     });
