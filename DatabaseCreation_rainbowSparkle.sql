@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS `cs340_turnesar`.`City`;
 DROP TABLE IF EXISTS `cs340_turnesar`.`Character_Job`;
 
 CREATE TABLE `Type`(
-id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+id INT AUTO_INCREMENT PRIMARY KEY,
 type_name VARCHAR(25) NOT NULL DEFAULT 'Unknown',
 flight BOOLEAN,
 magic BOOLEAN,
@@ -22,38 +22,38 @@ equestrian BOOLEAN
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `City`(
-id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+id INT AUTO_INCREMENT PRIMARY KEY,
 city_name VARCHAR(100) NOT NULL DEFAULT 'Unknown',
 characteristics VARCHAR(256)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `Job`(
-id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+id INT AUTO_INCREMENT PRIMARY KEY,
 job_name VARCHAR(100) NOT NULL DEFAULT 'Unknown',
 type_exclusive BOOLEAN DEFAULT 0,
-type_id INT,
+type_id INT NULL,
 FOREIGN KEY (`type_id`) REFERENCES `Type` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `Group`(
-id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+id INT AUTO_INCREMENT PRIMARY KEY,
 group_name VARCHAR(100) NOT NULL DEFAULT 'Unknown',
-city_id INT,
-FOREIGN KEY (`city_id`) REFERENCES `City` (`id`) ON DELETE SET NULL ON UPDATE CASCADE 
+city_id INT NULL,
+FOREIGN KEY (`city_id`) REFERENCES `City` (`id`)   ON DELETE SET NULL ON UPDATE CASCADE 
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `Character`(
-id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+id INT AUTO_INCREMENT PRIMARY KEY,
 name VARCHAR(100) NOT NULL,
-type_id INT,
-group_id INT,
+type_id INT NULL,
+group_id INT NULL,
 gender ENUM('M','F','O') NOT NULL,
-city_id INT,
+city_id INT NULL,
 FOREIGN KEY (`type_id`) REFERENCES `Type` (`id`)  ON DELETE SET NULL ON UPDATE CASCADE,
-FOREIGN KEY (`group_id`) REFERENCES `Group` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+FOREIGN KEY (`group_id`) REFERENCES `Group` (`id`)  ON DELETE SET NULL ON UPDATE CASCADE,
 FOREIGN KEY (`city_id`) REFERENCES `City` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
+ 
 CREATE TABLE `Character_Job`(
 character_id INT NOT NULL,
 job_id INT NOT NULL,
@@ -121,6 +121,10 @@ VALUES ('Twilight Sparkle', (SELECT id FROM `Type` WHERE type_name = 'Unicorn'),
 INSERT INTO `Character` (name, type_id, group_id, gender, city_id)
 VALUES ('Rainbow Dash', (SELECT id FROM `Type` WHERE type_name = 'Pegasus'), (SELECT id FROM `Group` WHERE group_name = 'Mane Six'), 'F', 
 (SELECT id FROM `City` WHERE city_name = 'Cloudsdale'));
+
+INSERT INTO `Character` (name, type_id, group_id, gender, city_id)
+VALUES ('Princess Celestia', (SELECT id FROM `Type` WHERE type_name = 'Alicorn'), NULL , 'F', 
+(SELECT id FROM `City` WHERE city_name = 'Canterlot'));
 
 
 -- Character Job tests
