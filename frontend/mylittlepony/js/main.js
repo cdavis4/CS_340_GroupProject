@@ -183,14 +183,10 @@ createPonyHTML = (pony) => {
   const remove = document.createElement('button');
   remove.innerHTML = 'Delete Character';
   
-  more.addEventListener ("click", function() {
-    const url = DBHelper.urlForPony(pony);
-    window.location.replace(url);
-  });
-  remove.addEventListener ("click", DBHelper.deleteCharacter(pony.id));
+  
 
   /**
- * Add attributes for Update button
+ * Add attributes for button
  */
   more.setAttribute("class", "button-style");
   more.setAttribute("role", "button");
@@ -203,6 +199,14 @@ createPonyHTML = (pony) => {
   li.append(div_remove);
   div_remove.append(remove);
 
+  more.addEventListener ("click", function() {
+    const url = DBHelper.urlForPony(pony);
+    window.location.replace(url);
+  });
+  remove.addEventListener ("click", function() {
+    //does nothing right now
+    
+  });
 
   return li
 }

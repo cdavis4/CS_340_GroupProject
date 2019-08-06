@@ -166,15 +166,15 @@ app.get('/character/group',(req,res)=> {
    *   
    */
   app.delete('/character/:id',(req,res)=>{
-    pool.query('DELETE FROM `Character` WHERE  id=?',[req.parameter.id],(err,rows,result,fields)=>{
+    pool.query('DELETE FROM `Character` WHERE  id = ?',[req.params.id],(err,rows,result,fields)=>{
         if(err)
         {
-            res.json(err);
+            res.send(err);
             console.log(err);
             return;
         }
         console.log('deleted successfully');
-        res.json(rows);
+        res.send('deleted successfully');
    })
 });
   
@@ -250,6 +250,23 @@ app.get('/character/group',(req,res)=> {
         res.json(rows);
 
     })
+});
+
+   /**
+   * DELETE TYPE
+   *   
+   */
+  app.delete('/type/:id',(req,res)=>{
+    pool.query('DELETE FROM `Type` WHERE  id = ?',[req.params.id],(err,rows,fields)=>{
+        if(err)
+        {
+            res.json(err);
+            console.log(err);
+            return;
+        }
+        console.log('deleted successfully');
+        res.send('deleted successfully');
+   })
 });
     
     /**
@@ -453,7 +470,7 @@ app.get('/city/:name',(req,res)=> {
  * ***DELETE RELATIONSHIP 
  * */
   app.delete('/character_job',(req,res)=>{
-    pool.query('DELETE FROM `Character_Job` WHERE  character_id=? AND job_id = ?',[req.body.character_id, req.body.job_id],(err,rows,result,fields)=>{
+    pool.query('DELETE FROM `Character_Job` WHERE character_id = ? AND job_id = ?',[req.body.character_id, req.body.job_id],(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);

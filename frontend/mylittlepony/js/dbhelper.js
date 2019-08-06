@@ -315,14 +315,28 @@ static fetchTypeById(name) {
     return (`/img/${pony.photograph}`);
   }
 
-  //**** */ THE FOLLOWING CODE: needs to be updated to use for different inserts into tables through server********
+  /**** THE FOLLOWING CODE: needs to be updated to use for different inserts into tables through server********
 
-  //delete something need to add to use id from character this could be put in the main js to use with delete button
-  static deleteCharacter(id) {
-    fetch(DBHelper.DATABASE_URL + '/' + id, {
-      method: 'DELETE'
-    });
+   //delete review
+   static deleteCharacter(id) {
+    event.preventDefault();
+    const myPost = fetch(DBHelper.DATA_URL + '/' + id, {
+      method: 'DELETE',
+      mode: "cors", // no-cors, cors, *same-origin
+      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      headers: {
+          "Content-Type": "application/json; charset=utf-8",
+           // "Content-Type": "application/x-www-form-urlencoded",
+      },
+      redirect: "follow", // manual, *follow, error
+      referrer: "no-referrer", // no-referrer, *client
+      body: JSON.stringify(review_body), // body data type must match "Content-Type" header
+    }); // parses response to JSO
+  alert("Your request has been sent.");
+  document.getElementById("delete").disabled = true;
+  return myPost;
   }
+  */ 
 
 //example of how to get radio input
 //document.querySelector('input[name="gender"]:checked').value;
@@ -435,7 +449,6 @@ static fetchTypeById(name) {
         "city_name": name,
         "characteristics": characteristics,
         };
-    console.log('Hhi');
     console.log(review_body);
     const myPost = fetch('http://flip2.engr.oregonstate.edu:5432/city', {
           method: "POST", // *GET, POST, PUT, DELETE, etc.
