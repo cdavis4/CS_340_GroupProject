@@ -438,6 +438,7 @@ static fetchTypeById(name) {
     // promises like xhr are a pain to return an actual value without a callback
     //what if you need to fetch from different sources to get values for your input
     //that's a fun function within a function within a function. :()
+     //https://stackoverflow.com/questions/40981040/using-a-fetch-inside-another-fetch-in-javascript
     let url = new URL('type/'+type_name, DBHelper.TYPES_DATABASE_URL);
      fetch(url)
       .then(response => {
