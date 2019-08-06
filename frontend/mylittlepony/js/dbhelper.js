@@ -538,35 +538,63 @@ static fetchTypeById(name) {
     let type_id;
     let name = document.getElementById('name').value;
     let city_name = document.getElementById('city_id').value;
-    ///fetching the id from /type/:typename
-    // promises like xhr are a pain to return an actual value without a callback
-    //what if you need to fetch from different sources to get values for your input
-    let url = new URL('group/'+city_name, DBHelper.CITIES_DATABASE_URL);
-     fetch(url)
-      .then(response => {
-        if(!response.ok){
-          throw Error(`Request failed. Returned status of ${response.statusText}`);
-         }
-         const city = response.json();
-         return city; 
-       })
-       .then(city => {
-         city_id = city[0].id;
-         console.log(city_id);
-    
-       console.log(city_id);
-    let review_body = {
+    if (city_name != "None")
+    {
+
+   
+      ///fetching the id from /type/:typename
+      // promises like xhr are a pain to return an actual value without a callback
+      //what if you need to fetch from different sources to get values for your input
+      let url = new URL('group/'+city_name, DBHelper.CITIES_DATABASE_URL);
+      fetch(url)
+        .then(response => {
+          if(!response.ok){
+            throw Error(`Request failed. Returned status of ${response.statusText}`);
+          }
+          const city = response.json();
+          return city; 
+        })
+        .then(city => {
+          city_id = city[0].id;
+          console.log(city_id);
+      
+        console.log(city_id);
+      let review_body = {
+          "group_name": name,
+          "city_id" : city_id
+          };
+      console.log(review_body);
+      const myPost = fetch('http://flip2.engr.oregonstate.edu:5432/job', {
+            method: "POST", // *GET, POST, PUT, DELETE, etc.
+            mode: "cors", // no-cors, cors, *same-origin
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+                // "Content-Type": "application/x-www-form-urlencoded",
+            },
+            redirect: "follow", // manual, *follow, error
+            referrer: "no-referrer", // no-referrer, *client
+            body: JSON.stringify(review_body), // body data type must match "Content-Type" header
+        }); // parses response to JSON
+        let modal = document.getElementById("myModal");
+        modal.style.display = "none";
+        return myPost;
+      })
+    }
+    else
+    {
+      let review_body = {
         "group_name": name,
-        "city_id" : city_id
+        "city_id" : null
         };
-    console.log(review_body);
-    const myPost = fetch('http://flip2.engr.oregonstate.edu:5432/job', {
+          console.log(review_body);
+          const myPost = fetch('http://flip2.engr.oregonstate.edu:5432/job', {
           method: "POST", // *GET, POST, PUT, DELETE, etc.
           mode: "cors", // no-cors, cors, *same-origin
           cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
           headers: {
               "Content-Type": "application/json; charset=utf-8",
-               // "Content-Type": "application/x-www-form-urlencoded",
+              // "Content-Type": "application/x-www-form-urlencoded",
           },
           redirect: "follow", // manual, *follow, error
           referrer: "no-referrer", // no-referrer, *client
@@ -575,7 +603,7 @@ static fetchTypeById(name) {
       let modal = document.getElementById("myModal");
       modal.style.display = "none";
       return myPost;
-    })
+    }
   }
 
 }
