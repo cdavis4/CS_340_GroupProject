@@ -56,7 +56,7 @@ var server = app.listen(app.get('port'),() => {
    * SELECT QUERY
    */
 app.get('/character',(req,res)=> {
-    var char_sql = "SELECT Character.id, Character.name, Type.type_name, Group.group_name, Character.gender, City.city_name FROM `Character` LEFT JOIN `Type` ON Character.type_id = Type.id LEFT JOIN `Group` ON Character.group_id = Group.id LEFT JOIN `City` ON Character.city_id = City.id";   
+    var char_sql = "SELECT Character.name, Type.type_name, Group.group_name, Character.gender, City.city_name FROM `Character` LEFT JOIN `Type` ON Character.type_id = Type.id LEFT JOIN `Group` ON Character.group_id = Group.id LEFT JOIN `City` ON Character.city_id = City.id";   
     pool.query(char_sql,(err,rows,result,fields)=>{
         if(err)
         {
@@ -72,9 +72,9 @@ app.get('/character',(req,res)=> {
    * GET TYPE SORTED CHARACTER FROM CHARACTER TABLE WITH JOINS
    * SELECT QUERY
    */
-app.get('/character/type/:type_name',(req,res)=> {
-    var charT_sql = "SELECT Character.id,Character.name, Type.type_name, Group.group_name, Character.gender, City.city_name FROM `Character` LEFT JOIN `Type` ON Character.type_id = Type.id LEFT JOIN `Group` ON Character.group_id = Group.id LEFT JOIN `City` ON Character.city_id = City.id WHERE type_name =?";   
-    pool.query(charT_sql,[req.params.type_name],(err,rows,result,fields)=>{
+app.get('/character/type',(req,res)=> {
+    var charT_sql = "SELECT Character.name, Type.type_name, Group.group_name, Character.gender, City.city_name FROM `Character` LEFT JOIN `Type` ON Character.type_id = Type.id LEFT JOIN `Group` ON Character.group_id = Group.id LEFT JOIN `City` ON Character.city_id = City.id WHERE type_id =?";   
+    pool.query(charT_sql,[req.query.type_id],(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -90,9 +90,9 @@ app.get('/character/type/:type_name',(req,res)=> {
    * GET GROUP SORTED CHARACTER FROM CHARACTER TABLE WITH JOINS
    * SELECT QUERY
    */
-app.get('/character/group/:group_name',(req,res)=> {
-    var charG_sql = "SELECT Character.id,Character.name, Type.type_name, Group.group_name, Character.gender, City.city_name FROM `Character` LEFT JOIN `Type` ON Character.type_id = Type.id LEFT JOIN `Group` ON Character.group_id = Group.id LEFT JOIN `City` ON Character.city_id = City.id WHERE group_name =?";   
-    pool.query(charG_sql,[req.params.group_name],(err,rows,result,fields)=>{
+app.get('/character/group',(req,res)=> {
+    var charG_sql = "SELECT Character.name, Type.type_name, Group.group_name, Character.gender, City.city_name FROM `Character` LEFT JOIN `Type` ON Character.type_id = Type.id LEFT JOIN `Group` ON Character.group_id = Group.id LEFT JOIN `City` ON Character.city_id = City.id WHERE group_id =?";   
+    pool.query(charG_sql,[req.query.group_id],(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -127,8 +127,9 @@ app.get('/character/group/:group_name',(req,res)=> {
    * 
  */
   app.post('/character',(req,res)=>{
-    var insertchar ="INSERT INTO `Character` (`name`, `type_id`, `group_id`, `gender`, `city_id`) VALUES ('" + req.body.name+"','" + req.body.type_id +"','" + req.body.group_id + "','" +req.body.gender +"','" + req.body.city_id + "')";
-    pool.query(insertchar,(err,rows,result,fields)=>{
+    let chardata = [req.body.name, req.body.type_id,req.body.group_id,req.body.gender, req.body.city_id];
+    var insertchar ="INSERT INTO `Character` (`name`, `type_id`, `group_id`, `gender`, `city_id`) VALUES (?)"
+    pool.query(insertchar,[chardata],(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -199,8 +200,7 @@ app.get('/character/group/:group_name',(req,res)=> {
 
  /**
    * GET name/id JOB TABLE
-   * Use in Forms for getting job id 
-   * and displaying job name in drop down
+   * Use in Filter SELECT QUERY
    */
   app.get('/job/:name',(req,res)=> {
     pool.query('SELECT id, job_name FROM `Job` WHERE job_name =?',[req.params.name],(err,rows,result,fields)=>{
@@ -220,8 +220,9 @@ app.get('/character/group/:group_name',(req,res)=> {
    */
 
   app.post('/job',(req,res)=>{
-    var insertjob ="INSERT INTO `Job` (`job_name`, `type_exclusive`, `type_id`) VALUES ('" + req.body.job_name+"','" + req.body.type_exclusive +"','" + req.body.type_id + "')";
-    pool.query(insertjob,(err,rows,result,fields)=>{
+    let datajob = [req.body.job_name, req.body.type_exclusive, req.body.type_id];
+    var insertjob ="INSERT INTO `Job` (`job_name`, `type_exclusive`, `type_id`) VALUES (?)";
+    pool.query(insertjob,[datajob],(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -342,7 +343,7 @@ app.get('/city/:name',(req,res)=> {
    * SELECT QUERY 
    */
   app.get('/group',(req,res)=> {
-    var group_sql = "SELECT Group.id, Group.group_name, City.city_name FROM `Group` LEFT JOIN `City` ON Group.city_id = City.id";
+    var group_sql = "SELECT Group.group_name, City.city_name FROM `Group` LEFT JOIN `City` ON Group.city_id = City.id";
     pool.query(group_sql ,(err,rows,result,fields)=>{
         if(err)
         {
@@ -376,8 +377,9 @@ app.get('/city/:name',(req,res)=> {
   * INSERT Group 
    */
   app.post('/group',(req,res)=>{
-    var insertgroup ="INSERT INTO `Group` (`group_name`, `city_id`) VALUES ('" + req.body.group_name+"','" + req.body.city_id +"')";
-    pool.query(insertgroup,(err,rows,result,fields)=>{
+    let groupdata = [req.body.group_name, req.body.city_id];
+    var insertgroup ="INSERT INTO `Group` (`group_name`, `city_id`) VALUES (?)";
+    pool.query(insertgroup,[groupdata],(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -396,7 +398,7 @@ app.get('/city/:name',(req,res)=> {
   * SELECT QUERY
    */
   app.get('/character_job',(req,res)=> {
-    var ponywork_sql = "SELECT Character.id, Character.name, Job.id, Job.job_name FROM `Character_Job` INNER JOIN `Character` ON Character.id = Character_Job.character_id INNER JOIN `Job` ON Character_Job.job_id =  Job.id";
+    var ponywork_sql = "SELECT Character.name, Job.job_name FROM `Character_Job` INNER JOIN `Character` ON Character.id = Character_Job.character_id INNER JOIN `Job` ON Character_Job.job_id =  Job.id";
     pool.query(ponywork_sql ,(err,rows,result,fields)=>{
         if(err)
         {
