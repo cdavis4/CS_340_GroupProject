@@ -140,7 +140,7 @@ createForm = () => {
   //create submit button
   const div_button = document.createElement('div');
   const input_button = document.createElement('button');
-  input_button.setAttribute("onclick","DBHelper.postContact()");
+  input_button.setAttribute("onclick","DBHelper.postType()");
   input_button.setAttribute("id","submit_button");
   input_button.innerHTML ="Submit";
   div_button.appendChild(input_button);
