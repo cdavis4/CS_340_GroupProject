@@ -310,7 +310,7 @@ app.get('/type/:name',(req,res)=> {
    * SELECT QUERY
    */
 app.get('/city/:name',(req,res)=> {
-    pool.query('SELECT id, city_name FROM `City`WHERE city_name =?"',[req.params.name],(err,rows,result,fields)=>{
+    pool.query('SELECT id, city_name FROM `City`WHERE city_name =?',[req.params.name],(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);

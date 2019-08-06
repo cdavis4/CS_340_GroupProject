@@ -27,7 +27,6 @@ fetchChar_Job = () => {
       console.error(error);
     } else {
       self.char_jobs = char_jobs;
-      console.log(char_jobs);
       fillCharJobHTML();
     }
   });
@@ -38,7 +37,6 @@ fetchChar_Job = () => {
 fillCharJobHTML = (char_jobs = self.char_jobs) => {
   const ul = document.getElementById('item-list');
   char_jobs.forEach(char_job => {
-    console.log(char_job);
     const li = document.createElement('li');
     li.setAttribute("class","list-group-item");
     ul.appendChild(li);
@@ -87,7 +85,7 @@ createContactModal = (pony) =>{
   const btn = document.getElementById('contactBtn');
   btn.addEventListener ("click", function() {
     modal.style.display = "block";
-    modal.querySelector('input').focus();
+   // modal.querySelector('character').focus();
   });
 
   closeBtn.addEventListener("click",function() {
@@ -118,10 +116,28 @@ createForm = () => {
  
   form.appendChild(div);
 
+    /// is slow and this will wait until the above request is done before placing
+    /// button in html
+    const div_button = document.createElement('div');
+    const input_button = document.createElement('button');
+    input_button.setAttribute("onclick","DBHelper.postContact()");
+    input_button.setAttribute("id","submit_button");
+    input_button.innerHTML ="Submit";
+    div_button.appendChild(input_button);
+
    /**
   * Fetch all groups and set their HTML. 
   */
-  
+ DBHelper.fetchJobs((error, jobs) => {
+  if (error)
+   { // Got an error
+    console.error(error);
+  } else {
+    self.jobs = jobs;
+    let jobslist = jobs.map((v, i) => jobs[i].job_name);
+    form.appendChild(createComboBox("Select Job","jobs", jobslist));
+  }
+  });
   DBHelper.fetchPonies((error, ponies) => {
   if (error)
    { // Got an error
@@ -131,28 +147,11 @@ createForm = () => {
     let ponieslist = ponies.map((v, i) => ponies[i].name);
     form.appendChild(createComboBox("Select Character","characters", ponieslist));
   }
-  });
-  DBHelper.fetchJobs((error, jobs) => {
-    if (error)
-     { // Got an error
-      console.error(error);
-    } else {
-      self.jobs = jobs;
-      let jobslist = jobs.map((v, i) => jobs[i].job_name);
-      form.appendChild(createComboBox("Select Job","jobs", jobslist));
-    }
+   //create submit button here because making requests to database server
 
-    //create submit button here because making requests to database server
-    /// is slow and this will wait until the above request is done before placing
-    /// button in html
-    const div_button = document.createElement('div');
-    const input_button = document.createElement('button');
-    input_button.setAttribute("onclick","DBHelper.postContact()");
-    input_button.setAttribute("id","submit_button");
-    input_button.innerHTML ="Submit";
-    div_button.appendChild(input_button);
-    form.appendChild(div_button);
-    });
+   form.appendChild(div_button);
+  });
+  
 
     //form.setAttribute("action",DBHelper.sendContactInfo());
     //form.setAttribute("method", "post");
