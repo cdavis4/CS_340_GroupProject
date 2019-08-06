@@ -56,7 +56,7 @@ var server = app.listen(app.get('port'),() => {
    * SELECT QUERY
    */
 app.get('/character',(req,res)=> {
-    var char_sql = "SELECT Character.name, Type.type_name, Group.group_name, Character.gender, City.city_name FROM `Character` LEFT JOIN `Type` ON Character.type_id = Type.id LEFT JOIN `Group` ON Character.group_id = Group.id LEFT JOIN `City` ON Character.city_id = City.id";   
+    var char_sql = "SELECT Character.id, Character.name, Type.type_name, Group.group_name, Character.gender, City.city_name FROM `Character` LEFT JOIN `Type` ON Character.type_id = Type.id LEFT JOIN `Group` ON Character.group_id = Group.id LEFT JOIN `City` ON Character.city_id = City.id";   
     pool.query(char_sql,(err,rows,result,fields)=>{
         if(err)
         {
@@ -274,8 +274,9 @@ app.get('/type/:name',(req,res)=> {
    */
 
   app.post('/type',(req,res)=>{
-    var inserttype ="INSERT INTO `Type` (`type_name`, `flight`, `magic`, `equestrian`) VALUES ('" + req.body.type_name+"','" + req.body.flight +"','" + req.body.magic + "', '" + req.body.equestrian +"')";
-    pool.query(inserttype,(err,rows,result,fields)=>{
+    var inserttype ="INSERT INTO `Type` (`type_name`, `flight`, `magic`, `equestrian`) VALUES (?)"
+    var parameters = [req.body.type_name,req.body.flight,req.body.magic,req.body.equestrian];
+    pool.query(inserttype,[parameters],(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -325,8 +326,9 @@ app.get('/city/:name',(req,res)=> {
    * INSERT CITY 
    */
   app.post('/city',(req,res)=>{
-    var insertcity ="INSERT INTO `City` (`city_name`, `characteristics`) VALUES ('" + req.body.city_name+"','" + req.body.characteristics +"')";
-    pool.query(insertcity,(err,rows,result,fields)=>{
+    var insertcity ="INSERT INTO `City` (`city_name`, `characteristics`) VALUES (?)"
+    var parameters = [req.body.city_name, req.body.characteristics];
+    pool.query(insertcity, [parameters], (err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -433,8 +435,9 @@ app.get('/city/:name',(req,res)=> {
  * ***CREATE RELATIONSHIP/INSERT 
  * */
   app.post('/character_job',(req,res)=>{
-    var insertrel="INSERT INTO `Character_Job` (`character_id`, `job_id`) VALUES ('" + req.body.character_id +"','" + req.body.job_id +"')";
-    pool.query(insertrel,(err,rows,result,fields)=>{
+    var insertrel="INSERT INTO `Character_Job` (`character_id`, `job_id`) VALUES (?)"
+    var parameters = [req.body.character_id,req.body.job_id];
+    pool.query(insertrel,[parameters],(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
