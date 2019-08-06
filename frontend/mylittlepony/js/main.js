@@ -297,8 +297,9 @@ createForm = () => {
     console.error(error);
   } else {
     self.groups = groups;
-    let groupslist = groups.map((v, i) => groups[i].group_name)
-    form.appendChild(createComboBox("Select Group", groupslist));
+    let groupslist = groups.map((v, i) => groups[i].group_name);
+    groupslist.unshift("None"); //add none to beginning of array
+    form.appendChild(createComboBox("Select Group","group_id", groupslist));
   }
   });
   DBHelper.fetchTypes((error, types) => {
@@ -307,8 +308,9 @@ createForm = () => {
       console.error(error);
     } else {
       self.types = types;
-      let typeslist = types.map((v, i) => types[i].type_name)
-      form.appendChild(createComboBox("Select Type", typeslist));
+      let typeslist = types.map((v, i) => types[i].type_name);
+      typeslist.unshift("None"); //add none to beginning of array
+      form.appendChild(createComboBox("Select Type","type_id", typeslist));
     }
     });
 
@@ -318,8 +320,9 @@ createForm = () => {
         console.error(error);
       } else {
         self.cities = cities;
-        let citieslist = cities.map((v, i) => cities[i].city_name)
-        form.appendChild(createComboBox("Select City", citieslist));
+        let citieslist = cities.map((v, i) => cities[i].city_name);
+        citieslist.unshift("None"); //add none to beginning of array
+        form.appendChild(createComboBox("Select City","city_id", citieslist));
 
     //create submit button here because making requests to database server
     /// is slow and this will wait until the above request is done before placing
@@ -359,16 +362,16 @@ createRadioBox = (textlabel,customRadioInline,value) => {
 };
 
 //create a dropdown combo box
-createComboBox = (textLabel, optionsArray) => {
+createComboBox = (textLabel, exampleFormControlSelect2,optionsArray) => {
   const div_multi = document.createElement("div");
   div_multi.setAttribute("class", "form-group");
   const label_multi = document.createElement("label");
-  label_multi.setAttribute("for","exampleFormControlSelect2");
+  label_multi.setAttribute("for",exampleFormControlSelect2);
   label_multi.innerHTML= textLabel;
   const select_multi = document.createElement("select");
   select_multi.setAttribute("class", "form-control");
-  select_multi.setAttribute("name","exampleFormControlSelect2");
-  select_multi.setAttribute("id","exampleFormControlSelect2");
+  select_multi.setAttribute("name",exampleFormControlSelect2);
+  select_multi.setAttribute("id",exampleFormControlSelect2);
   optionsArray.forEach(function(x){
     const option = document.createElement('option');
     option.innerHTML = x;

@@ -104,54 +104,78 @@ createContactModal = (pony) =>{
  */
 
 createForm = () => {
+
   const form = document.createElement('form');
   form.setAttribute("id", "contact_form");
   const h3 = document.createElement('h3');
-  h3.innerHTML = "Add New City";
+  h3.innerHTML = "Add New Character Job Relationship";
   form.append(h3);
 
-//create name field
+  //create name field
   const div = document.createElement("div");
   const div_name = document.createElement('div');
   div.setAttribute("class",'form-group');
-  div_name.setAttribute("class","form-control");
-  const input_name = document.createElement("input");
-  input_name.setAttribute("type", "text");
-  input_name.setAttribute("id", "name");
-  input_name.setAttribute("placeholder", "city name");
-  div_name.appendChild(input_name);
-  div.appendChild(div_name);
-
-
-  //add description
-  const div_desc = document.createElement('div');
-  div_desc.setAttribute("class", "form-control");
-  const label_desc = document.createElement('label');
-  label_desc.setAttribute("for","desc");
-  label_desc.innerHTML = "Specifiy city characteristics. Up to 256 characters long.";
-  const desc_input = document.createElement('textarea');
-  desc_input.setAttribute("rows","3");
-  desc_input.setAttribute("class","form-control");
-  desc_input.setAttribute("id","desc");
-  desc_input.setAttribute("placeholder","This is where you would provide details about the city.");
-  
-  //add to div
-  div_desc.appendChild(label_desc);
-  div_desc.appendChild(desc_input);
-
-  //create submit button
-  const div_button = document.createElement('div');
-  const input_button = document.createElement('button');
-  input_button.setAttribute("onclick","DBHelper.postContact()");
-  input_button.setAttribute("id","submit_button");
-  input_button.innerHTML ="Submit";
-  div_button.appendChild(input_button);
-  
-  //add to form
+ 
   form.appendChild(div);
-  form.appendChild(div_desc);
-  form.appendChild(div_button);
-  //form.setAttribute("action",DBHelper.sendContactInfo());
-  //form.setAttribute("method", "post");
+
+   /**
+  * Fetch all groups and set their HTML. 
+  */
+  
+  DBHelper.fetchPonies((error, ponies) => {
+  if (error)
+   { // Got an error
+    console.error(error);
+  } else {
+    self.ponies = ponies;
+    let ponieslist = ponies.map((v, i) => ponies[i].name);
+    form.appendChild(createComboBox("Select Character","characters", ponieslist));
+  }
+  });
+  DBHelper.fetchJobs((error, jobs) => {
+    if (error)
+     { // Got an error
+      console.error(error);
+    } else {
+      self.jobs = jobs;
+      let jobslist = jobs.map((v, i) => jobs[i].job_name);
+      form.appendChild(createComboBox("Select Job","jobs", jobslist));
+    }
+
+    //create submit button here because making requests to database server
+    /// is slow and this will wait until the above request is done before placing
+    /// button in html
+    const div_button = document.createElement('div');
+    const input_button = document.createElement('button');
+    input_button.setAttribute("onclick","DBHelper.postContact()");
+    input_button.setAttribute("id","submit_button");
+    input_button.innerHTML ="Submit";
+    div_button.appendChild(input_button);
+    form.appendChild(div_button);
+    });
+
+    //form.setAttribute("action",DBHelper.sendContactInfo());
+    //form.setAttribute("method", "post");
   return form;
 }
+
+//create a dropdown combo box
+createComboBox = (textLabel, exampleFormControlSelect2,optionsArray) => {
+  const div_multi = document.createElement("div");
+  div_multi.setAttribute("class", "form-group");
+  const label_multi = document.createElement("label");
+  label_multi.setAttribute("for",exampleFormControlSelect2);
+  label_multi.innerHTML= textLabel;
+  const select_multi = document.createElement("select");
+  select_multi.setAttribute("class", "form-control");
+  select_multi.setAttribute("name",exampleFormControlSelect2);
+  select_multi.setAttribute("id",exampleFormControlSelect2);
+  optionsArray.forEach(function(x){
+    const option = document.createElement('option');
+    option.innerHTML = x;
+    select_multi.appendChild(option);
+  })
+  div_multi.appendChild(label_multi);
+  div_multi.appendChild(select_multi);
+  return div_multi;
+};

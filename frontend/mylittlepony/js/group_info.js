@@ -126,13 +126,11 @@ createForm = () => {
   //create submit button
   const div_button = document.createElement('div');
   const input_button = document.createElement('button');
-  input_button.setAttribute("onclick","DBHelper.postContact()");
+  input_button.setAttribute("onclick","DBHelper.postGroup()");
   input_button.setAttribute("id","submit_button");
   input_button.innerHTML ="Submit";
   div_button.appendChild(input_button);
   
-  //This would really need to use the dbhelper fetch cities function. this is not perminent
-  city_list = ["None","Sweet Apple Acres","Ponyville"];
   //add to form
   form.appendChild(div);
   
@@ -143,7 +141,8 @@ createForm = () => {
     } else {
       self.cities = cities;
       let citieslist = cities.map((v, i) => cities[i].city_name)
-      form.appendChild(createComboBox("Select Headquarter City: ",citieslist));
+      citieslist.unshift("None"); //add none to beginning of array
+      form.appendChild(createComboBox("Select Headquarter City: ", "city_id",citieslist));
       form.appendChild(div_button);
     }
   });
@@ -155,16 +154,16 @@ createForm = () => {
 }
 
 //create a dropdown combo box
-createComboBox = (textLabel, optionsArray) => {
+createComboBox = (textLabel,exampleFormControlSelect2, optionsArray) => {
   const div_multi = document.createElement("div");
   div_multi.setAttribute("class", "form-group");
   const label_multi = document.createElement("label");
-  label_multi.setAttribute("for","exampleFormControlSelect2");
+  label_multi.setAttribute("for",exampleFormControlSelect2);
   label_multi.innerHTML= textLabel;
   const select_multi = document.createElement("select");
   select_multi.setAttribute("class", "form-control");
-  select_multi.setAttribute("name","exampleFormControlSelect2");
-  select_multi.setAttribute("id","exampleFormControlSelect2");
+  select_multi.setAttribute("name",exampleFormControlSelect2);
+  select_multi.setAttribute("id",exampleFormControlSelect2);
   optionsArray.forEach(function(x){
     const option = document.createElement('option');
     option.innerHTML = x;
