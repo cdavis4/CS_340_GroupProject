@@ -108,7 +108,7 @@ app.get('/character/group/:group_name',(req,res)=> {
    * TO USE IN FILTER - SELECT QUERY
    */
   app.get('/character/:id',(req,res)=> {
-    pool.query('SELECT id, name FROM `Character`',[req,params.id],(err,rows,result,fields)=>{
+    pool.query("SELECT id, name FROM `Character` WHERE id =?",[req.params.id],(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -202,8 +202,8 @@ app.get('/character/group/:group_name',(req,res)=> {
    * Use in Forms for getting job id 
    * and displaying job name in drop down
    */
-  app.get('/job/:id',(req,res)=> {
-    pool.query('SELECT id, job_name FROM `Job`',[req,params.id],(err,rows,result,fields)=>{
+  app.get('/job/:name',(req,res)=> {
+    pool.query('SELECT id, job_name FROM `Job` WHERE job_name =?',[req.params.name],(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -255,8 +255,8 @@ app.get('/character/group/:group_name',(req,res)=> {
    * GET name/id Type TABLE
    * SELECT QUERY
    */
-app.get('/type/:id',(req,res)=> {
-    pool.query('SELECT id, type_name FROM `Type`',[req,params.id],(err,rows,result,fields)=>{
+app.get('/type/:name',(req,res)=> {
+    pool.query('SELECT id, type_name FROM `Type`WHERE type_name =?',[req.params.name],(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -307,8 +307,8 @@ app.get('/type/:id',(req,res)=> {
    * GET name/id City TABLE
    * SELECT QUERY
    */
-app.get('/city/:id',(req,res)=> {
-    pool.query('SELECT id, city_name FROM `City`',[req,params.id],(err,rows,result,fields)=>{
+app.get('/city/:name',(req,res)=> {
+    pool.query('SELECT id, city_name FROM `City`WHERE city_name =?"',[req.params.name],(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -359,8 +359,8 @@ app.get('/city/:id',(req,res)=> {
    * GET name/id group TABLE
    * SELECT QUERY
    */
-  app.get('/group/:id',(req,res)=> {
-    pool.query('SELECT id, group_name FROM `Group`',[req,params.id],(err,rows,result,fields)=>{
+  app.get('/group/:name',(req,res)=> {
+    pool.query('SELECT id, group_name FROM `Group`WHERE group_name =?"',[req.params.name],(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -411,7 +411,6 @@ app.get('/city/:id',(req,res)=> {
 
 /*
  * *SELECT IDs only for Character_Job Table 
- * */
 
   app.get('/character_job/:id',(req,res)=> {
     var workid_sql = "SELECT * FROM `Character_Job`";
@@ -426,6 +425,7 @@ app.get('/city/:id',(req,res)=> {
         res.json(rows);
     })
 });
+ * */
 
 /**
  * ***CREATE RELATIONSHIP/INSERT 

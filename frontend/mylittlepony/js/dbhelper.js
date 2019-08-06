@@ -204,27 +204,40 @@ class DBHelper {
     
 
   
-  static fetchTypeById(callback) {
-    fetch(DBHelper.DATABASE_URL)
+  static fetchTypeById(name) {
+   let url = new URL('type/'+name, DBHelper.TYPES_DATABASE_URL);
+   console.log(url);
+    fetch(url)
      .then(response => {
        if(!response.ok){
          throw Error(`Request failed. Returned status of ${response.statusText}`);
-       }
-       const ponies = response.json();
-       console.log(ponies);
-   
-      return ponies;
-     })
-     .then(ponies => callback(null, ponies))
-     .catch(error => {
-       callback(error,null);
-     });
-   }
-
-  /**
+        }
+        const type = response.json();
+        return type; 
+      })
+      .then(type => {
+        console.log(type[0].id);
+        return type[0].id;
+      })
+  }
+/*
+static fetchTypeById(name) {
+  let url = new URL('type/'+name, DBHelper.TYPES_DATABASE_URL);
+  console.log(url);
+  fetch(url).then(response => 
+    response.json().then(data => ({
+        data: data,
+        status: response.status
+    })
+  ).then(res => {
+    console.log(res.status, res.data)
+  }));
+}
+*/
+/*
    * Fetch a restaurant by its ID.
-   */
-  static fetchPonyById(id, callback) {
+   
+  static fetchTypeById(id, callback) {
     // fetch all bettas with proper error handling.
     DBHelper.fetchPonies((error, ponies) => {
       if (error) {
@@ -242,7 +255,15 @@ class DBHelper {
         }
       }
     });
-  }
+  }*/
+  static fetchTypeByName(name, callback) {
+    // fetch all restaurants with proper error handling.
+    let url = new URL('type/'+name, DBHelper.TYPES_DATABASE_URL);
+    fetch(url)
+    .then(response => response.json())
+    .then(data => callback(null, data))
+    .catch(error => callback(error, null));
+}
   /**
    * Fetch all groups with proper error handling.
    */
@@ -407,19 +428,36 @@ class DBHelper {
 
   static postJob(){
     event.preventDefault();
-
+    let type_id;
     let name = document.getElementById('name').value;
      
     let type_excluse = document.getElementById('type_exclusive').value;
     let type_bool = this.checkStatus(type_excluse);
     let type_name = document.getElementById('type_id').value;
-   
+    ///fetching the id from /type/:typename
+    // promises like xhr are a pain to return an actual value without a callback
+    //what if you need to fetch from different sources to get values for your input
+    //that's a fun function within a function within a function. :()
+    let url = new URL('type/'+type_name, DBHelper.TYPES_DATABASE_URL);
+     fetch(url)
+      .then(response => {
+        if(!response.ok){
+          throw Error(`Request failed. Returned status of ${response.statusText}`);
+         }
+         const type = response.json();
+         return type; 
+       })
+       .then(type => {
+         type_id = type[0].id;
+         console.log(type_id);
+    
+       console.log(type_id);
     let review_body = {
         "job_name": name,
         "type_exclusive": type_bool,
-        "type_id" : type_name,
+        "type_id" : type_id
         };
-   
+    console.log(review_body);
     const myPost = fetch('http://flip2.engr.oregonstate.edu:5432/job', {
           method: "POST", // *GET, POST, PUT, DELETE, etc.
           mode: "cors", // no-cors, cors, *same-origin
@@ -435,6 +473,7 @@ class DBHelper {
       let modal = document.getElementById("myModal");
       modal.style.display = "none";
       return myPost;
+    })
   }
 
 }

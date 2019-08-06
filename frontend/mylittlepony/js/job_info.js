@@ -137,7 +137,7 @@ createForm = () => {
   //create submit button
   const div_button = document.createElement('div');
   const input_button = document.createElement('button');
-  input_button.setAttribute("onclick","updateInput(types)");
+  input_button.setAttribute("onclick","DBHelper.postJob()");
   input_button.setAttribute("id","submit_button");
   input_button.innerHTML ="Submit";
   div_button.appendChild(input_button);
@@ -172,14 +172,7 @@ createForm = () => {
   //form.setAttribute("method", "post");
   return form;
 }
-//https://stackoverflow.com/questions/26995296/how-to-call-a-function-in-javascript-when-a-input-changes-value
-function updateInput(types){
-  let typeid = document.getElementById("type_id").value;
-  document.getElementById("type_id").value = ish;
-  console.log("HI");
-  console.log(types[typeid].id);
-  //DBHelper.postJob();
-}
+
 //create a dropdown combo box
 createComboBox = (textLabel, exampleFormControlSelect2,optionsArray) => {
   const div_multi = document.createElement("div");
