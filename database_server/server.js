@@ -107,8 +107,8 @@ app.get('/character/group/:group_name',(req,res)=> {
    * GET ID AND CHARACTER NAME FROM CHARACTER TABLE
    * TO USE IN FILTER - SELECT QUERY
    */
-  app.get('/character/:id',(req,res)=> {
-    pool.query("SELECT id, name FROM `Character` WHERE id =?",[req.params.id],(err,rows,result,fields)=>{
+  app.get('/character/:name',(req,res)=> {
+    pool.query("SELECT id, name FROM `Character` WHERE name =?",[req.params.name],(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
