@@ -182,9 +182,12 @@ createPonyHTML = (pony) => {
   more.innerHTML = 'Update Character';
   const remove = document.createElement('button');
   remove.innerHTML = 'Delete Character';
+  remove.addEventListener ("click", function(char_jobs) {
+    //deletes from database
+    DBHelper.deleteCharacter(pony.id); 
+    setTimeout(reload,1500); 
+   });
   
-  
-
   /**
  * Add attributes for button
  */

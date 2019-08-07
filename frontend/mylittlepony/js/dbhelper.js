@@ -360,6 +360,14 @@ static fetchTypeById(name) {
     else{ return null; }
   }
 
+  static deleteCharacter(charID){
+    event.preventDefault();
+    console.log(charID);
+    fetch(DBHelper.DATABASE_URL + '/' + charID, {
+      method: 'DELETE'
+    });
+  }
+
   static postType(){
     event.preventDefault();
     let name = document.getElementById('name').value;
@@ -577,38 +585,6 @@ static fetchTypeById(name) {
 
   static deleteChar_Job(charID,jobID ){
     event.preventDefault();
- 
-    console.log(charID);
-    console.log(jobID);
-   
-    ///fetching the id from /type/:typename
-    // promises like xhr are a pain to return an actual value without a callback
-    //what if you need to fetch from different sources to get values for your input
-    //that's a fun function within a function within a function. :()
-    //https://stackoverflow.com/questions/40981040/using-a-fetch-inside-another-fetch-in-javascript
-   /* let url1 = new URL('character/'+character, DBHelper.DATABASE_URL);
-    let url2 = new URL('job/'+job, DBHelper.JOBS_DATABASE_URL);
-    fetch(url1).then(response => {
-        if(!response.ok){
-           throw Error(`Request failed. Returned status of ${response.statusText}`);
-        }
-         const character = response.json();
-        return character; 
-      })
-      .then(character => {
-       char_id = character[0].id;
-        console.log(char_id);
-      fetch(url2).then(response => {
-          if(!response.ok){
-             throw Error(`Request failed. Returned status of ${response.statusText}`);
-          }
-           const job = response.json();
-          return job; 
-        })
-        .then(job => {
-           job_id = job[0].id;
-          console.log(job_id);
-        */
       let review_body = {
           "character_id": charID,
           "job_id": jobID,
