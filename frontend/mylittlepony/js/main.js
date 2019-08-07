@@ -332,6 +332,9 @@ createForm = () => {
     input_button.setAttribute("id","submit_button");
     input_button.innerHTML ="Submit";
     div_button.appendChild(input_button);
+    input_button.addEventListener ("click", function() {
+      setTimeout(reload,3000);
+     });
     form.appendChild(div_button);
       }
     });
@@ -402,3 +405,6 @@ createMultiComboBox = (textLabel, optionsArray) => {
   div_multi.appendChild(select_multi);
   return div_multi;
 };
+let reload = function() {
+  window.location.reload(true);
+  }

@@ -139,6 +139,9 @@ createForm = () => {
   input_button.setAttribute("id","submit_button");
   input_button.innerHTML ="Submit";
   div_button.appendChild(input_button);
+  input_button.addEventListener ("click", function() {
+    setTimeout(reload,1500);
+   });
   
   //add to form
   form.appendChild(div);
@@ -148,3 +151,6 @@ createForm = () => {
   //form.setAttribute("method", "post");
   return form;
 }
+let reload = function() {
+  window.location.reload(true);
+  }

@@ -130,6 +130,9 @@ createForm = () => {
   input_button.setAttribute("id","submit_button");
   input_button.innerHTML ="Submit";
   div_button.appendChild(input_button);
+  input_button.addEventListener ("click", function() {
+    setTimeout(reload,3000);
+   });
   
   //add to form
   form.appendChild(div);
@@ -146,10 +149,6 @@ createForm = () => {
       form.appendChild(div_button);
     }
   });
-
-  
-  //form.setAttribute("action",DBHelper.sendContactInfo());
-  //form.setAttribute("method", "post");
   return form;
 }
 
@@ -173,3 +172,6 @@ createComboBox = (textLabel,exampleFormControlSelect2, optionsArray) => {
   div_multi.appendChild(select_multi);
   return div_multi;
 };
+let reload = function() {
+  window.location.reload(true);
+  }
