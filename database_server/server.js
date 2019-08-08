@@ -379,8 +379,10 @@ app.get('/city/:name',(req,res)=> {
    * GET name/id group TABLE
    * SELECT QUERY
    */
-  app.get('/group/:name',(req,res)=> {
-    pool.query('SELECT id, group_name FROM `Group`WHERE group_name =?"',[req.params.name],(err,rows,result,fields)=>{
+ 
+
+app.get('/group/:name',(req,res)=> {
+    pool.query('SELECT id, group_name FROM `Group` WHERE group_name =?',[req.params.name],(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);

@@ -280,9 +280,9 @@ createForm = () => {
   //let jobs = ["Pilot", "Fashion Designer", "Flight Instructor", "Plumber"];
  
   form.appendChild(div);
-  form.appendChild(createRadioBox("Female","gender","option1"));
-  form.appendChild(createRadioBox("Male","gender","option2"));
-  form.appendChild( createRadioBox("Non-Binary","gender","option3"));
+  form.appendChild(createRadioBox("Female","gender",'F'));
+  form.appendChild(createRadioBox("Male","gender",'M'));
+  form.appendChild( createRadioBox("Non-Binary","gender",'O'));
  
   //form.appendChild(createComboBox("Select Type", types));
   //form.appendChild(div_type);
@@ -331,12 +331,12 @@ createForm = () => {
     /// button in html
     const div_button = document.createElement('div');
     const input_button = document.createElement('button');
-    input_button.setAttribute("onclick","DBHelper.postContact()");
+    input_button.setAttribute("onclick","DBHelper.postCharacter()");
     input_button.setAttribute("id","submit_button");
     input_button.innerHTML ="Submit";
     div_button.appendChild(input_button);
     input_button.addEventListener ("click", function() {
-      setTimeout(reload,3000);
+    setTimeout(reload,1500);
      });
     form.appendChild(div_button);
       }

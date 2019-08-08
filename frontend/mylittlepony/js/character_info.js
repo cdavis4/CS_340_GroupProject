@@ -96,6 +96,17 @@ createCharacterForm = (pony) => {
    div2.appendChild(createRadioBox("Male","gender",'M'));
    div2.appendChild(createRadioBox("Non-Binary","gender",'O'));
   //
+  /// button in html
+  const div_button = document.createElement('div');
+  const input_button = document.createElement('button');
+  //input_button.setAttribute("onclick","DBHelper.putCharacter(charID)");
+  input_button.setAttribute("id","submit_button");
+  input_button.innerHTML ="Submit";
+  div_button.appendChild(input_button);
+  input_button.addEventListener ("click", function(pony) {
+    DBHelper.putCharacter(pony.id);
+    setTimeout(reload,1500);
+   });
  
      
   //div.appendChild(divRow);
@@ -138,16 +149,6 @@ createCharacterForm = (pony) => {
   
     //create submit button here because making requests to database server
     /// is slow and this will wait until the above request is done before placing
-    /// button in html
-    const div_button = document.createElement('div');
-    const input_button = document.createElement('button');
-    input_button.setAttribute("onclick","DBHelper.postContact()");
-    input_button.setAttribute("id","submit_button");
-    input_button.innerHTML ="Submit";
-    div_button.appendChild(input_button);
-    input_button.addEventListener ("click", function() {
-      setTimeout(reload,1500);
-     });
     form.appendChild(div_button);
     }
   });
@@ -210,7 +211,8 @@ getParameterByName = (name, url) => {
 }
 
 let reload = function() {
-  window.location.reload(true);
+  const url = 'http://flip2.engr.oregonstate.edu:6322/';
+  window.location.replace(url);
   }
 
  
