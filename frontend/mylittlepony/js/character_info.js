@@ -103,9 +103,11 @@ createCharacterForm = (pony) => {
   input_button.setAttribute("id","submit_button");
   input_button.innerHTML ="Submit";
   div_button.appendChild(input_button);
-  input_button.addEventListener ("click", function(pony) {
+  input_button.addEventListener ("click", function() {
+    console.log("HI");
+    console.log(pony);
     DBHelper.putCharacter(pony.id);
-    setTimeout(reload,1500);
+   setTimeout(reload,1500);
    });
  
      
