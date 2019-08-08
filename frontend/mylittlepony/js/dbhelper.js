@@ -7,6 +7,7 @@ class DBHelper {
   /**
  * Common database helper functions.
  */
+
   /**
    * Database URL.
    */
@@ -316,11 +317,15 @@ static fetchTypeById(name) {
   }
 
   /**** THE FOLLOWING CODE: needs to be updated to use for different inserts into tables through server********
-
-   //delete review
-   static deleteCharacter(id) {
+  
+   static deleteCharacterJob(jobID,charID) {
     event.preventDefault();
-    const myPost = fetch(DBHelper.DATA_URL + '/' + id, {
+    let url = new URL('character_job/'+inputID, DBHelper.CHAR_JOB_DATABASE_URL);
+    let review_body = {
+      "job_id": jobID,
+      "character_id": charID,
+      };
+    const myPost = fetch(url, {
       method: 'DELETE',
       mode: "cors", // no-cors, cors, *same-origin
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -330,65 +335,15 @@ static fetchTypeById(name) {
       },
       redirect: "follow", // manual, *follow, error
       referrer: "no-referrer", // no-referrer, *client
-      body: JSON.stringify(review_body), // body data type must match "Content-Type" header
+      body: JSON.stringify(review_body),
     }); // parses response to JSO
   alert("Your request has been sent.");
   document.getElementById("delete").disabled = true;
   return myPost;
   }
-  */ 
 
-//example of how to get radio input
-//document.querySelector('input[name="gender"]:checked').value;
-  static postPurchase(){
-    event.preventDefault();
-    let email_purchase = document.getElementById('email_purchase').value;
-    let first = document.getElementById('first').value;
-    let last = document.getElementById('last').value;
-    let purchase_text = document.getElementById('message_purchase').value;
-    let select_multi = document.getElementById('exampleFormControlSelect2').options;
-    let select_values = [];
-    for(var i=0; i < select_multi.length; i++)
-    {
-      if(select_multi[i].selected==true)
-      {
-        select_values.push(select_multi[i].value);
-    }
-    }
-    let review_body = {
-        "first_name": first,
-        "last_name": last,
-        "email_address": email_purchase,
-        "message": purchase_text,
-        "select_values": select_values
-        };
-        if(!navigator.onLine)
-        {
-        console.log("You are offline");
-        }
-    const myPost = fetch('http://web.engr.oregonstate.edu/~zhangluy/tools/class-content/form_tests/check_request.php', {
-          method: "POST", // *GET, POST, PUT, DELETE, etc.
-          mode: "cors", // no-cors, cors, *same-origin
-          cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-          headers: {
-              "Content-Type": "application/json; charset=utf-8",
-               // "Content-Type": "application/x-www-form-urlencoded",
-          },
-          redirect: "follow", // manual, *follow, error
-          referrer: "no-referrer", // no-referrer, *client
-          body: JSON.stringify(review_body), // body data type must match "Content-Type" header
-      }); // parses response to JSO
-      alert("Your request has been sent.");
-      document.getElementById("submit_button").disabled = true;
-      return myPost;
-  }
-  /**
-   * Restaurant image URL.
-   */
-
-  static get sendContactInfo(){
-    return 'http://web.engr.oregonstate.edu/~zhangluy/tools/class-content/form_tests/check_request.php';
-  }
+*/
+ 
   static checkStatus(value){
     if (value == "Yes")
       { return 1;}
@@ -403,6 +358,14 @@ static fetchTypeById(name) {
     if (value == "No")
       { return 0;}
     else{ return null; }
+  }
+
+  static deleteCharacter(charID){
+    event.preventDefault();
+    console.log(charID);
+    fetch(DBHelper.DATABASE_URL + '/' + charID, {
+      method: 'DELETE'
+    });
   }
 
   static postType(){
@@ -619,6 +582,33 @@ static fetchTypeById(name) {
       return myPost;
     }
   }
+
+  static deleteChar_Job(charID,jobID ){
+    event.preventDefault();
+      let review_body = {
+          "character_id": charID,
+          "job_id": jobID,
+          };
+      console.log(review_body);
+      const myPost = fetch('http://flip2.engr.oregonstate.edu:5432/character_job', {
+            method: "DELETE", // *GET, POST, PUT, DELETE, etc.
+            mode: "cors", // no-cors, cors, *same-origin
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            headers: {
+                 "Content-Type": "application/json; charset=utf-8",
+                 // "Content-Type": "application/x-www-form-urlencoded",
+            },
+            redirect: "follow", // manual, *follow, error
+            referrer: "no-referrer", // no-referrer, *client
+            body: JSON.stringify(review_body), // body data type must match "Content-Type" header
+      }); // parses response to JSON
+        let modal = document.getElementById("myModal");
+        modal.style.display = "none";
+        return myPost;
+     // })    //this is to encapsulate into the fetch like a function
+   // })    //this is to encapsulate into the fetch like a function
+  }
+
   static postChar_Job(){
     event.preventDefault();
     let char_id;

@@ -145,6 +145,9 @@ createCharacterForm = (pony) => {
     input_button.setAttribute("id","submit_button");
     input_button.innerHTML ="Submit";
     div_button.appendChild(input_button);
+    input_button.addEventListener ("click", function() {
+      setTimeout(reload,1500);
+     });
     form.appendChild(div_button);
     }
   });
@@ -206,6 +209,8 @@ getParameterByName = (name, url) => {
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
-
+let reload = function() {
+  window.location.reload(true);
+  }
 
  

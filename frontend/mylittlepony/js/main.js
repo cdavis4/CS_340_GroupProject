@@ -182,9 +182,12 @@ createPonyHTML = (pony) => {
   more.innerHTML = 'Update Character';
   const remove = document.createElement('button');
   remove.innerHTML = 'Delete Character';
+  remove.addEventListener ("click", function(char_jobs) {
+    //deletes from database
+    DBHelper.deleteCharacter(pony.id); 
+    setTimeout(reload,1500); 
+   });
   
-  
-
   /**
  * Add attributes for button
  */
@@ -332,6 +335,9 @@ createForm = () => {
     input_button.setAttribute("id","submit_button");
     input_button.innerHTML ="Submit";
     div_button.appendChild(input_button);
+    input_button.addEventListener ("click", function() {
+      setTimeout(reload,3000);
+     });
     form.appendChild(div_button);
       }
     });
@@ -402,3 +408,6 @@ createMultiComboBox = (textLabel, optionsArray) => {
   div_multi.appendChild(select_multi);
   return div_multi;
 };
+let reload = function() {
+  window.location.reload(true);
+  }

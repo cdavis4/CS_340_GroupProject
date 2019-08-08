@@ -32,6 +32,18 @@ fetchChar_Job = () => {
   });
 }
 /**
+* Clear current character's job list.
+*/
+resetList = (char_jobs) => {
+ // Remove all ponies
+ 
+ self.char_jobs = [];
+ const ul = document.getElementById('item-list');
+ 
+ ul.innerHTML = '';
+ self.char_jobs = char_jobs;
+}
+/**
  * Create all ponies HTML and add them to the webpage.
  */
 fillCharJobHTML = (char_jobs = self.char_jobs) => {
@@ -44,17 +56,25 @@ fillCharJobHTML = (char_jobs = self.char_jobs) => {
   //name
   const name = document.createElement('h3');
   name.innerHTML = char_job.name;
+  name.setAttribute('id','character');
  li.append(name);
  
   const job = document.createElement('p');
   job.innerHTML = "Job: "+char_job.job_name;
+  job.setAttribute('id','job');
   li.append(job);
 
   const remove = document.createElement('button');
+  remove.setAttribute("class","delete");
   remove.innerHTML = 'Delete Relationship';
   li.append(remove);
-  remove.addEventListener ("click", function() {
-    //does nothing right now
+  remove.addEventListener ("click", function(char_jobs) {
+    //deletes from database
+    DBHelper.deleteChar_Job(char_job.character_id,char_job.job_id);
+    //window.location.reload(true);
+    setTimeout(reload,3000);
+    //resetList(char_jobs);
+    //fetchChar_Job();
    });
   });
 };
@@ -124,6 +144,13 @@ createForm = () => {
     input_button.setAttribute("id","submit_button");
     input_button.innerHTML ="Submit";
     div_button.appendChild(input_button);
+    input_button.addEventListener ("click", function() {
+      //deletes from database
+      //window.location.reload(true);
+      setTimeout(reload,1500);
+      //resetList(char_jobs);
+      //fetchChar_Job();
+     });
 
    /**
   * Fetch all groups and set their HTML. 
@@ -157,6 +184,9 @@ createForm = () => {
     //form.setAttribute("method", "post");
   return form;
 }
+let reload = function() {
+  window.location.reload(true);
+  }
 
 //create a dropdown combo box
 createComboBox = (textLabel, exampleFormControlSelect2,optionsArray) => {

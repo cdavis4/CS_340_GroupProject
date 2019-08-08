@@ -72,9 +72,9 @@ app.get('/character',(req,res)=> {
    * GET TYPE SORTED CHARACTER FROM CHARACTER TABLE WITH JOINS
    * SELECT QUERY
    */
-app.get('/character/type',(req,res)=> {
-    var charT_sql = "SELECT Character.name, Type.type_name, Group.group_name, Character.gender, City.city_name FROM `Character` LEFT JOIN `Type` ON Character.type_id = Type.id LEFT JOIN `Group` ON Character.group_id = Group.id LEFT JOIN `City` ON Character.city_id = City.id WHERE type_id =?";   
-    pool.query(charT_sql,[req.query.type_id],(err,rows,result,fields)=>{
+app.get('/character/type/:type_name',(req,res)=> {
+    var charT_sql = "SELECT Character.name, Type.type_name, Group.group_name, Character.gender, City.city_name FROM `Character` LEFT JOIN `Type` ON Character.type_id = Type.id LEFT JOIN `Group` ON Character.group_id = Group.id LEFT JOIN `City` ON Character.city_id = City.id WHERE type_name =?";   
+    pool.query(charT_sql,[req.params.type_name],(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -90,9 +90,9 @@ app.get('/character/type',(req,res)=> {
    * GET GROUP SORTED CHARACTER FROM CHARACTER TABLE WITH JOINS
    * SELECT QUERY
    */
-app.get('/character/group',(req,res)=> {
-    var charG_sql = "SELECT Character.name, Type.type_name, Group.group_name, Character.gender, City.city_name FROM `Character` LEFT JOIN `Type` ON Character.type_id = Type.id LEFT JOIN `Group` ON Character.group_id = Group.id LEFT JOIN `City` ON Character.city_id = City.id WHERE group_id =?";   
-    pool.query(charG_sql,[req.query.group_id],(err,rows,result,fields)=>{
+app.get('/character/group/:group_name',(req,res)=> {
+    var charG_sql = "SELECT Character.name, Type.type_name, Group.group_name, Character.gender, City.city_name FROM `Character` LEFT JOIN `Type` ON Character.type_id = Type.id LEFT JOIN `Group` ON Character.group_id = Group.id LEFT JOIN `City` ON Character.city_id = City.id WHERE group_name =?";   
+    pool.query(charG_sql,[req.params.group_name],(err,rows,result,fields)=>{
         if(err)
         {
             res.json(err);
@@ -362,7 +362,7 @@ app.get('/city/:name',(req,res)=> {
    * SELECT QUERY 
    */
   app.get('/group',(req,res)=> {
-    var group_sql = "SELECT Group.group_name, City.city_name FROM `Group` LEFT JOIN `City` ON Group.city_id = City.id";
+    var group_sql = "SELECT Group.id, Group.group_name, City.city_name FROM `Group` LEFT JOIN `City` ON Group.city_id = City.id";
     pool.query(group_sql ,(err,rows,result,fields)=>{
         if(err)
         {
@@ -417,7 +417,7 @@ app.get('/city/:name',(req,res)=> {
   * SELECT QUERY
    */
   app.get('/character_job',(req,res)=> {
-    var ponywork_sql = "SELECT Character.name, Job.job_name FROM `Character_Job` INNER JOIN `Character` ON Character.id = Character_Job.character_id INNER JOIN `Job` ON Character_Job.job_id =  Job.id";
+    var ponywork_sql = "SELECT Character_Job.character_id, Character.name, Character_Job.job_id,Job.job_name FROM `Character_Job` INNER JOIN `Character` ON Character.id = Character_Job.character_id INNER JOIN `Job` ON Character_Job.job_id =  Job.id";
     pool.query(ponywork_sql ,(err,rows,result,fields)=>{
         if(err)
         {

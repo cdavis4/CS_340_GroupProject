@@ -126,6 +126,9 @@ createForm = () => {
   input_name.setAttribute("id", "name");
   input_name.setAttribute("placeholder", "type/species name");
   div_name.appendChild(input_name);
+  input_button.addEventListener ("click", function() {
+    setTimeout(reload,1500);
+   });
   form.appendChild(div_name);
 
 
@@ -187,3 +190,6 @@ createRadioBox = (textlabel,customRadioInline,value) => {
   div_radio.appendChild(label_radio);
   return div_radio;
 };
+let reload = function() {
+  window.location.reload(true);
+  }
