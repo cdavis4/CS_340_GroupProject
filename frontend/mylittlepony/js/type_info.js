@@ -126,9 +126,7 @@ createForm = () => {
   input_name.setAttribute("id", "name");
   input_name.setAttribute("placeholder", "type/species name");
   div_name.appendChild(input_name);
-  input_button.addEventListener ("click", function() {
-    setTimeout(reload,1500);
-   });
+ 
   form.appendChild(div_name);
 
 
@@ -149,6 +147,10 @@ createForm = () => {
   div_button.appendChild(input_button);
 
   form.appendChild(div_button);
+  input_button.addEventListener ("click", function() {
+    DBHelper.postType();
+    setTimeout(reload,1500);
+   });
   //form.setAttribute("action",DBHelper.sendContactInfo());
   //form.setAttribute("method", "post");
   return form;
