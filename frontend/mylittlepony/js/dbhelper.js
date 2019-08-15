@@ -408,7 +408,10 @@ static fetchTypeById(name) {
     let cityVal = document.getElementById('city_id').value;
     let gender = DBHelper.getRadioVal(formVal, 'gender' );
     let name = document.getElementById('name').value;
-   
+    if (gender.length == 0)
+    {
+      gender = null;
+    }
     ///fetching the id from /type/:typename
     // promises like xhr are a pain to return an actual value without a callback
     //what if you need to fetch from different sources to get values for your input
@@ -504,7 +507,16 @@ static fetchTypeById(name) {
     let cityVal = document.getElementById('city_id').value;
     let gender = DBHelper.getRadioVal(formVal,'gender');
     let name = document.getElementById('name').value;
-   
+    if (name == "")
+    {
+      name = document.getElementById('name').placeholder;
+      console.log("name: " + name);
+    }
+    if (gender.length == 0)
+        {
+          gender = null;
+        }
+ 
     ///fetching the id from /type/:typename
     // promises like xhr are a pain to return an actual value without a callback
     //what if you need to fetch from different sources to get values for your input

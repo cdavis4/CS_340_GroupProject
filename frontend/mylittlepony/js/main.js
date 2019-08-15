@@ -77,6 +77,7 @@ initPage = () => {
 
   updatePonies();
   createContactModal();
+  addButtonToForm(); //adding button later so will be at end of form
 }
 
 /**
@@ -152,7 +153,7 @@ createPonyHTML = (pony) => {
 
   li.append(image);
 
-  //create div to keep name and div so star can be right of name
+  //create div for each character
   const div = document.createElement('div');
   div.setAttribute("id","pony-div");
   li.append(div);
@@ -162,7 +163,21 @@ createPonyHTML = (pony) => {
   name.innerHTML = pony.name;
  li.append(name);
  
+ //gender characteristic
   const gender = document.createElement('p');
+  //creates a better respresentation of gender value
+  if (pony.gender == 'O')
+  {
+    pony.gender = "Non-Binary";
+  }
+  else if(pony.gender == 'F')
+  {
+    pony.gender = "Female";
+  }
+  else if(pony.gender == 'M') 
+  { 
+    pony.gender = "Male";
+  }
   gender.innerHTML = "Gender: "+pony.gender;
   li.append(gender);
 
@@ -185,7 +200,7 @@ createPonyHTML = (pony) => {
   remove.addEventListener ("click", function(char_jobs) {
     //deletes from database
     DBHelper.deleteCharacter(pony.id); 
-    setTimeout(reload,1500); 
+    setTimeout(reload,1000); 
    });
   
   /**
@@ -215,7 +230,7 @@ createPonyHTML = (pony) => {
 }
 
 /**
- * Contact Modal
+ * Add Character Modal
  */
 createContactModal = () =>{
   const main = document.getElementById('maincontent');
@@ -247,11 +262,11 @@ createContactModal = () =>{
   window.addEventListener("click",function(){
     if (event.target == modal) {
       modal.style.display = "none";
-    }
+}
   });
 }
 /**
- * create html for reviews form
+ * create html for form
  */
 
 createForm = () => {
@@ -274,25 +289,34 @@ createForm = () => {
   div_name.appendChild(input_name);
   div.appendChild(div_name);
 
+  //create validation alert for name field
+  let alert_div = document.createElement('div');
+  alert_div.setAttribute("class","alert alert-warning alert-dismissible fade show");
+  alert_div.setAttribute("id","name_val");
+  alert_div.style.display = "none";
+  alert_div.setAttribute("role","alert");
+  alert_div.innerHTML = 'Name must be filled out';
+  let alert_button = document.createElement("button");
+  alert_button.setAttribute("type","button");
+  alert_button.setAttribute("class", "close");
+  alert_button.setAttribute("data-dismiss","alert");
+  alert_button.setAttribute('aria-label','Close');
+  let span_alert = document.createElement("span");
+  span_alert.setAttribute("aria-hidden","true");
+  span_alert.innerHTML = "&times;";
+  alert_button.appendChild(span_alert);
+  alert_div.appendChild(alert_button);
+  div.appendChild(alert_div);
 
+   //add drop down boxes to select from
+   form.appendChild(div);
+   div.appendChild(createRadioBox("Female","gender",'F',"true"));
+   div.appendChild(createRadioBox("Male","gender",'M',"false"));
+   div.appendChild(createRadioBox("Non-Binary","gender",'O',"false"));
 
-  //add to form
-  //let jobs = ["Pilot", "Fashion Designer", "Flight Instructor", "Plumber"];
- 
-  form.appendChild(div);
-  form.appendChild(createRadioBox("Female","gender",'F'));
-  form.appendChild(createRadioBox("Male","gender",'M'));
-  form.appendChild( createRadioBox("Non-Binary","gender",'O'));
- 
-  //form.appendChild(createComboBox("Select Type", types));
-  //form.appendChild(div_type);
-  //form.appendChild(div_job);
-  //form.appendChild(div_city);
-  //form.appendChild(createMultiComboBox("Select Character's Jobs", jobs));
    /**
-  * Fetch all groups and set their HTML. fetchData(dataName,databaseFunction,callback)
+  * Fetch all groups and set as dropdown options
   */
-  
   DBHelper.fetchGroups((error, groups) => {
   if (error)
    { // Got an error
@@ -304,6 +328,9 @@ createForm = () => {
     form.appendChild(createComboBox("Select Group","group_id", groupslist));
   }
   });
+  /**
+  * Fetch all types and set as dropdown options
+  */
   DBHelper.fetchTypes((error, types) => {
     if (error)
      { // Got an error
@@ -313,50 +340,62 @@ createForm = () => {
       let typeslist = types.map((v, i) => types[i].type_name);
       typeslist.unshift("None"); //add none to beginning of array
       form.appendChild(createComboBox("Select Type","type_id", typeslist));
-    }
-    });
-
-    DBHelper.fetchCities((error, cities) => {
-      if (error)
-       { // Got an error
-        console.error(error);
-      } else {
-        self.cities = cities;
-        let citieslist = cities.map((v, i) => cities[i].city_name);
-        citieslist.unshift("None"); //add none to beginning of array
-        form.appendChild(createComboBox("Select City","city_id", citieslist));
-
-    //create submit button here because making requests to database server
-    /// is slow and this will wait until the above request is done before placing
-    /// button in html
-    const div_button = document.createElement('div');
-    const input_button = document.createElement('button');
-    input_button.setAttribute("onclick","DBHelper.postCharacter()");
-    input_button.setAttribute("id","submit_button");
-    input_button.innerHTML ="Submit";
-    div_button.appendChild(input_button);
-    input_button.addEventListener ("click", function() {
-    setTimeout(reload,1500);
-     });
-    form.appendChild(div_button);
       }
     });
+   /**
+  * Fetch all cities and set as dropdown options
+  */
+  DBHelper.fetchCities((error, cities) => {
+    if (error)
+      { // Got an error
+      console.error(error);
+    } else {
+      self.cities = cities;
+      let citieslist = cities.map((v, i) => cities[i].city_name);
+      citieslist.unshift("None"); //add none to beginning of array
+      form.appendChild(createComboBox("Select City","city_id", citieslist));
+      }
+  });
 
-    
-  
-    //form.setAttribute("action",DBHelper.sendContactInfo());
-    //form.setAttribute("method", "post");
   return form;
 }
-//create radio boxes and input label and unique id for  box
-createRadioBox = (textlabel,customRadioInline,value) => {
+/**create submit button, adding validation */
+addButtonToForm = () => {
+  let form = document.getElementById("contact_form");
+   // button in html
+   const div_button = document.createElement('div');
+   const input_button = document.createElement('button');
+   input_button.setAttribute("id","submit_button");
+   input_button.innerHTML ="Submit";
+   div_button.appendChild(input_button);
+   input_button.addEventListener ("click", function() {
+     event.preventDefault();
+     let boolvalue = checkIfEmpty();
+     let modal = document.getElementById("myModal");
+     modal.style.display = "block";
+     if (boolvalue == true)
+     {
+       DBHelper.postCharacter();
+       modal.style.display = "none";
+       setTimeout(reload,1000);//refreshes the page
+     }
+   });
+  form.appendChild(div_button);
+}
+
+/*
+* Helper function: create radio boxes and input label 
+* and unique id for  box
+*/
+createRadioBox = (textlabel,customRadioInline,value,checkOption) => {
   const div_radio = document.createElement('div');
   div_radio.setAttribute("class","custom-radio custom-control-inline");
   const input_radio = document.createElement("input");
   input_radio.setAttribute("type", "radio");
-  input_radio.setAttribute("id", customRadioInline);
+  input_radio.setAttribute("class", customRadioInline);
   input_radio.setAttribute("name", customRadioInline);
   input_radio.setAttribute("value",value);
+  input_radio.setAttribute("checked",checkOption);
   const label_radio = document.createElement("label");
   label_radio.setAttribute("class","custom-control-label");
   label_radio.setAttribute("for",customRadioInline);
@@ -366,7 +405,7 @@ createRadioBox = (textlabel,customRadioInline,value) => {
   return div_radio;
 };
 
-//create a dropdown combo box
+/*Helper function: reloads page*/
 createComboBox = (textLabel, exampleFormControlSelect2,optionsArray) => {
   const div_multi = document.createElement("div");
   div_multi.setAttribute("class", "form-group");
@@ -387,27 +426,21 @@ createComboBox = (textLabel, exampleFormControlSelect2,optionsArray) => {
   return div_multi;
 };
 
-//create a dropdown combo box
-createMultiComboBox = (textLabel, optionsArray) => {
-  const div_multi = document.createElement("div");
-  div_multi.setAttribute("class", "form-group");
-  const label_multi = document.createElement("label");
-  label_multi.setAttribute("for","exampleFormControlSelect2");
-  label_multi.innerHTML= textLabel;
-  const select_multi = document.createElement("select");
-  select_multi.setAttribute("multiple","");
-  select_multi.setAttribute("class", "form-control");
-  select_multi.setAttribute("name","exampleFormControlSelect2");
-  select_multi.setAttribute("id","exampleFormControlSelect2");
-  optionsArray.forEach(function(x){
-    const option = document.createElement('option');
-    option.innerHTML = x;
-    select_multi.appendChild(option);
-  })
-  div_multi.appendChild(label_multi);
-  div_multi.appendChild(select_multi);
-  return div_multi;
-};
-let reload = function() {
+/*Helper function: reloads page*/
+let reload = () =>{
   window.location.reload(true);
+}
+/*
+* Helper function: checks if string value is empty
+* Adapted from https://www.w3schools.com/js/js_validation.asp
+*/
+function checkIfEmpty(){
+  let nameVal = document.getElementById("name").value;
+  if(nameVal == "")
+  {
+    let alert = document.getElementById("name_val");
+    alert.style.display = "block";
+    return false;
   }
+  else{return true;}
+}

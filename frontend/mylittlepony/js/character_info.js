@@ -71,12 +71,10 @@ createCharacterForm = (pony) => {
   const form = document.createElement('form');
   form.setAttribute("id", "contact_form");
   const div1 = document.createElement("div");
-  div1.setAttribute('id','form-group');
-  //const divRow = document.createElement('div');
-  //div.setAttribute('class','row');
   //for name
+  div1.setAttribute('id','form-group');
   const labelname = document.createElement('label');
-  labelname.setAttribute('for','N\name');
+  labelname.setAttribute('for','name');
   labelname.innerHTML = "Name";
   div1.appendChild(labelname);
   const input_name = document.createElement("input");
@@ -88,14 +86,9 @@ createCharacterForm = (pony) => {
    //for gender
    const div2 = document.createElement("div");
     div2.setAttribute('id','form-group');
-   //const divRow2 = document.createElement('div');
-   //divRow2.setAttribute('class','row');
-
-  // div.appendChild(labelGender);
-   div2.appendChild(createRadioBox("Female","gender",'F'));
-   div2.appendChild(createRadioBox("Male","gender",'M'));
-   div2.appendChild(createRadioBox("Non-Binary","gender",'O'));
-  //
+   div2.appendChild(createRadioBox("Female","gender",'F',"true"));
+   div2.appendChild(createRadioBox("Male","gender",'M',"false"));
+   div2.appendChild(createRadioBox("Non-Binary","gender",'O',"false"));
   /// button in html
   const div_button = document.createElement('div');
   const input_button = document.createElement('button');
@@ -104,8 +97,6 @@ createCharacterForm = (pony) => {
   input_button.innerHTML ="Submit";
   div_button.appendChild(input_button);
   input_button.addEventListener ("click", function() {
-    console.log("HI");
-    console.log(pony);
     DBHelper.putCharacter(pony.id);
    setTimeout(reload,1500);
    });
@@ -157,9 +148,10 @@ createCharacterForm = (pony) => {
  
   const container = document.getElementById('insert-container');
   container.appendChild(form);
+  
 }
 //create radio boxes and input label and unique id for  box
-createRadioBox = (textlabel,customRadioInline,value) => {
+createRadioBox = (textlabel,customRadioInline,value,checkOption) => {
   const div_radio = document.createElement('div');
   div_radio.setAttribute("class","custom-radio custom-control-inline");
   const input_radio = document.createElement("input");
@@ -167,6 +159,7 @@ createRadioBox = (textlabel,customRadioInline,value) => {
   input_radio.setAttribute("class", customRadioInline);
   input_radio.setAttribute("name", customRadioInline);
   input_radio.setAttribute("value",value);
+  input_radio.setAttribute("checked",checkOption);
   const label_radio = document.createElement("label");
   label_radio.setAttribute("class","custom-control-label");
   label_radio.setAttribute("for",customRadioInline);

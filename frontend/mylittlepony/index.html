@@ -1,40 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="App for my little pony database">
   <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
+   <!-- Main CSS file -->
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/responsive.css">
+   <!-- 3rd Party CSS file -->
   <link rel="stylesheet" href="css/bootstrap.min.css"> 
   <meta name="theme-color" content="#046b99"> 
   <title>my little ponies</title>
 </head>
 <body>
     <header>
-        <h1 id ="title" tabindex="0" ><br/></h1>  
-        <img src = "img/MLPlogo.png"alt="icon" style="width:200px"></img>
-
-                <nav id="drawer" class="nav">
-                    <ul class="nav__list">
-                        <li class="nav__item"><a href="/cities.html">Cities</a></li>
-                    </ul>
-                    <ul class="nav__list">
-                            <li class="nav__item"><a href="/groups.html">Groups</a></li>
-                    </ul>
-                    <ul class="nav__list">
-                            <li class="nav__item"><a href="/types.html">Types</a></li>
-                    </ul>
-                    <ul class="nav__list">
-                            <li class="nav__item"><a href="/jobs.html">Jobs</a></li>
-                    </ul>
-                    <ul class="nav__list">
-                        <li class="nav__item"><a href="/char_job.html">Character's Jobs</a></li>
-                </ul>
-                </nav>
+        <img src = "img/MLPlogo.png"alt="icon" alt="My Little Pony logo" ></img>    
     </header>
+    <nav id="drawer" class="nav">
+        <ul class="nav__list">
+            <li class="nav__item"><a href="/cities.html">Cities</a></li>
+        </ul>
+        <ul class="nav__list">
+                <li class="nav__item"><a href="/groups.html">Groups</a></li>
+        </ul>
+        <ul class="nav__list">
+                <li class="nav__item"><a href="/types.html">Types</a></li>
+        </ul>
+        <ul class="nav__list">
+                <li class="nav__item"><a href="/jobs.html">Jobs</a></li>
+        </ul>
+        <ul class="nav__list">
+            <li class="nav__item"><a href="/char_job.html">Character's Jobs</a></li>
+    </ul>
+    </nav>
     <main id="maincontent">
     <section class="filter-options" style="background-image:url(img/rainbows.png)">
         <h2>Filter Options</h2>
@@ -48,9 +47,9 @@
            </select>
     </section>
 
-    <span class="image fit"><img src="img/Princess_Luna.png" style="max-height: 100px" alt="" "  /></span>    
+    <span class="image fit"><img src="img/Princess_Luna.png" style="max-height: 100px" alt="princess luna image" "  /></span>    
     <button id ="contactBtn">Add a New Character</button>
-    <span class="image fit"><img src="img/Princess_Celestia.webp" style="max-height: 100px" alt="" "  /></span>
+    <span class="image fit"><img src="img/princesscelestia.png" style="max-height: 100px" alt="princess celestia image" "  /></span>
 
     <ul id="item-list">
     </ul>
@@ -66,14 +65,15 @@
       <script src="js/bootstrap.min.js"></script>
       <script src="js/browserponies.js"></script>
       <script src="js/basecfg.js"></script>
+    <!-- Spawn the ponies! https://github.com/panzi/Browser-Ponies-->      
      <script type="text/javascript">
-   //  (function (cfg) 
-   //  {BrowserPonies.setBaseUrl(cfg.baseurl);BrowserPonies.loadConfig(BrowserPoniesBaseConfig);BrowserPonies.loadConfig(cfg);})
-   //  ({"baseurl":"https://panzi.github.io/Browser-Ponies/","fadeDuration":500,"volume":0,"fps":25,"speed":3,"audioEnabled":false,"showFps":false,"showLoadProgress":false,"speakProbability":0.0,"spawn":{"rainbow dash":1},"autostart":true}); </script> 
-      <!-- Spawn the ponies! https://github.com/panzi/Browser-Ponies
- -->      
+     (function (cfg) 
+    {BrowserPonies.setBaseUrl(cfg.baseurl);BrowserPonies.loadConfig(BrowserPoniesBaseConfig);BrowserPonies.loadConfig(cfg);})
+    ({"baseurl":"https://panzi.github.io/Browser-Ponies/","fadeDuration":500,"volume":0,"fps":25,"speed":3,"audioEnabled":false,"showFps":false,"showLoadProgress":false,"speakProbability":0.0,"spawn":{"rainbow dash":1},"autostart":true}); </script> 
      <!-- End scripts -->
+     <!-- Beginning footer -->
     <footer id="footer">
-        2019 My Little Pony: Friendship is Magic Browser Ponies: Copyright © 2011-2013 Mathias Panzenböck 
+        Browser Ponies/Images: Copyright © 2011-2013 Mathias Panzenböck<br> 
+        Images: My Little Pony Friendship is Magic Wiki: Creative Commons Attribution-Share Alike License 3.0
     </footer>
 </body>
