@@ -87,13 +87,14 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
   right: 0;
   z-index: 1;
 }
-header {
+header ,#drawer {
   /* background-color: #323a45; */
   background: rgb(238,174,202);
   background: radial-gradient(circle, rgb(122, 207, 224) 0%, white 100%);
   text-align: center;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   margin: auto;
+  padding: 1em;
 }
 header h1 {
   margin: auto;
@@ -116,7 +117,6 @@ h1 {
   display: inline;
   text-align: center;
   line-height: 24px;
-  padding: 24px;
   text-transform: uppercase;
 }
 button {
@@ -197,7 +197,6 @@ button {
 }*/
 #item-list {
   background-color: #9796f0;
-  border: 3px solid #fff;
   background-image: linear-gradient(360deg, rgb(166, 119, 226) 0%, rgb(139, 241, 236) 37%, #f599cb 100%); 
   list-style: outside none none;
   margin: auto;
@@ -252,28 +251,7 @@ button {
 }
 #site-container, #insert-container {
 padding: 25px;
-width: 90%;
 }
-#insert-container h3 {
-  color: #EC058E;
-  font-weight: 300;
-}
-
-#insert-container label {
-  padding-top: 7px;
-  margin-bottom: 0;
-}
-/*
-#insert-container #submit_button {
-  cursor: pointer;
-  background-color: #37B0C9;
-  color: #351858;
-  display: inline-block;
-  font-size: 10pt;
-  margin: 15px 0 0;
-  padding: 8px 30px 10px;
-  text-align: center;
-}*/
 
 #item-list li {
   background-color: whitesmoke;

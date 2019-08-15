@@ -1,18 +1,13 @@
 
 @media screen and (max-width: 375px) {
  
- /*  Need to make responsive nav bar
- header #title {
-    margin: auto;
-    padding: 0.5em;
-    color: #fff;
+ header img{
     display: none;
   }
   .nav_item {
    font-size: 1em;
   }
-
-}*/
+}
 
 @media screen and (max-width: 549px) {
   #title{ font-size: 1.5em;}

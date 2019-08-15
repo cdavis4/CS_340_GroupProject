@@ -9,6 +9,9 @@
   <!-- Main CSS file -->
   <link rel="stylesheet" href="css/styles.css" type="text/css">
   <link rel="stylesheet" href="css/responsive.css">
+   <!-- 3rd Party CSS file -->
+  <link rel="stylesheet" href="css/bootstrap.min.css"> 
+  <meta name="theme-color" content="#046b99"> 
   <title>Types</title>
 </head>
 
@@ -16,10 +19,10 @@
   <!-- Beginning header -->
   <header>
     <!-- Beginning nav -->
-    <h1 id="title" tabindex="0"></h1><br></br>
-    <img src="https://fontmeme.com/permalink/190805/a0c3b870983a7438fae93efe297cfcfe.png" alt="types" style="max-height: 400px"></img>
-
-    <nav>
+    <img src="https://fontmeme.com/permalink/190805/a0c3b870983a7438fae93efe297cfcfe.png" alt="types title image" style="max-height: 400px"></img>
+  </header>
+  <!-- End header -->
+  <nav>
     <!-- Beginning breadcrumb -->
     <label for="breadcrumb" class="visuallyhidden">Home Page Container</label>
     <ul id="breadcrumb" >
@@ -29,9 +32,6 @@
     <!-- End breadcrumb -->
     <!-- End nav -->
   </nav>
-  </header>
-  <!-- End header -->
-
   <!-- Beginning main -->
   <main id="maincontent">
     <button id ="contactBtn">Add a New Type</button>
@@ -46,26 +46,32 @@
    
     <!-- end city listings-->
   </section>
-  
-
   </main>
   <!-- End main -->
-
-  <!-- Beginning footer -->
-  <footer id="footer">
-    2019 My Little Pony: Friendship is Magic, Browser Ponies: Copyright © 2011-2013 Mathias Panzenböck 
-</footer>
   <!-- Main javascript file -->
   <script type="text/javascript" src="js/type_info.js"></script>
  <!-- Database helpers -->
  <script type="text/javascript" src="js/dbhelper.js"></script>
- <script src="js/browserponies.js"></script>
- <script src="js/basecfg.js"></script>
+  <!-- 3rd party scripts -->
+  <!-- Bootstrap requires jQuery first, then Popper.js, then Bootstrap JS -->
+  <!-- Bootstrap core JavaScript
+  ================================================== -->
+  <script src="js/jquery-3.2.1.slim.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/browserponies.js"></script>
+  <script src="js/basecfg.js"></script>
+  <!-- Spawn the ponies! https://github.com/panzi/Browser-Ponies-->  
 <script type="text/javascript">
 (function (cfg) 
 {BrowserPonies.setBaseUrl(cfg.baseurl);BrowserPonies.loadConfig(BrowserPoniesBaseConfig);BrowserPonies.loadConfig(cfg);})
 ({"baseurl":"https://panzi.github.io/Browser-Ponies/","fadeDuration":500,"volume":1,"fps":25,"speed":3,"audioEnabled":false,"dontSpeak":true,"showFps":false,"showLoadProgress":false,"speakProbability":0.1,"spawn":{"angel":1,"applejack (filly)":1},"autostart":true});</script>
-      
+  <!-- Beginning footer -->
+  <footer id="footer">
+  Browser Ponies/Images: Copyright © 2011-2013 Mathias Panzenböck<br> 
+  Title Font: Copyright 2019 Fontmeme.com<br>
+  Images: My Little Pony Friendship is Magic Wiki: Creative Commons Attribution-Share Alike License 3.0
+  </footer>     
  </body>
 </html>
 
