@@ -10,11 +10,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 /**
- * Initialize update for bettas data
+ * Initialize page and content
  */
 initPage = () => {
   fetchCities();
   createContactModal();
+  addButtonToForm(); //adding button later so will be at end of form
   
 }
 
@@ -93,7 +94,7 @@ createContactModal = (pony) =>{
   });
 }
 /**
- * create html for reviews form
+ * create html for form
  */
 
 createForm = () => {
@@ -115,6 +116,24 @@ createForm = () => {
   div_name.appendChild(input_name);
   div.appendChild(div_name);
 
+  //create validation alert for name field
+  let alert_div = document.createElement('div');
+  alert_div.setAttribute("class","alert alert-warning alert-dismissible fade show");
+  alert_div.setAttribute("id","name_val");
+  alert_div.style.display = "none";
+  alert_div.setAttribute("role","alert");
+  alert_div.innerHTML = 'Name must be filled out';
+  let alert_button = document.createElement("button");
+  alert_button.setAttribute("type","button");
+  alert_button.setAttribute("class", "close");
+  alert_button.setAttribute("data-dismiss","alert");
+  alert_button.setAttribute('aria-label','Close');
+  let span_alert = document.createElement("span");
+  span_alert.setAttribute("aria-hidden","true");
+  span_alert.innerHTML = "&times;";
+  alert_button.appendChild(span_alert);
+  alert_div.appendChild(alert_button);
+  div.appendChild(alert_div);
 
   //add description
   const div_desc = document.createElement('div');
@@ -132,25 +151,53 @@ createForm = () => {
   div_desc.appendChild(label_desc);
   div_desc.appendChild(desc_input);
 
-  //create submit button
-  const div_button = document.createElement('div');
-  const input_button = document.createElement('button');
-  input_button.setAttribute("onclick","DBHelper.postCity()");
-  input_button.setAttribute("id","submit_button");
-  input_button.innerHTML ="Submit";
-  div_button.appendChild(input_button);
-  input_button.addEventListener ("click", function() {
-    setTimeout(reload,1500);
-   });
-  
   //add to form
   form.appendChild(div);
   form.appendChild(div_desc);
-  form.appendChild(div_button);
-  //form.setAttribute("action",DBHelper.sendContactInfo());
-  //form.setAttribute("method", "post");
   return form;
 }
+
+/**create submit button and add validation */
+addButtonToForm = () => {
+  let form = document.getElementById("contact_form");
+   // button in html
+   const div_button = document.createElement('div');
+   const input_button = document.createElement('button');
+  // input_button.setAttribute("onclick","DBHelper.postCharacter()");
+   input_button.setAttribute("id","submit_button");
+   input_button.innerHTML ="Submit";
+   div_button.appendChild(input_button);
+   input_button.addEventListener ("click", function() {
+     event.preventDefault();
+     let boolvalue = checkIfEmpty();
+     let modal = document.getElementById("myModal");
+     modal.style.display = "block";
+     if (boolvalue == true)
+     {
+       DBHelper.postCity();
+       modal.style.display = "none";
+       setTimeout(reload,1000);//refreshes the page
+     }
+   });
+  form.appendChild(div_button);
+}
+
+
+/*Helper function: reloads page*/
 let reload = function() {
   window.location.reload(true);
   }
+  /*
+* Helper function: checks if string value is empty
+* Adapted from https://www.w3schools.com/js/js_validation.asp
+*/
+function checkIfEmpty(){
+  let nameVal = document.getElementById("name").value;
+  if(nameVal == "")
+  {
+    let alert = document.getElementById("name_val");
+    alert.style.display = "block";
+    return false;
+  }
+  else{return true;}
+}

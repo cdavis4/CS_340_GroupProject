@@ -19,7 +19,7 @@ initPage = () => {
 }
 
 /**
- * Fetch all groups and set their HTML.
+ * Fetch all jobs and set HTML.
  */
 fetchJobs = () => {
   DBHelper.fetchJobs((error, jobs) => {
@@ -32,7 +32,7 @@ fetchJobs = () => {
   });
 }
 /**
- * Create all ponies HTML and add them to the webpage.
+ * Create all HTML and add to the webpage.
  */
 fillJobsHTML = (jobs = self.jobs) => {
   const ul = document.getElementById('item-list');
@@ -40,15 +40,11 @@ fillJobsHTML = (jobs = self.jobs) => {
     const li = document.createElement('li');
     li.setAttribute("class","list-group-item");
     ul.appendChild(li);
-  //ul.appendChild(createCityHTML(city));
   //name
   const jobname = document.createElement('h3');
   jobname.innerHTML = job.job_name;
  li.append(jobname);
- 
-
-  
-
+ //type specific ?
   const type = document.createElement('p');
   type.innerHTML = "Type/Species Required: "+job.type_name;
   if (job.type_name == null) //display only if there is an exclusive type to perform job
@@ -58,7 +54,7 @@ fillJobsHTML = (jobs = self.jobs) => {
       type_x.innerHTML = "Type/Species Exclusive? " + booleanVal;
       li.append(type_x);
     }
-  else 
+  else //add the job exclusive type
     { 
     let booleanVal = "Yes";
     const type_x = document.createElement('p');
@@ -66,12 +62,11 @@ fillJobsHTML = (jobs = self.jobs) => {
     li.append(type_x);
     li.append(type);
     }
- 
   });
 }
 
 /**
- * Contact Modal
+ * Add Job Modal
  */
 createContactModal = (pony) =>{
   const main = document.getElementById('maincontent');
@@ -128,26 +123,26 @@ createForm = () => {
   input_name.setAttribute("placeholder", "job name");
   div_name.appendChild(input_name);
   div.appendChild(div_name);
-    //create validation alert for name field
-    let alert_div = document.createElement('div');
-    alert_div.setAttribute("class","alert alert-warning alert-dismissible fade show");
-    alert_div.setAttribute("id","name_val");
-    alert_div.style.display = "none";
-    alert_div.setAttribute("role","alert");
-    alert_div.innerHTML = 'Name must be filled out';
-    let alert_button = document.createElement("button");
-    alert_button.setAttribute("type","button");
-    alert_button.setAttribute("class", "close");
-    alert_button.setAttribute("data-dismiss","alert");
-    alert_button.setAttribute('aria-label','Close');
-    let span_alert = document.createElement("span");
-    span_alert.setAttribute("aria-hidden","true");
-    span_alert.innerHTML = "&times;";
-    alert_button.appendChild(span_alert);
-    alert_div.appendChild(alert_button);
-    div.appendChild(alert_div);
+  //create validation alert for name field
+  let alert_div = document.createElement('div');
+  alert_div.setAttribute("class","alert alert-warning alert-dismissible fade show");
+  alert_div.setAttribute("id","name_val");
+  alert_div.style.display = "none";
+  alert_div.setAttribute("role","alert");
+  alert_div.innerHTML = 'Name must be filled out';
+  let alert_button = document.createElement("button");
+  alert_button.setAttribute("type","button");
+  alert_button.setAttribute("class", "close");
+  alert_button.setAttribute("data-dismiss","alert");
+  alert_button.setAttribute('aria-label','Close');
+  let span_alert = document.createElement("span");
+  span_alert.setAttribute("aria-hidden","true");
+  span_alert.innerHTML = "&times;";
+  alert_button.appendChild(span_alert);
+  alert_div.appendChild(alert_button);
+  div.appendChild(alert_div);
 
-  //add to form
+  //add bool question
   let type_exc = ["No","Yes"];
   form.appendChild(div);
   form.appendChild(createComboBox("Type Exclusive?","type_exclusive", type_exc));
@@ -163,8 +158,8 @@ createForm = () => {
       typeslist.unshift("None"); //add none to beginning of array
       //still need to disable if th
       form.appendChild(createComboBox("Select Type","type_id", typeslist));
-      addButtonToForm();//wait until data from types fetched/returned
     }
+    addButtonToForm(); //adding button later so will be at end of form
     });
   return form;
 }
@@ -176,7 +171,6 @@ addButtonToForm = () => {
    // button in html
    const div_button = document.createElement('div');
    const input_button = document.createElement('button');
-  // input_button.setAttribute("onclick","DBHelper.postCharacter()");
    input_button.setAttribute("id","submit_button");
    input_button.innerHTML ="Submit";
    div_button.appendChild(input_button);
@@ -195,7 +189,7 @@ addButtonToForm = () => {
   form.appendChild(div_button);
 }
 
-//create a dropdown combo box
+/*Helper function: rcreate drop down combo box*/
 createComboBox = (textLabel, exampleFormControlSelect2,optionsArray) => {
   const div_multi = document.createElement("div");
   div_multi.setAttribute("class", "form-group");

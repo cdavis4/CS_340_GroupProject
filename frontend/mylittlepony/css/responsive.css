@@ -4,8 +4,19 @@
  header img{
     display: none;
   }
+  header, #drawer{
+    padding: 0;
+    text-align:left;
+  }
+  span.image.fit{
+    display: none;
+  }
   .nav_item {
    font-size: 1em;
+  }
+  .nav{
+    justify-content: left;
+
   }
 }
 

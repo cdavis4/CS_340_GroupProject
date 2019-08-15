@@ -77,6 +77,7 @@ initPage = () => {
 
   updatePonies();
   createContactModal();
+  addButtonToForm(); //adding button later so will be at end of form
 }
 
 /**
@@ -199,7 +200,7 @@ createPonyHTML = (pony) => {
   remove.addEventListener ("click", function(char_jobs) {
     //deletes from database
     DBHelper.deleteCharacter(pony.id); 
-    setTimeout(reload,1500); 
+    setTimeout(reload,1000); 
    });
   
   /**
@@ -353,21 +354,17 @@ createForm = () => {
       let citieslist = cities.map((v, i) => cities[i].city_name);
       citieslist.unshift("None"); //add none to beginning of array
       form.appendChild(createComboBox("Select City","city_id", citieslist));
-      addButtonToForm(); //adding button later so will be at end of form
       }
   });
 
   return form;
 }
-/**create submit button here because making requests to database server
-* is slow and this will wait until the above requests for drop down values
-*  is done before placing button in form */
+/**create submit button, adding validation */
 addButtonToForm = () => {
   let form = document.getElementById("contact_form");
    // button in html
    const div_button = document.createElement('div');
    const input_button = document.createElement('button');
-  // input_button.setAttribute("onclick","DBHelper.postCharacter()");
    input_button.setAttribute("id","submit_button");
    input_button.innerHTML ="Submit";
    div_button.appendChild(input_button);
