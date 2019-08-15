@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 initPage = () => {
   fetchJobs();
   createContactModal();
-  
 }
 
 /**
@@ -104,7 +103,7 @@ createContactModal = (pony) =>{
   window.addEventListener("click",function(){
     if (event.target == modal) {
       modal.style.display = "none";
-    }
+}
   });
 }
 /**
@@ -129,6 +128,25 @@ createForm = () => {
   input_name.setAttribute("placeholder", "job name");
   div_name.appendChild(input_name);
   div.appendChild(div_name);
+    //create validation alert for name field
+    let alert_div = document.createElement('div');
+    alert_div.setAttribute("class","alert alert-warning alert-dismissible fade show");
+    alert_div.setAttribute("id","name_val");
+    alert_div.style.display = "none";
+    alert_div.setAttribute("role","alert");
+    alert_div.innerHTML = 'Name must be filled out';
+    let alert_button = document.createElement("button");
+    alert_button.setAttribute("type","button");
+    alert_button.setAttribute("class", "close");
+    alert_button.setAttribute("data-dismiss","alert");
+    alert_button.setAttribute('aria-label','Close');
+    let span_alert = document.createElement("span");
+    span_alert.setAttribute("aria-hidden","true");
+    span_alert.innerHTML = "&times;";
+    alert_button.appendChild(span_alert);
+    alert_div.appendChild(alert_button);
+    div.appendChild(alert_div);
+
   //add to form
   let type_exc = ["No","Yes"];
   form.appendChild(div);
@@ -145,6 +163,7 @@ createForm = () => {
       typeslist.unshift("None"); //add none to beginning of array
       //still need to disable if th
       form.appendChild(createComboBox("Select Type","type_id", typeslist));
+      addButtonToForm();//wait until data from types fetched/returned
     }
     });
   return form;
