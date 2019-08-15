@@ -263,7 +263,7 @@ width: 90%;
   padding-top: 7px;
   margin-bottom: 0;
 }
-#insert-container #submit_button {
+#site-container #submit_button {
   cursor: pointer;
   background-color: #37B0C9;
   color: #351858;
@@ -272,6 +272,8 @@ width: 90%;
   margin: 15px 0 0;
   padding: 8px 30px 10px;
   text-align: center;
+  position:relative;
+  margin-top:100%;
 }
 
 #item-list li {
