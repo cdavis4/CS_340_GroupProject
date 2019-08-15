@@ -258,12 +258,11 @@ createContactModal = () =>{
   closeBtn.addEventListener("click",function() {
     modal.style.display = "none";
   });
-  /**Currently do not want this value encase of validation issue */
- // window.addEventListener("click",function(){
- //  if (event.target == modal) {
-    //  modal.style.display = "none";
- //   }
- // });
+  window.addEventListener("click",function(){
+    if (event.target == modal) {
+      modal.style.display = "none";
+}
+  });
 }
 /**
  * create html for form

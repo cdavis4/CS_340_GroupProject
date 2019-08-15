@@ -9,6 +9,8 @@
   <!-- Main CSS file -->
   <link rel="stylesheet" href="css/styles.css" type="text/css">
   <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css"> 
+  <meta name="theme-color" content="#046b99"> 
   <title>Jobs</title>
 </head>
 
@@ -50,21 +52,30 @@
 
   </main>
   <!-- End main -->
-
-  <!-- Beginning footer -->
-  <footer id="footer">
-    2019 My Little Pony: Friendship is Magic Browser Ponies: Copyright © 2011-2013 Mathias Panzenböck
-</footer>
   <!-- Main javascript file -->
   <script type="text/javascript" src="js/job_info.js"></script>
  <!-- Database helpers -->
  <script type="text/javascript" src="js/dbhelper.js"></script>
  <script type="text/javascript" src="js/basecfg.js" ></script>
+<!-- 3rd party scripts -->
+<!-- Bootstrap requires jQuery first, then Popper.js, then Bootstrap JS -->
+<!-- Bootstrap core JavaScript, Browser Ponies
+      ================================================== -->
  <script type="text/javascript" src="js/browserponies.js" ></script>
+ <script src="js/jquery-3.2.1.slim.min.js"></script>
+ <script src="js/popper.min.js"></script>
+ <script src="js/bootstrap.min.js"></script>
+  <!-- Spawn the ponies! https://github.com/panzi/Browser-Ponies-->      
  <script type="text/javascript">
   (function (cfg) 
   {BrowserPonies.setBaseUrl(cfg.baseurl);BrowserPonies.loadConfig(BrowserPoniesBaseConfig);BrowserPonies.loadConfig(cfg);})
   ({"baseurl":"https://panzi.github.io/Browser-Ponies/","fadeDuration":500,"volume":1,"fps":25,"speed":3,"audioEnabled":false,"dontSpeak":true,"showFps":false,"showLoadProgress":false,"speakProbability":0.1,"spawn":{"nurse redheart":1,"grace manewitz":1},"autostart":true}); </script>
- </body>
+  <!-- End scripts --> 
+  <!-- Beginning footer -->
+  <footer id="footer">
+    Browser Ponies/Images: Copyright © 2011-2013 Mathias Panzenböck<br> 
+    Images: My Little Pony Friendship is Magic Wiki: Creative Commons Attribution-Share Alike License 3.0
+</footer>
+</body>
 </html>
 
