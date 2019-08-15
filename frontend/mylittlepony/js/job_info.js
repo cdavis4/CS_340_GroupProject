@@ -71,7 +71,6 @@ fillJobsHTML = (jobs = self.jobs) => {
   });
 }
 
-
 /**
  * Contact Modal
  */
@@ -88,10 +87,9 @@ createContactModal = (pony) =>{
   span.setAttribute("class", "close");
   span.innerHTML = "&times";
   divContent.appendChild(span);
-  
+  //add form to modal
   divContent.appendChild(createForm());
-
-  // Get the modal button, close button and modal
+ // Get the modal button, close button and modal
   const modal = document.getElementById("myModal");
   const closeBtn = document.getElementsByClassName("close")[0];
   const btn = document.getElementById('contactBtn');
@@ -110,7 +108,7 @@ createContactModal = (pony) =>{
   });
 }
 /**
- * create html for reviews form
+ * create html for add job form
  */
 
 createForm = () => {
@@ -131,26 +129,12 @@ createForm = () => {
   input_name.setAttribute("placeholder", "job name");
   div_name.appendChild(input_name);
   div.appendChild(div_name);
-
-
-
-  //create submit button
-  const div_button = document.createElement('div');
-  const input_button = document.createElement('button');
-  input_button.setAttribute("onclick","DBHelper.postJob()");
-  input_button.setAttribute("id","submit_button");
-  input_button.innerHTML ="Submit";
-  div_button.appendChild(input_button);
-  input_button.addEventListener ("click", function() {
-    setTimeout(reload,1500);
-   });
-
   //add to form
   let type_exc = ["No","Yes"];
   form.appendChild(div);
   form.appendChild(createComboBox("Type Exclusive?","type_exclusive", type_exc));
  
-
+  //fetching types from server for dropdown
   DBHelper.fetchTypes((error, types) => {
     if (error)
      { // Got an error
@@ -161,19 +145,35 @@ createForm = () => {
       typeslist.unshift("None"); //add none to beginning of array
       //still need to disable if th
       form.appendChild(createComboBox("Select Type","type_id", typeslist));
-    //submit button added only after the types have been received
-    //to fill types dropdown
-    form.appendChild(div_button);
     }
     });
- 
-
-  //form.appendChild(div_type);
- // form.appendChild(div_job);
- // form.appendChild(div_city);
-  //form.setAttribute("action",DBHelper.sendContactInfo());
-  //form.setAttribute("method", "post");
   return form;
+}
+/**create submit button here because making requests to database server
+* is slow and this will wait until the above requests for drop down values
+*  is done before placing button in form */
+addButtonToForm = () => {
+  let form = document.getElementById("contact_form");
+   // button in html
+   const div_button = document.createElement('div');
+   const input_button = document.createElement('button');
+  // input_button.setAttribute("onclick","DBHelper.postCharacter()");
+   input_button.setAttribute("id","submit_button");
+   input_button.innerHTML ="Submit";
+   div_button.appendChild(input_button);
+   input_button.addEventListener ("click", function() {
+     event.preventDefault();
+     let boolvalue = checkIfEmpty();
+     let modal = document.getElementById("myModal");
+     modal.style.display = "block";
+     if (boolvalue == true)
+     {
+       DBHelper.postJob();
+       modal.style.display = "none";
+       setTimeout(reload,1000);//refreshes the page
+     }
+   });
+  form.appendChild(div_button);
 }
 
 //create a dropdown combo box
@@ -196,6 +196,22 @@ createComboBox = (textLabel, exampleFormControlSelect2,optionsArray) => {
   div_multi.appendChild(select_multi);
   return div_multi;
 };
+
+/*Helper function: reloads page*/
 let reload = function() {
   window.location.reload(true);
   }
+  /*
+* Helper function: checks if string value is empty
+* Adapted from https://www.w3schools.com/js/js_validation.asp
+*/
+function checkIfEmpty(){
+  let nameVal = document.getElementById("name").value;
+  if(nameVal == "")
+  {
+    let alert = document.getElementById("name_val");
+    alert.style.display = "block";
+    return false;
+  }
+  else{return true;}
+}
