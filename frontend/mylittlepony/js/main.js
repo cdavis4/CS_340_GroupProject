@@ -77,7 +77,7 @@ initPage = () => {
 
   updatePonies();
   createContactModal();
-  addButtonToForm(); //adding button later so will be at end of form
+  setTimeout(addButtonToForm,100); //adding button later so will be at end of form
 }
 
 /**
@@ -355,6 +355,7 @@ createForm = () => {
       citieslist.unshift("None"); //add none to beginning of array
       form.appendChild(createComboBox("Select City","city_id", citieslist));
       }
+
   });
 
   return form;

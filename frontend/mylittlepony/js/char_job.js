@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 initPage = () => {
   fetchChar_Job();
   createContactModal();
-  
 }
 
 /**

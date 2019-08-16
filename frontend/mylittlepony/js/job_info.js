@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 initPage = () => {
   fetchJobs();
   createContactModal();
+  setTimeout(addButtonToForm,100); //adding button later so will be at end of form
 }
 
 /**
@@ -159,7 +160,6 @@ createForm = () => {
       //still need to disable if th
       form.appendChild(createComboBox("Select Type","type_id", typeslist));
     }
-    addButtonToForm(); //adding button later so will be at end of form
     });
   return form;
 }
