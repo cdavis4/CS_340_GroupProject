@@ -252,6 +252,9 @@ button {
 #site-container, #insert-container {
 padding: 25px;
 }
+div#form-group{
+padding: 0 0 1em;
+}
 
 #item-list li {
   background-color: whitesmoke;
