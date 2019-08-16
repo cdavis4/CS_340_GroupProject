@@ -383,7 +383,6 @@ app.get('/city/:name',(req,res)=> {
    * SELECT QUERY
    * Used in post requests 
    */
- 
 
 app.get('/group/:name',(req,res)=> {
     pool.query('SELECT id, group_name FROM `Group` WHERE group_name =?',[req.params.name],(err,rows,result,fields)=>{

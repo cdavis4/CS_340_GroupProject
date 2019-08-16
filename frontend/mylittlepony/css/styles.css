@@ -276,7 +276,6 @@ padding: 0 0 1em;
 
 #contactBtn {
   cursor: pointer;
-  border-style: groove;
   background-color: #351858;
   color:  #37B0C9 ;
   display: inline-block;
@@ -352,11 +351,9 @@ padding: 0 0 1em;
   display: inline-block;
 }
 
-
 button#submit_button {
   cursor: pointer;
   background-color: #351858;
-  border-bottom: 3px solid #eee;
   color: #fff;
   display: inline-block;
   font-size: 10pt;

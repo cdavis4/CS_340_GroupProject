@@ -51,7 +51,7 @@ VALUES (:new_group_name, :city_id_dropdown);
 -- ******************
 
 -- Query for selecting a type for dropdown
-SELECT id, type_name FROM `Type`;
+SELECT id, type_name FROM `Type` WHERE type_name = :character_form_type_name;;
 
 -- Query for seeing all the fields for type
 -- * MADE A STAR INSTEAD
