@@ -13,7 +13,7 @@
 -- ***************
 
 -- Query for selecting a city from the database for dropdown
-SELECT id, city_name FROM `City`;
+SELECT id, city_name FROM `City` WHERE city_name = :character_form_city_name;
 
 -- Show all the things for city
 -- * MADE A STAR INSTEAD
@@ -31,11 +31,11 @@ VALUES (:city_name, :city_characteristics);
 -- ****************
 
 -- Query for group dropdown
-SELECT id, group_name FROM `Group`;
+SELECT id, group_name FROM `Group` WHERE group_name = :character_form_group_name;
 
 -- get all groups with associated cities 
 -- * MADE A LEFT JOIN INSTEAD
-SELECT Group.group_name, City.city_name    
+SELECT Group.id, Group.group_name, City.city_name    
 FROM `Group` 
 LEFT JOIN `City` ON Group.city_id = City.id; 
 
