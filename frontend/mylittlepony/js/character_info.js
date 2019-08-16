@@ -94,6 +94,7 @@ createCharacterForm = (pony) => {
   const input_button = document.createElement('button');
   //input_button.setAttribute("onclick","DBHelper.putCharacter(charID)");
   input_button.setAttribute("id","submit_button");
+  input_button.setAttribute("class","form-group align-bottom");
   input_button.innerHTML ="Submit";
   div_button.appendChild(input_button);
   input_button.addEventListener ("click", function() {

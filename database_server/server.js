@@ -200,7 +200,8 @@ app.get('/character/group/:group_name',(req,res)=> {
 
  /**
    * GET name/id JOB TABLE
-   * Use in Filter SELECT QUERY
+   * SELECT QUERY
+   * Used in post requests 
    */
   app.get('/job/:name',(req,res)=> {
     pool.query('SELECT id, job_name FROM `Job` WHERE job_name =?',[req.params.name],(err,rows,result,fields)=>{
@@ -272,6 +273,7 @@ app.get('/character/group/:group_name',(req,res)=> {
     /**
    * GET name/id Type TABLE
    * SELECT QUERY
+   * Used in post requests 
    */
 app.get('/type/:name',(req,res)=> {
     pool.query('SELECT id, type_name FROM `Type`WHERE type_name =?',[req.params.name],(err,rows,result,fields)=>{
@@ -325,6 +327,7 @@ app.get('/type/:name',(req,res)=> {
     /**
    * GET name/id City TABLE
    * SELECT QUERY
+   * Used in post requests 
    */
 app.get('/city/:name',(req,res)=> {
     pool.query('SELECT id, city_name FROM `City`WHERE city_name =?',[req.params.name],(err,rows,result,fields)=>{
@@ -378,8 +381,8 @@ app.get('/city/:name',(req,res)=> {
  /**
    * GET name/id group TABLE
    * SELECT QUERY
+   * Used in post requests 
    */
- 
 
 app.get('/group/:name',(req,res)=> {
     pool.query('SELECT id, group_name FROM `Group` WHERE group_name =?',[req.params.name],(err,rows,result,fields)=>{
@@ -431,24 +434,6 @@ app.get('/group/:name',(req,res)=> {
         res.json(rows);
     })
 });
-
-/*
- * *SELECT IDs only for Character_Job Table 
-
-  app.get('/character_job/:id',(req,res)=> {
-    var workid_sql = "SELECT * FROM `Character_Job`";
-    pool.query(workid_sql ,[req,params.id],(err,rows,result,fields)=>{
-        if(err)
-        {
-            res.json(err);
-            console.log(err);
-            return;
-        }
-        console.log(rows);
-        res.json(rows);
-    })
-});
- * */
 
 /**
  * ***CREATE RELATIONSHIP/INSERT 
