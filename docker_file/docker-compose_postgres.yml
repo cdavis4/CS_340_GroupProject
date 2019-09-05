@@ -1,0 +1,22 @@
+version: "3.7"
+services:
+db:
+  image: postgres:10
+  container_name: "postgres_database"
+  ports:
+    - "5432:5432"
+  environment:
+    POSTGRES_PASSWORD: postgres
+    POSTGRES_USER: postgres
+    POSTGRES_DB: cs340_database
+  volumes:
+    -  ./pgdata:/var/ib/postgresql/data
+
+  web:
+    image: node:10
+    depends_on:
+      - db
+    ports: 
+      - "6541:6541"
+
+

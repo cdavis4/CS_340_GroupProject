@@ -1,11 +1,5 @@
 # Use an official Python runtime as a parent image
-#FROM python:2.7-slim
-
-# Use a postgres version 
-FROM postgres:10.3
-
-# Use a node version 1.0.0
-FROM node:10
+FROM python:2.7-slim
 
 # Set the working directory to /app
 WORKDIR /app
@@ -23,8 +17,4 @@ EXPOSE 80
 ENV NAME World
 
 # Run app.py when the container launches
-#CMD ["python", "app.py"]
-
-#Run server.js database server after creating database
-
-#Run server.js front end service after creating database server
+CMD ["python", "app.py"]
