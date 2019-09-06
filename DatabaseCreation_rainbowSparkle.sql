@@ -6,12 +6,12 @@
 
 SET FOREIGN_KEY_CHECKS = 0;
 
-DROP TABLE IF EXISTS `cs340_turnesar`.`Character`;
-DROP TABLE IF EXISTS `cs340_turnesar`.`Job`;
-DROP TABLE IF EXISTS `cs340_turnesar`.`Type`;
-DROP TABLE IF EXISTS `cs340_turnesar`.`Group`;
-DROP TABLE IF EXISTS `cs340_turnesar`.`City`;
-DROP TABLE IF EXISTS `cs340_turnesar`.`Character_Job`;
+DROP TABLE IF EXISTS `Character`;
+DROP TABLE IF EXISTS `Job`;
+DROP TABLE IF EXISTS `Type`;
+DROP TABLE IF EXISTS `Group`;
+DROP TABLE IF EXISTS `City`;
+DROP TABLE IF EXISTS `Character_Job`;
 
 CREATE TABLE `Type`(
 id INT AUTO_INCREMENT PRIMARY KEY,

@@ -5,10 +5,10 @@ var mysql = require('mysql');
 //set up our pool here 
 var pool = mysql.createPool({
   connectionLimit : 10,  
-  host : 'classmysql.engr.oregonstate.edu',
-  user : 'cs340_turnesar',
-  password : '0038',
-  database : 'cs340_turnesar' 
+  host : 'ec2-54-241-144-35.us-west-1.compute.amazonaws.com', //process.argv[2],
+  user : 'reg_user',
+  password : 'b00@scarie',//process.argv[3],
+  database : 'mylittlepony' 
 });
 
 
@@ -19,7 +19,7 @@ var app = express();
 app.set('port', process.argv[2]);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
+var __dirname = 'http://localhost';
   /**
    * ADD HEADERS
    */
@@ -469,3 +469,4 @@ app.get('/group/:name',(req,res)=> {
    })
 });
 
+app.listen( () => console.log(`Express started on port ${process.argv[2]}!`))
