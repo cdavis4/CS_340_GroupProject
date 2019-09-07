@@ -7,7 +7,7 @@ var pool = mysql.createPool({
   connectionLimit : 10,  
   host : 'ec2-54-241-144-35.us-west-1.compute.amazonaws.com', //process.argv[2],
   user : 'reg_user',
-  password : 'b00@scarie',//process.argv[3],
+  password : process.argv[2],
   database : 'mylittlepony' 
 });
 
@@ -16,7 +16,7 @@ var pool = mysql.createPool({
 var app = express();
 
 //uses second argument to set port
-app.set('port', process.argv[2]);
+app.set('port', process.argv[3]);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 var __dirname = 'http://localhost';
